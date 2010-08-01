@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Export-Package: org.apache.nuvem.cloud.data.impl,
+ org.apache.nuvem.cloud.user.impl
+Tool: Bnd-0.0.357
+Bundle-Name: Apache Nuvem Cloud API - Google Implementation
+Created-By: 1.6.0_15 (Apple Inc.)
+Bundle-Vendor: The Apache Software Foundation
+Bundle-Version: 2.0.0
+Bnd-LastModified: 1256186081729
+Bundle-ManifestVersion: 2
+Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
+Bundle-Description: Apache Nuvem Cloud API
+Import-Package: org.apache.nuvem.cloud.data;version="2.0.0",
+ org.apache.nuvem.cloud.user;version="2.0.0",
+ org.apache.tuscany.sca.data.collection;version="2.0.0"
+Bundle-SymbolicName: org.apache.nuvem.cloud.google
+Bundle-DocURL: http://www.apache.org/
+
