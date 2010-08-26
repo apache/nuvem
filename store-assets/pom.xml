@@ -24,7 +24,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.nuvem</groupId>
-        <artifactId>nuvem-parent</artifactId>
+        <artifactId>nuvem</artifactId>
         <version>1.0-incubating-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
