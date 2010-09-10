@@ -7,22 +7,22 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
- * under the License.    
+ * under the License.
 -->
 <composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
            xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.1"
-	       xmlns:s="http://store" 
-	       targetNamespace="http://store" 
-	       name="catalog">
-		
+	       xmlns:s="http://store"
+	       targetNamespace="http://store"
+	       name="store">
+
 	<component name="Catalog">
 		<implementation.java class="services.FruitsCatalogImpl"/>
 		<property name="currencyCode">USD</property>
@@ -39,7 +39,7 @@
 			<interface.java interface="services.CurrencyConverter"/>
 		</service>
 	</component>
-	
+
 	<component name="ShoppingCartManager">
 		<implementation.java class="services.ShoppingCartManager"/>
 		<service name="ShoppingCart">
@@ -49,12 +49,12 @@
 			<binding.sca name="local"/>
 		</reference>
 	</component>
-	
+
 	<component name="UserService">
 		<implementation.java class="org.apache.nuvem.cloud.user.impl.GoogleUserService"/>
 		<service name="UserService">
 			<binding.sca name="local"/>
 			<tuscany:binding.jsonrpc uri="/User"/>
 		</service>
-	</component>	
+	</component>
 </composite>
