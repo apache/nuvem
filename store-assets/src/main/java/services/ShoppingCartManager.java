@@ -6,15 +6,15 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
- * under the License.    
+ * under the License.
  */
 
 package services;
@@ -35,22 +35,22 @@ import org.oasisopen.sca.annotation.Scope;
 public class ShoppingCartManager implements ShoppingCart {
     private static final Logger log = Logger.getLogger(ShoppingCartManager.class.getName());
     private static String ANONYMOUS = "anonymous";
-    
+
     private Map<String, ShoppingCart> carts = new HashMap<String, ShoppingCart>();
-    
+
     @Reference
     private UserService userService;
-        
+
     public Entry<String, Item>[] getAll() {
         return getUserShoppingCart().getAll();
     }
- 
+
     public Item get(String key) throws NotFoundException {
         return getUserShoppingCart().get(key);
     }
 
     public String post(String key, Item item) {
-        if (key == null || key.length() == 0) {
+        if (key == null || key.isEmpty()) {
             key = this.generateItemKey();
         }
         return getUserShoppingCart().post(key, item);
@@ -63,7 +63,7 @@ public class ShoppingCartManager implements ShoppingCart {
     public Entry<String, Item>[] query(String queryString) {
         return getUserShoppingCart().query(queryString);
     }
-    
+
     public void delete(String key) throws NotFoundException {
         this.getUserShoppingCart().delete(key);
     }
@@ -71,12 +71,10 @@ public class ShoppingCartManager implements ShoppingCart {
     public String getTotal() {
         return this.getUserShoppingCart().getTotal();
     }
-    
+
     /**
      * Utility functions
      */
-
-
     private ShoppingCart getUserShoppingCart() {
         String key = getCartKey();
         ShoppingCart userCart = carts.get(key);
@@ -86,7 +84,7 @@ public class ShoppingCartManager implements ShoppingCart {
         }
         return userCart;
     }
-    
+
     private String getUserId() {
         String userId = null;
         if(userService != null) {
