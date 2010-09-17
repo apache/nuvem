@@ -19,10 +19,59 @@
 
 package services;
 
-import org.apache.tuscany.sca.data.collection.Collection;
+import org.apache.tuscany.sca.data.collection.Entry;
+import org.apache.tuscany.sca.data.collection.NotFoundException;
 import org.oasisopen.sca.annotation.Remotable;
 
 @Remotable
-public interface Cart extends Collection<String, Item> {
+/**
+ * [rfeng] Tuscany cannot handle subclassing Collection<String, Item> to resolve the type variable. As a workaround, we copy all the methods into this interface directly 
+ */
+public interface Cart {
+    /**
+     * Get the whole collection.
+     * 
+     * @return the whole collection.
+     */
+    Entry<String, Item>[] getAll();
 
+    /**
+     * Returns a collection resulting from a query.
+     * 
+     * @return the collection.
+     */
+    Entry<String, Item>[] query(String queryString);
+
+    /**
+     * Creates a new item.
+     * 
+     * @param key
+     * @param item
+     * @return
+     */
+    String post(String key, Item item);
+
+    /**
+     * Retrieves an item.
+     * 
+     * @param key
+     * @return
+     */
+    Item get(String key) throws NotFoundException;
+
+    /**
+     * Updates an item.
+     * 
+     * @param key
+     * @param item
+     * @return
+     */
+    void put(String key, Item item) throws NotFoundException;
+
+    /**
+     * Delete an item.
+     * 
+     * @param key
+     */
+    void delete(String key) throws NotFoundException;
 }
