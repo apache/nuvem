@@ -38,6 +38,18 @@
 		</dependency>
 
         <dependency>
+            <groupId>org.apache.nuvem</groupId>
+            <artifactId>nuvem-cloud-api</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.nuvem</groupId>
+            <artifactId>nuvem-cloud-google</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.tuscany.sca</groupId>
             <artifactId>tuscany-sca-api</artifactId>
             <version>${tuscany.version}</version>
@@ -73,20 +85,6 @@
                </exclusion>
             </exclusions>
         </dependency>
-
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-api</artifactId>
-            <version>1.3.7</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!--dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-sdk</artifactId>
-            <version>1.3.7</version>
-            <type>zip</type>
-        </dependency-->
 
         <dependency>
             <groupId>javax.servlet</groupId>
