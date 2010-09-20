@@ -194,6 +194,7 @@
                 <module>store-merger-appengine-webapp</module>                
                 <module>store-catalog-appengine-webapp</module>
                 <module>store-catalog-ibmcloud-webapp</module>
+                <module>store-standalone</module>
             </modules>
         </profile>
 
