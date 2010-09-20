@@ -28,12 +28,12 @@ public class FruitsCatalogImpl implements Catalog {
     public String currencyCode = "USD";
 
     @Reference
-    public PyCatalog remoteCatalog;
+    public Catalog remoteCatalog;
 
     @Reference
     public CurrencyConverter currencyConverter;
 
-    public Item[] get() {
-        return remoteCatalog.getcatalog();
+    public Item[] items() {
+        return remoteCatalog.items();
     }
 }

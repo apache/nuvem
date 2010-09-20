@@ -154,7 +154,7 @@
 
 	function init() {
 		try	{
-			catalog.get().addCallback(catalog_getResponse);
+			catalog.items().addCallback(catalog_getResponse);
 			shoppingCart.get("").addCallback(shoppingCart_getResponse);
 		}
 		catch(e){
