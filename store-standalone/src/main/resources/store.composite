@@ -33,15 +33,35 @@
     </component>
 
 	<component name="Catalog">
-		<implementation.java class="services.FruitsCatalogImpl"/>
+		<implementation.java class="services.CatalogImpl"/>
 		<property name="currencyCode">USD</property>
 		<service name="Catalog">
 			<tuscany:binding.jsonrpc uri="/Catalog"/>
    		</service>
 		<reference name="currencyConverter" target="CurrencyConverter"/>
-		<reference name="remoteCatalog">
-			<tuscany:binding.jsonrpc uri="https://sca-store-catalog.appspot.com/catalog"/>
+
+        <reference name="catalog" target="FruitsCatalog"/>
+
+        <!-- Cheat sheet for demo
+        <reference name="catalog" target="FruitsCatalog"/>
+
+		<reference name="catalog">
+            <tuscany:binding.jsonrpc uri="https://sca-store-catalog.appspot.com/catalog"/>
 		</reference>
+
+            <tuscany:binding.jsonrpc uri="http://tuscany-store.appspot.com/Catalog"/>
+            <tuscany:binding.jsonrpc uri="http://ec2-204-236-142-71.us-west-1.compute.amazonaws.com:8090/catalog"/>
+            <tuscany:binding.jsonrpc uri="http://localhost:8090/catalog"/>
+        -->
+	</component>
+
+	<component name="FruitsCatalog">
+		<implementation.java class="services.FruitsCatalogImpl"/>
+		<property name="currencyCode">USD</property>
+		<service name="Catalog">
+		    <interface.java interface="services.Catalog"/>
+		</service>
+		<reference name="currencyConverter" target="CurrencyConverter" />
 	</component>
 
 	<component name="ShoppingCart">

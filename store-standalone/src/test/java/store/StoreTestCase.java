@@ -81,7 +81,7 @@ public class StoreTestCase {
     public void testShop() {
         Shopper shopper = nodeStore.getService(Shopper.class, "StoreClient");
 
-        String total = shopper.shop("Banana", 5);
+        String total = shopper.shop("Carambola", 5);
         System.out.println("Total: " + total);
 
         Assert.assertEquals("$17.75", total);
@@ -109,7 +109,7 @@ public class StoreTestCase {
         HtmlCheckBoxInput catalogItems = (HtmlCheckBoxInput) form.getInputByName("items");
 
         System.out.println(">>>" + catalogItems.getAttribute("value"));
-        Assert.assertEquals("Platano - $2.99", catalogItems.getAttribute("value"));
+        Assert.assertEquals("Acai - $2.99", catalogItems.getAttribute("value"));
 
         webClient.closeAllWindows();
     }
