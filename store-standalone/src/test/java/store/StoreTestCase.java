@@ -6,15 +6,15 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
- * under the License.    
+ * under the License.
  */
 
 package store;
@@ -81,7 +81,7 @@ public class StoreTestCase {
     public void testShop() {
         Shopper shopper = nodeStore.getService(Shopper.class, "StoreClient");
 
-        String total = shopper.shop("Orange", 5);
+        String total = shopper.shop("Banana", 5);
         System.out.println("Total: " + total);
 
         Assert.assertEquals("$17.75", total);
@@ -105,11 +105,11 @@ public class StoreTestCase {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
         }
-        
+
         HtmlCheckBoxInput catalogItems = (HtmlCheckBoxInput) form.getInputByName("items");
 
         System.out.println(">>>" + catalogItems.getAttribute("value"));
-        Assert.assertEquals("Apple - $2.99", catalogItems.getAttribute("value"));
+        Assert.assertEquals("Platano - $2.99", catalogItems.getAttribute("value"));
 
         webClient.closeAllWindows();
     }
