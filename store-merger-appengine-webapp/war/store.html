@@ -6,15 +6,15 @@
     * to you under the Apache License, Version 2.0 (the
     * "License"); you may not use this file except in compliance
     * with the License.  You may obtain a copy of the License at
-    * 
+    *
     *   http://www.apache.org/licenses/LICENSE-2.0
-    * 
+    *
     * Unless required by applicable law or agreed to in writing,
     * software distributed under the License is distributed on an
     * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     * KIND, either express or implied.  See the License for the
     * specific language governing permissions and limitations
-    * under the License.    
+    * under the License.
 -->
 <html>
 <head>
@@ -32,13 +32,13 @@
 <script language="JavaScript">
 
 	var userServices = new dojo.rpc.JsonService("/User?smd");
-	
+
 	var catalog = new dojo.rpc.JsonService("/Catalog?smd");
 
 	var shoppingCart = new dojo.rpc.JsonService("/ShoppingCart?smd");
 
 	var userContext;
-	
+
 	var catalogItems;
 
 	function showHeader() {
@@ -54,24 +54,24 @@
 			}
 
 			document.getElementById('appHeader').innerHTML = html;
-		}		
-			
+		}
+
 		userServices.getUserContext(document.URL, "").addCallback(userContextCallback);
 	}
-	
+
 	function showCatalogs() {
 		var catalogCallback = function(items) {
 			var catalog = "";
 			for (var i=0; i<items.length; i++) {
 				var item = items[i].name + ' - ' + items[i].currencySymbol + items[i].price;
-				catalog += '<input name="items" type="checkbox" value="' + 
+				catalog += '<input name="items" type="checkbox" value="' +
 							item + '">' + item + ' <br>';
 			}
 			document.getElementById('catalog').innerHTML=catalog;
 			catalogItems = items;
 		}
 
-		catalog.get().addCallback(catalogCallback); 
+		catalog.items().addCallback(catalogCallback);
 	}
 
 
@@ -90,7 +90,7 @@
 		}
 		document.getElementById("shoppingCart").innerHTML = list;
 
-		if (items.length != 0) {			
+		if (items.length != 0) {
 			try	{
 				shoppingCart.getTotal().addCallback(shoppingCart_getTotalResponse);
 			}
@@ -99,24 +99,24 @@
 			}
 		}
 	}
-	
+
 	function shoppingCart_getTotalResponse(total,exception) {
-		if(exception) { 
-			alert(exception.message); 
+		if(exception) {
+			alert(exception.message);
 			return;
 		}
 		document.getElementById('total').innerHTML = total;
 	}
-	
+
 	function shoppingCart_postResponse(entry) {
 		shoppingCart.getAll().addCallback(shoppingCart_getResponse);
-	}				
+	}
 
 	function addToCart() {
 		var items  = document.catalogForm.items;
 		var j = 0;
 		for (var i=0; i<items.length; i++)
-			if (items[i].checked) {					
+			if (items[i].checked) {
 				shoppingCart.post("", catalogItems[i]).addCallback(shoppingCart_postResponse);
 				items[i].checked = false;
 			}
@@ -131,31 +131,31 @@
 					document.getElementById('total').innerHTML+
 					'<br>'+
 					'<br>'+
-					'<input type="submit" value="Continue Shopping">'+ 
+					'<input type="submit" value="Continue Shopping">'+
 				'</form>';
 		shoppingCart.delete("");
 	}
 	function deleteCart() {
 		shoppingCart.delete("");
 		document.getElementById('shoppingCart').innerHTML = "";
-		document.getElementById('total').innerHTML = "";	
-	}	
+		document.getElementById('total').innerHTML = "";
+	}
 
-	
+
 
 	function init() {
 		try {
 			showHeader();
 
 			showCatalogs();
-			
+
 			shoppingCart.getAll().addCallback(shoppingCart_getResponse);
 		} catch (e) {
 			alert(e);
 		}
 	}
 
-	
+
 </script>
 
 </head>
@@ -165,8 +165,8 @@
    </div>
 
    <h1>Store</h1>
-   
-   
+
+
 
   <div id="store">
    	<h2>Catalog</h2>
@@ -175,19 +175,19 @@
         <br>
 		<input type="button" onClick="addToCart()"  value="Add to Cart">
    	</form>
- 
+
 
  	<br>
-  
+
    	<h2>Your Shopping Cart</h2>
    	<form name="shoppingCartForm">
 		<div id="shoppingCart"></div>
 		<br>
 		<div id="total"></div>
-		<br>		
-		<input type="button" onClick="checkoutCart()" value="Checkout"> 
+		<br>
+		<input type="button" onClick="checkoutCart()" value="Checkout">
 		<input type="button" onClick="deleteCart()" value="Empty">
-	</form>        
+	</form>
   </div>
 </body>
 

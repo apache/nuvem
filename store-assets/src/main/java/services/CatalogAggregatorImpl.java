@@ -43,12 +43,12 @@ public class CatalogAggregatorImpl implements Catalog {
     @Reference(required=false)
     public Catalog vegetablesCatalog;
 
-    public Item[] get() {
+    public Item[] items() {
         String currencySymbol = currencyConverter.getCurrencySymbol(currencyCode);
 
         List<Item> catalog = new ArrayList<Item>();
         if(fruitsCatalog != null) {
-        	Item[] fruits = fruitsCatalog.get();
+        	Item[] fruits = fruitsCatalog.items();
 
         	for (Item item: fruits) {
                 double price = item.getPrice();
@@ -58,7 +58,7 @@ public class CatalogAggregatorImpl implements Catalog {
         }
 
         if(vegetablesCatalog != null) {
-        	Item[] vegetables = vegetablesCatalog.get();
+        	Item[] vegetables = vegetablesCatalog.items();
 
             for (Item item: vegetables) {
                 double price = item.getPrice();

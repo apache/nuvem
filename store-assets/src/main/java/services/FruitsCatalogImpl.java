@@ -28,7 +28,7 @@ public class FruitsCatalogImpl implements Catalog {
         catalog.add(new Item("Pear", currencyCode, currencySymbol, currencyConverter.getConversion("USD", currencyCode, 1.55)));
     }
 
-    public Item[] get() {
+    public Item[] items() {
         Item[] catalogArray = new Item[catalog.size()];
         catalog.toArray(catalogArray);
         return catalogArray;

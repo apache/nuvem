@@ -23,5 +23,5 @@ import org.oasisopen.sca.annotation.Remotable;
 
 @Remotable
 public interface Catalog {
-	Item[] get();
+	Item[] items();
 }
