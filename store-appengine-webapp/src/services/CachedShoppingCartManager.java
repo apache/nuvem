@@ -19,32 +19,47 @@
 
 package services;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.nuvem.cloud.data.DocumentService;
+import net.sf.jsr107cache.Cache;
+import net.sf.jsr107cache.CacheManager;
+
 import org.apache.nuvem.cloud.user.User;
 import org.apache.nuvem.cloud.user.UserService;
 import org.apache.tuscany.sca.data.collection.Entry;
 import org.apache.tuscany.sca.data.collection.NotFoundException;
+import org.oasisopen.sca.annotation.Init;
 import org.oasisopen.sca.annotation.Reference;
 import org.oasisopen.sca.annotation.Scope;
+import org.oasisopen.sca.annotation.Service;
 
 @Scope("COMPOSITE")
-public class ShoppingCartManager implements ShoppingCart {
-    private static final Logger log = Logger.getLogger(ShoppingCartManager.class.getName());
+@Service(ShoppingCart.class)
+public class CachedShoppingCartManager implements ShoppingCart {
+    private static final Logger log = Logger.getLogger(CachedShoppingCartManager.class.getName());
     private static String ANONYMOUS = "anonymous";
 
-    @Reference
-    private DocumentService documentService;
+    private Cache cache;
+
+    @Init
+    public void init() {
+    	try {
+    		cache = CacheManager.getInstance().getCacheFactory().createCache(Collections.emptyMap());
+    	}catch(Throwable t) {
+    		log.log(Level.SEVERE, "Error initialize cache + " + t.getMessage());
+    	}
+    }
 
     @Reference
     private UserService userService;
 
     public Entry<String, Item>[] getAll() {
-    	 Map<String, Item> cart = getUserShoppingCart();
+    	 Map<String, Item> cart = getUserItems();
 
     	 Entry<String, Item>[] entries = new Entry[cart.size()];
          int i = 0;
@@ -55,7 +70,7 @@ public class ShoppingCartManager implements ShoppingCart {
     }
 
     public Item get(String key) throws NotFoundException {
-    	Map<String, Item> cart = getUserShoppingCart();
+    	Map<String, Item> cart = getUserItems();
 
     	Item item = cart.get(key);
     	if (item == null) {
@@ -66,83 +81,77 @@ public class ShoppingCartManager implements ShoppingCart {
     }
 
     public String post(String key, Item item) {
-    	Map<String, Item> cart = getUserShoppingCart();
+    	Map<String, Item> cart = getUserItems();
 
         if (key == null || key.isEmpty()) {
             key = this.generateItemKey();
         }
 
-        //add to the cart map
         cart.put(key, item);
-        //add back to the store
-        documentService.post(getCartKey(), cart);
+        cache.put(getCartKey(), cart);
         return key;
     }
 
     public void put(String key, Item item) throws NotFoundException {
-    	Map<String, Item> cart = getUserShoppingCart();
+    	Map<String, Item> cart = getUserItems();
 
     	if (!cart.containsKey(key)) {
             throw new NotFoundException(key);
         }
-    	//add to the cart map
         cart.put(key, item);
-        //add back to the store
-        documentService.put(getCartKey(), cart);
+        cache.put(getCartKey(), cart);
     }
 
     public void delete(String key) throws NotFoundException {
     	if (key == null || key.isEmpty()) {
-            documentService.delete(getCartKey());
+            cache.remove(getCartKey());
         } else {
-        	Map<String, Item> cart = getUserShoppingCart();
+        	Map<String, Item> cart = getUserItems();
 
             Item item = cart.remove(key);
             if (item == null) {
                 throw new NotFoundException(key);
             }
-            documentService.put(getCartKey(), cart);
+            cache.put(getCartKey(), cart);
         }
     }
 
     public Entry<String, Item>[] query(String queryString) {
-    	throw new UnsupportedOperationException("Operation not supported !");
+        throw new UnsupportedOperationException("Operation not supported !");
     }
 
     public String getTotal() {
     	double total = 0;
     	String currencySymbol = "";
+    	if (cache.containsKey(getCartKey())) {
+    		Map<String, Item> cart = getUserItems();
+    		if (!cart.isEmpty()) {
+    			Item item = cart.values().iterator().next();
+    			currencySymbol = item.getCurrencySymbol();
+    		}
+    		for (Item item : cart.values()) {
+    			total += item.getPrice();
+    		}
 
 
-    	Map<String, Item> cart = getUserShoppingCart();
-    	if (!cart.isEmpty()) {
-    		Item item = cart.values().iterator().next();
-    		currencySymbol = item.getCurrencySymbol();
     	}
-    	for (Item item : cart.values()) {
-    		total += item.getPrice();
-    	}
-
     	return currencySymbol + String.valueOf(total);
     }
 
     /**
      * Utility functions
      */
+    /*
+    private ShoppingCart getUserShoppingCart() {
+        String key = getCartKey();
+        ShoppingCart userCart = (ShoppingCart) cache.get(key);
+        if(userCart == null) {
+            userCart = new ShoppingCartImpl();
+            cache.put(key, userCart);
+        }
+        return userCart;
+    }*/
 
-    private Map<String, Item> getUserShoppingCart() {
-    	String userCartKey = getCartKey();
-    	HashMap<String, Item> cart;
-
-    	try {
-    		cart = (HashMap<String, Item>) documentService.get(userCartKey);
-    	} catch (NotFoundException e) {
-    		cart = new HashMap<String, Item>();
-    		documentService.post(userCartKey, cart);
-    	}
-
-    	return cart;
-    }
     private String getUserId() {
         String userId = null;
         if(userService != null) {
@@ -166,5 +175,18 @@ public class ShoppingCartManager implements ShoppingCart {
     private String generateItemKey() {
         String itemKey = getCartKey() + "-item-" + UUID.randomUUID().toString();
         return itemKey;
+    }
+    private Map<String, Item> getUserItems() {
+    	String userCartKey = getCartKey();
+    	HashMap<String, Item> cartMap;
+
+    	if(! cache.containsKey(userCartKey)) {
+    		cartMap = new HashMap<String, Item>();
+    		cache.put(userCartKey, cartMap);
+    	} else {
+    		cartMap = (HashMap<String, Item>) cache.get(userCartKey);
+    	}
+
+    	return cartMap;
     }
 }

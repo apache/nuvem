@@ -19,6 +19,7 @@
 -->
 <composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
            xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.1"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	       xmlns:s="http://store"
 	       targetNamespace="http://store"
 	       name="store">
@@ -48,6 +49,12 @@
 		<reference name="userService" target="UserService">
 			<binding.sca name="local"/>
 		</reference>
+		<reference name="documentService" target="DocumentService" />
+	</component>
+
+	<component name="DocumentService">
+		<implementation.java class="org.apache.nuvem.cloud.data.impl.MemcacheDocumentServiceImpl"/>
+		<!-- implementation.java class="org.apache.nuvem.cloud.data.impl.MapDocumentServiceImpl" /-->
 	</component>
 
 	<component name="UserService">

@@ -28,13 +28,18 @@ import java.util.logging.Logger;
 
 import org.apache.tuscany.sca.data.collection.Entry;
 import org.apache.tuscany.sca.data.collection.NotFoundException;
+import org.oasisopen.sca.annotation.Reference;
 import org.oasisopen.sca.annotation.Scope;
+
+import org.apache.nuvem.cloud.data.DocumentService;
 
 @Scope("COMPOSITE")
 public class ShoppingCartImpl implements ShoppingCart {
     private static final Logger log = Logger.getLogger(ShoppingCartImpl.class.getName());
 
-    //private DatastoreDocumentServiceImpl cart = new DatastoreDocumentServiceImpl();
+    @Reference
+    private DocumentService docService;
+
     private Map<String, Item> cart = new HashMap<String, Item>();
 
     public Entry<String, Item>[] getAll() {
