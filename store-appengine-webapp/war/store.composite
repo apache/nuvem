@@ -53,8 +53,8 @@
 	</component>
 
 	<component name="DocumentService">
-		<implementation.java class="org.apache.nuvem.cloud.data.impl.MemcacheDocumentServiceImpl"/>
-		<!-- implementation.java class="org.apache.nuvem.cloud.data.impl.MapDocumentServiceImpl" /-->
+		<implementation.java class="org.apache.nuvem.cloud.data.impl.MapDocumentServiceImpl" />
+		<!-- implementation.java class="org.apache.nuvem.cloud.data.impl.MemcacheDocumentServiceImpl"/-->
 	</component>
 
 	<component name="UserService">

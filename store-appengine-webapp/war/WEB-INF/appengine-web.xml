@@ -18,8 +18,8 @@
   * under the License.
 -->
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
-	<application>tuscany-test</application>
-	<version>1</version>
+	<application>tuscany-store</application>
+	<version>7</version>
 
 	<!-- Configure java.util.logging -->
 	<system-properties>
