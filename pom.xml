@@ -186,9 +186,12 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <modules>
+                <!-- Modules -->
                 <module>nuvem-api</module>
                 <module>nuvem-google</module>
                 <module>nuvem-google-appengine-sdk</module>                
+                <module>nuvem-standalone</module>
+                <!-- Store Scenario -->
                 <module>store-assets</module>
                 <module>store-appengine-webapp</module>
                 <module>store-merger-appengine-webapp</module>                
