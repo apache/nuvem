@@ -244,15 +244,19 @@
                                 <exclude>**/DISCLAIMER</exclude>
                                 <exclude>**/NOTICE</exclude>
 
+                                <!-- git specific files -->
+                                <exclude>**/.git/**/*</exclude>
+                                <exclude>.gitignore</exclude>
+
                                 <!-- generated content -->
                                 <exclude>**/*.log</exclude>
-                                <exclude>**/rat.txt</exclude>
-                                <exclude>**/target/**/*</exclude>
+                                <exclude>**/rat.txt</exclude>                               
                                 <exclude>**/dojo/**/*</exclude>
                                 <exclude>**/WEB-INF/lib/**/*</exclude>                                
 
                                 <!-- Exclude Eclipse generated files -->
                                 <exclude>**/.*/**</exclude>
+                                <exclude>**/target/**/*</exclude>
 
                                 <!--
                                     Exclude internal repository. These files
