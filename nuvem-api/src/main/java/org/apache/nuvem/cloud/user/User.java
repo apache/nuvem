@@ -24,33 +24,62 @@ import java.io.Serializable;
 public class User implements Serializable {
 	private static final long serialVersionUID = -503746790472903416L;
 
-	public static enum ROLES { UNDEFINED, USER, ADMIN};
+	protected String userId;
+	protected String nickName;
+	protected String email;
 
-    protected String userId;
-    protected String nickName;
-    protected String email;
+	public static enum ROLES {
+		UNDEFINED, USER, ADMIN
+	};
 
-    public User () {
-
-    }
-
-    public User(String userId, String nickName, String email) {
-        this.userId = userId;
-        this.nickName = nickName;
-        this.email = email;
-    }
-
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public String getNickname() {
-        return this.nickName;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
+	/** Represents a dummy user for usage instead of nulls **/
+	public static final User DUMMY_USER = new User("dummyid", "dummy name","dummy@email.com");
 
 
+	public User() {
+
+	}
+
+	public User(String userId, String nickName, String email) {
+		this.userId = userId;
+		this.nickName = nickName;
+		this.email = email;
+	}
+
+	public String getUserId() {
+		return this.userId;
+	}
+
+	public String getNickname() {
+		return this.nickName;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	/**
+	 * Checks only for the user ID as it is supposed to be a unique identifier
+	 * for the user.
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof User))
+			return false;
+
+		final User user = (User) o;
+
+		return userId.equals(user.userId);
+	}
+
+	/**
+	 * Considers only the hashcode of the userid as userid is the unique
+	 * id of the user.
+	 */
+	@Override
+	public int hashCode() {
+		return userId.hashCode();
+	}
 }

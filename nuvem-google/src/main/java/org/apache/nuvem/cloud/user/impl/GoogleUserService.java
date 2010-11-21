@@ -80,7 +80,7 @@ public class GoogleUserService implements UserService {
             return new User(googleUser.getUserId(), googleUser.getNickname(), googleUser.getEmail());
         } 
         
-        return new User(null, null, null);
+        return User.DUMMY_USER;
     }
 
     
