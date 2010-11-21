@@ -23,13 +23,11 @@ import org.oasisopen.sca.annotation.Service;
 
 @Service(CurrencyConverter.class)
 public class CurrencyConverterImpl implements CurrencyConverter {
-    public double getConversion(String fromCurrencyCode, 
-                                String toCurrencyCode, 
-                                double amount) {
+    public double getConversion(String fromCurrencyCode, String toCurrencyCode, double amount) {
         if (toCurrencyCode.equals("USD"))
             return amount;
         else if (toCurrencyCode.equals("EUR"))
-            return ((double)Math.round(amount * 0.7256 * 100)) /100;
+            return ((double)Math.round(amount * 0.7256 * 100)) / 100;
         return 0;
     }
 
@@ -37,7 +35,7 @@ public class CurrencyConverterImpl implements CurrencyConverter {
         if (currencyCode.equals("USD"))
             return "$";
         else if (currencyCode.equals("EUR"))
-            return "E"; //"€";
+            return "E"; // "€";
         return "?";
     }
 }

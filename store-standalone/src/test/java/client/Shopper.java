@@ -23,7 +23,7 @@ import org.oasisopen.sca.annotation.Remotable;
 
 @Remotable
 public interface Shopper {
-    
+
     String shop(String itemName, int quantity);
 
 }

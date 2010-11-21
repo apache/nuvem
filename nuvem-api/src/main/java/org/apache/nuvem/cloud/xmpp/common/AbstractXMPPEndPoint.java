@@ -34,7 +34,6 @@ import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
 /**
  * Encloses the common code for various types of end points irrespective of the
  * platform.
- *
  */
 public abstract class AbstractXMPPEndPoint {
     private static final Logger log = Logger.getLogger(XMPPEndPoint.class.getName());

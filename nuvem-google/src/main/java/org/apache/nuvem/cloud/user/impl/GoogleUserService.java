@@ -37,30 +37,27 @@ public class GoogleUserService implements UserService {
     public void init() {
         googleUerService = UserServiceFactory.getUserService();
     }
-    
 
     public User getCurrentUser() {
         return fromGoogleUser(googleUerService.getCurrentUser());
     }
 
     public boolean isUserAdmin() {
-        //FIXME handle via roles from tuscany user api
+        // FIXME handle via roles from tuscany user api
         throw new UnsupportedOperationException("Not supported yet");
     }
 
     public boolean isUserLoggedIn() {
         return googleUerService.isUserLoggedIn();
     }
-    
+
     public UserContext getUserContext(String destinationURL, String authDomain) {
-        return new UserContext (getCurrentUser(),
-                                isUserLoggedIn(),
-                                createLoginURL(destinationURL, authDomain),
-                                createLogoutURL(destinationURL, authDomain));
+        return new UserContext(getCurrentUser(), isUserLoggedIn(), createLoginURL(destinationURL, authDomain),
+                               createLogoutURL(destinationURL, authDomain));
     }
-    
+
     public String createLoginURL(String destinationURL, String authDomain) {
-        if(authDomain != null && authDomain.length() > 0) {
+        if (authDomain != null && authDomain.length() > 0) {
             return googleUerService.createLoginURL(destinationURL, authDomain);
         } else {
             return googleUerService.createLoginURL(destinationURL);
@@ -68,7 +65,7 @@ public class GoogleUserService implements UserService {
     }
 
     public String createLogoutURL(String destinationURL, String authDomain) {
-        if(authDomain != null && authDomain.length() > 0) {
+        if (authDomain != null && authDomain.length() > 0) {
             return googleUerService.createLogoutURL(destinationURL, authDomain);
         } else {
             return googleUerService.createLogoutURL(destinationURL);
@@ -76,12 +73,11 @@ public class GoogleUserService implements UserService {
     }
 
     private static User fromGoogleUser(com.google.appengine.api.users.User googleUser) {
-        if(googleUser != null) {
+        if (googleUser != null) {
             return new User(googleUser.getUserId(), googleUser.getNickname(), googleUser.getEmail());
-        } 
-        
+        }
+
         return User.DUMMY_USER;
     }
 
-    
 }

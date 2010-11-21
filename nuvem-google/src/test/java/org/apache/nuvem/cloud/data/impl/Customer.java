@@ -21,7 +21,6 @@ package org.apache.nuvem.cloud.data.impl;
 
 import java.io.Serializable;
 
-
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 3465788478651204747L;
@@ -29,22 +28,27 @@ public class Customer implements Serializable {
     private String id;
     private String name;
     private String creditCard;
-    
+
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getCreditCard() {
         return creditCard;
     }
+
     public void setCreditCard(String creditCard) {
         this.creditCard = creditCard;
     }

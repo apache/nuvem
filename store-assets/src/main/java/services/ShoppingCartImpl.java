@@ -26,12 +26,11 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import org.apache.nuvem.cloud.data.DocumentService;
 import org.apache.tuscany.sca.data.collection.Entry;
 import org.apache.tuscany.sca.data.collection.NotFoundException;
 import org.oasisopen.sca.annotation.Reference;
 import org.oasisopen.sca.annotation.Scope;
-
-import org.apache.nuvem.cloud.data.DocumentService;
 
 @Scope("COMPOSITE")
 public class ShoppingCartImpl implements ShoppingCart {
@@ -45,7 +44,7 @@ public class ShoppingCartImpl implements ShoppingCart {
     public Entry<String, Item>[] getAll() {
         Entry<String, Item>[] entries = new Entry[cart.size()];
         int i = 0;
-        for (Map.Entry<String, Item> e: cart.entrySet()) {
+        for (Map.Entry<String, Item> e : cart.entrySet()) {
             entries[i++] = new Entry<String, Item>(e.getKey(), e.getValue());
         }
         return entries;
@@ -62,7 +61,7 @@ public class ShoppingCartImpl implements ShoppingCart {
 
     public String post(String key, Item item) {
         if (key == null || key.isEmpty()) {
-            key ="cart-" + UUID.randomUUID().toString();
+            key = "cart-" + UUID.randomUUID().toString();
         }
         cart.put(key, item);
         return key;
@@ -86,10 +85,10 @@ public class ShoppingCartImpl implements ShoppingCart {
     }
 
     public Entry<String, Item>[] query(String queryString) {
-        List<Entry<String, Item>> entries = new ArrayList<Entry<String,Item>>();
+        List<Entry<String, Item>> entries = new ArrayList<Entry<String, Item>>();
         if (queryString.startsWith("name=")) {
             String name = queryString.substring(5);
-            for (Map.Entry<String, Item> e: cart.entrySet()) {
+            for (Map.Entry<String, Item> e : cart.entrySet()) {
                 Item item = e.getValue();
                 if (item.getName().equals(name)) {
                     entries.add(new Entry<String, Item>(e.getKey(), e.getValue()));

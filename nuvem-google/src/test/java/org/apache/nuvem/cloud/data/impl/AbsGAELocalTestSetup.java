@@ -26,21 +26,21 @@ import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestC
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 public abstract class AbsGAELocalTestSetup {
-	protected final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-	
-	protected Customer customer = new Customer();
-	
-	@Before
-	public void setUp() {
-		helper.setUp();
-		
-		customer.setId("1");
-		customer.setName("Avdhesh");
-		customer.setCreditCard("xxxxx");
-	}
-	
-	@After
-	public void tearDown() {
-		helper.tearDown();
-	}
+    protected final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+
+    protected Customer customer = new Customer();
+
+    @Before
+    public void setUp() {
+        helper.setUp();
+
+        customer.setId("1");
+        customer.setName("Avdhesh");
+        customer.setCreditCard("xxxxx");
+    }
+
+    @After
+    public void tearDown() {
+        helper.tearDown();
+    }
 }

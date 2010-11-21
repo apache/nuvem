@@ -15,7 +15,6 @@ import com.google.appengine.api.xmpp.XMPPServiceFactory;
 
 /**
  * A servlet to recieve XMPP messages from google cloud platform.
- *
  */
 public class GoogleRecieverServlet extends HttpServlet {
     /**

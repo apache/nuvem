@@ -41,7 +41,7 @@ public class ShopperImpl implements Shopper {
     public String shop(String itemName, int quantity) {
 
         Item[] items = catalog.items();
-        for (Item item: items) {
+        for (Item item : items) {
             if (item.getName().startsWith(itemName)) {
 
                 try {

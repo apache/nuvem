@@ -41,9 +41,15 @@ public class FruitsCatalogImpl implements Catalog {
     @Init
     public void init() {
         String currencySymbol = currencyConverter.getCurrencySymbol(currencyCode);
-        catalog.add(new Item("Acai", currencyCode, currencySymbol, currencyConverter.getConversion("USD", currencyCode, 2.99)));
-        catalog.add(new Item("Carambola", currencyCode, currencySymbol, currencyConverter.getConversion("USD", currencyCode, 3.55)));
-        catalog.add(new Item("Cashew", currencyCode, currencySymbol, currencyConverter.getConversion("USD", currencyCode, 1.55)));
+        catalog.add(new Item("Acai", currencyCode, currencySymbol, currencyConverter.getConversion("USD",
+                                                                                                   currencyCode,
+                                                                                                   2.99)));
+        catalog.add(new Item("Carambola", currencyCode, currencySymbol, currencyConverter.getConversion("USD",
+                                                                                                        currencyCode,
+                                                                                                        3.55)));
+        catalog.add(new Item("Cashew", currencyCode, currencySymbol, currencyConverter.getConversion("USD",
+                                                                                                     currencyCode,
+                                                                                                     1.55)));
     }
 
     public Item[] items() {

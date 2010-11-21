@@ -22,6 +22,6 @@ package services;
 import org.oasisopen.sca.annotation.Remotable;
 
 @Remotable
-public interface ShoppingCart extends Cart, Total{
+public interface ShoppingCart extends Cart, Total {
 
 }

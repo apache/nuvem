@@ -30,7 +30,6 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 /**
  * Encapsulates the complete message that needs to be delivered through the XMPP
  * channel.
- *
  */
 public final class Message {
 
@@ -63,7 +62,7 @@ public final class Message {
 
     /**
      * Constructor.
-     *
+     * 
      * @param payLoad - the payload of this message.
      * @param recipient - the reciepient for this message.
      * @param sender - the sender of this message.
@@ -75,7 +74,7 @@ public final class Message {
 
     /**
      * Constructor.
-     *
+     * 
      * @param payLoad - the payload.
      * @param recipient - the recipient.
      */
@@ -86,7 +85,7 @@ public final class Message {
 
     /**
      * Adds headers to the message.
-     *
+     * 
      * @param headers the headers.
      */
     public void addHeaders(Map<String, String> headers) {
@@ -96,7 +95,7 @@ public final class Message {
 
     /**
      * Returns the payload of this message.
-     *
+     * 
      * @return the payload
      */
     public PayLoad payLoad() {
@@ -105,7 +104,7 @@ public final class Message {
 
     /**
      * Returns the recipient of this message.
-     *
+     * 
      * @return the recipient.
      */
     public JID recipient() {
@@ -114,7 +113,7 @@ public final class Message {
 
     /**
      * Returns the sender of this message.
-     *
+     * 
      * @return the sender.
      */
     public JID sender() {
@@ -123,7 +122,7 @@ public final class Message {
 
     /**
      * Returns all the headers associated with this message.
-     *
+     * 
      * @return headers
      */
     public Map<String, String> headers() {

@@ -26,7 +26,6 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * Represents the XMPP ID.
- *
  */
 public final class JID {
 
@@ -47,7 +46,7 @@ public final class JID {
 
     /**
      * Constructor. Validates the id passed as paramter befor initialising.
-     *
+     * 
      * @param id
      */
     public JID(String id) {
@@ -58,7 +57,7 @@ public final class JID {
 
     /**
      * Returns the string representation of the JID.
-     *
+     * 
      * @return
      */
     public String asString() {
@@ -67,7 +66,7 @@ public final class JID {
 
     /**
      * Returns only the domain identifier of the JID.
-     *
+     * 
      * @return
      */
     public String domainIdentifier() {
@@ -76,7 +75,7 @@ public final class JID {
 
     /**
      * Returns only the node identifier of this JID.
-     *
+     * 
      * @return the node identifier.
      */
     public String nodeIdentifier() {
@@ -85,7 +84,7 @@ public final class JID {
 
     /**
      * Returns only the resource identifier of the JID.
-     *
+     * 
      * @return the resource identifier.
      */
     public String resourceIdentifier() {
@@ -94,7 +93,7 @@ public final class JID {
 
     /**
      * Just to make the equality check more descriptive and meaningful.
-     *
+     * 
      * @param jid the jid to which this jid is compared with.
      * @return true if both the jid are same, false otherwise.
      */

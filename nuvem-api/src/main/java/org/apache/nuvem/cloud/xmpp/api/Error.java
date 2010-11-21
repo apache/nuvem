@@ -22,7 +22,6 @@ package org.apache.nuvem.cloud.xmpp.api;
 
 /**
  * Contains the error details used.
- *
  */
 public final class Error {
 

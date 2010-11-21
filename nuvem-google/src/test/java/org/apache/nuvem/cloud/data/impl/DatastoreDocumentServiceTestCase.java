@@ -28,62 +28,58 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
-
 public class DatastoreDocumentServiceTestCase extends AbsGAELocalTestSetup {
- 
-	private DatastoreDocumentServiceImpl documentService = new DatastoreDocumentServiceImpl();
 
-	private Entity customerEntity;
-	private Key key;
-	
-	@Before
-	public void setUp() {
-		super.setUp();
-		
-		key = KeyFactory.createKey(Customer.class.getName(), customer.getId());
-		customerEntity = new Entity(key);
-		customerEntity.setProperty("id", customer.getId());
-		customerEntity.setProperty("name", customer.getName());
-		customerEntity.setProperty("creditCard", customer.getCreditCard());
-		documentService.init();
-	}
+    private DatastoreDocumentServiceImpl documentService = new DatastoreDocumentServiceImpl();
 
+    private Entity customerEntity;
+    private Key key;
 
-	@Test
-	public void get(){
-		documentService.post(key, customerEntity);
-		try {
-			Entity entity = documentService.get(key);
-			System.out.println("Returned Entity:"+entity);
-			Assert.assertNotNull(entity);
-			
-			Assert.assertEquals(customer.getId(), entity.getProperty("id"));
-			Assert.assertEquals(customer.getName(), entity.getProperty("name"));
-			Assert.assertEquals(customer.getCreditCard(), entity.getProperty("creditCard"));
+    @Before
+    public void setUp() {
+        super.setUp();
 
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-			Assert.fail("get Method failed");
-		}
-	}
+        key = KeyFactory.createKey(Customer.class.getName(), customer.getId());
+        customerEntity = new Entity(key);
+        customerEntity.setProperty("id", customer.getId());
+        customerEntity.setProperty("name", customer.getName());
+        customerEntity.setProperty("creditCard", customer.getCreditCard());
+        documentService.init();
+    }
 
+    @Test
+    public void get() {
+        documentService.post(key, customerEntity);
+        try {
+            Entity entity = documentService.get(key);
+            System.out.println("Returned Entity:" + entity);
+            Assert.assertNotNull(entity);
 
-	@Test
-	public void delete() 
-	{
-		documentService.post(key, customerEntity);
-		try {
-			documentService.delete(key);
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-			Assert.fail("delete Method failed");
-		}
-		
-		try {
-			// This call should throw NotFoundException
-			documentService.get(key);
-			Assert.fail();
-		} catch (NotFoundException e) {
-		}
-	}
+            Assert.assertEquals(customer.getId(), entity.getProperty("id"));
+            Assert.assertEquals(customer.getName(), entity.getProperty("name"));
+            Assert.assertEquals(customer.getCreditCard(), entity.getProperty("creditCard"));
+
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+            Assert.fail("get Method failed");
+        }
+    }
+
+    @Test
+    public void delete() {
+        documentService.post(key, customerEntity);
+        try {
+            documentService.delete(key);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+            Assert.fail("delete Method failed");
+        }
+
+        try {
+            // This call should throw NotFoundException
+            documentService.get(key);
+            Assert.fail();
+        } catch (NotFoundException e) {
+        }
+    }
 }

@@ -37,30 +37,30 @@ public class CatalogAggregatorImpl implements Catalog {
     @Reference
     public CurrencyConverter currencyConverter;
 
-    @Reference(required=false)
+    @Reference(required = false)
     public Catalog fruitsCatalog;
 
-    @Reference(required=false)
+    @Reference(required = false)
     public Catalog vegetablesCatalog;
 
     public Item[] items() {
         String currencySymbol = currencyConverter.getCurrencySymbol(currencyCode);
 
         List<Item> catalog = new ArrayList<Item>();
-        if(fruitsCatalog != null) {
-        	Item[] fruits = fruitsCatalog.items();
+        if (fruitsCatalog != null) {
+            Item[] fruits = fruitsCatalog.items();
 
-        	for (Item item: fruits) {
+            for (Item item : fruits) {
                 double price = item.getPrice();
                 price = currencyConverter.getConversion("USD", currencyCode, price);
                 catalog.add(new Item(item.getName(), currencyCode, currencySymbol, price));
             }
         }
 
-        if(vegetablesCatalog != null) {
-        	Item[] vegetables = vegetablesCatalog.items();
+        if (vegetablesCatalog != null) {
+            Item[] vegetables = vegetablesCatalog.items();
 
-            for (Item item: vegetables) {
+            for (Item item : vegetables) {
                 double price = item.getPrice();
                 price = currencyConverter.getConversion("USD", currencyCode, price);
                 catalog.add(new Item(item.getName(), currencyCode, currencySymbol, price));

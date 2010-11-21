@@ -26,7 +26,6 @@ package org.apache.nuvem.cloud.xmpp.api;
  * The implementations of <code>XMPPEndPoint</code> are specific to each cloud
  * platform.
  * </p>
- *
  */
 public interface XMPPEndPoint {
 
@@ -34,7 +33,7 @@ public interface XMPPEndPoint {
 
     /**
      * Returns a unique id of this endpoint.
-     *
+     * 
      * @return the unique id.
      */
     String uniqueID();
@@ -42,7 +41,7 @@ public interface XMPPEndPoint {
     /**
      * Sends the message to a target JID enclosed inside the
      * <code>Message</code>.
-     *
+     * 
      * @param message - the message that needs to be delivered to a target
      *            JID/Node.
      * @return A response object which holds the status of the delivery of
@@ -55,7 +54,7 @@ public interface XMPPEndPoint {
      * Sends a text message to a recipient, this is a simplified version for
      * sending message compared to {@link #sendMessage(Message)} where you need
      * to build the message using the {@link MessageBuilder}
-     *
+     * 
      * @param content - the text content to be sent to recipient.
      * @param recipient - the recipient
      * @return status of the message delivery
@@ -67,7 +66,7 @@ public interface XMPPEndPoint {
      * particular JID which is also passed as argument to this API.
      * <p>
      * </p>
-     *
+     * 
      * @param jid - the JID for which a message listener is bound.
      * @param listener - will recieve messages sent by a client/node identified
      *            by the JID passed as the first argument.
@@ -76,7 +75,7 @@ public interface XMPPEndPoint {
 
     /**
      * Clears the listener for the specified JID.
-     *
+     * 
      * @param jid the JID for which the listener will be removed which means the
      *            messages from the particular JID will be lost!
      * @return true if listener removed, false otherwise.
@@ -90,7 +89,7 @@ public interface XMPPEndPoint {
 
     /**
      * Finds the presence of a particular recipient.
-     *
+     * 
      * @param jid
      * @return
      */
@@ -98,7 +97,7 @@ public interface XMPPEndPoint {
 
     /**
      * Simplified version of {@link #isPresent(JID)}
-     *
+     * 
      * @param id the JID in string format
      * @return true if the JID is present, false otherwise.
      */
@@ -106,7 +105,7 @@ public interface XMPPEndPoint {
 
     /**
      * Sends an XMPP invitation to the JID passed as argument.
-     *
+     * 
      * @param jid the jid.
      * @throws IllegalArgumentException if JID is invalid.
      */
@@ -114,7 +113,7 @@ public interface XMPPEndPoint {
 
     /**
      * Simplified version of invitation API.
-     *
+     * 
      * @param jid the jid to invite for chat.
      * @throws IllegalArgumentException if JID is invalid.
      */

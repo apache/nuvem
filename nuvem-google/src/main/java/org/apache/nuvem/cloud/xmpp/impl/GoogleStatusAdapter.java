@@ -13,7 +13,6 @@ import com.google.appengine.api.xmpp.SendResponse;
 /**
  * Acts as an adapter to transform the status recieved by the the send API to
  * the form compatible with nuvem.
- *
  */
 public class GoogleStatusAdapter {
 

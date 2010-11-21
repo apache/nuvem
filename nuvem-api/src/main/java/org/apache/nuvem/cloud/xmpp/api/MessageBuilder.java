@@ -27,7 +27,6 @@ import java.util.Map;
 
 /**
  * Used to build the message.
- *
  */
 public class MessageBuilder {
 
@@ -58,7 +57,7 @@ public class MessageBuilder {
 
     /**
      * Initializes the JID for recipient.
-     *
+     * 
      * @param jid the JID for the recipient.
      * @return the message builder.
      */
@@ -69,7 +68,7 @@ public class MessageBuilder {
 
     /**
      * The sender for a message.
-     *
+     * 
      * @param jid the jid of the sender.
      * @return the message builder.
      */
@@ -85,7 +84,7 @@ public class MessageBuilder {
 
     /**
      * Initialises the content for sending to the recipient.
-     *
+     * 
      * @param content the actual content.
      * @return the message builder.
      */
@@ -96,7 +95,7 @@ public class MessageBuilder {
 
     /**
      * Initializes a header.
-     *
+     * 
      * @param key the key of the header.
      * @param value the value for the header.
      * @return the message builder.
@@ -108,7 +107,7 @@ public class MessageBuilder {
 
     /**
      * Initialises the headeres.
-     *
+     * 
      * @param headers a map of headers.
      * @return the message builder.
      */
@@ -126,7 +125,7 @@ public class MessageBuilder {
      * <li/>{@link #toRecipient(String)}
      * <li/>{@link #withHeader(String, String)}
      * <li/>{@link #withHeaders(Map)}
-     *
+     * 
      * @return
      */
     public Message build() {

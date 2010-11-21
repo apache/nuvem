@@ -25,7 +25,6 @@ import java.util.Locale;
 /**
  * The actual payload (can be considered to represent XMPP Stream) that will be
  * carried through the XMPP channel.
- *
  */
 public final class PayLoad {
 
@@ -67,7 +66,7 @@ public final class PayLoad {
 
     /**
      * Sets the content type for the payload.
-     *
+     * 
      * @param type the content type.
      */
     public void setContentType(ContentType type) {
@@ -80,7 +79,7 @@ public final class PayLoad {
 
     /**
      * Returns the content type present in the payload.
-     *
+     * 
      * @return the content type.
      */
     public ContentType contentType() {

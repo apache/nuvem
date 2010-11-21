@@ -34,15 +34,15 @@ import com.google.appengine.api.memcache.MemcacheServiceFactory;
 
 @Service(DocumentService.class)
 public class MemcacheDocumentServiceImpl implements DocumentService<Object, Object> {
-	private MemcacheService googleMemecacheService;
-	private Expiration expiration;
+    private MemcacheService googleMemecacheService;
+    private Expiration expiration;
 
-    @Property(required=false)
+    @Property(required = false)
     protected int defaultExpiration = 3600;
 
     @Init
     public void init() {
-    	expiration = Expiration.byDeltaSeconds(defaultExpiration); // 1hr
+        expiration = Expiration.byDeltaSeconds(defaultExpiration); // 1hr
         googleMemecacheService = MemcacheServiceFactory.getMemcacheService();
     }
 
@@ -53,9 +53,9 @@ public class MemcacheDocumentServiceImpl implements DocumentService<Object, Obje
     public Object get(Object key) throws NotFoundException {
         Object entity = null;
 
-        entity =  googleMemecacheService.get(key);
+        entity = googleMemecacheService.get(key);
 
-        if(entity == null) {
+        if (entity == null) {
             throw new NotFoundException("Could not find object with key '" + key.toString() + "'");
         }
 
@@ -63,7 +63,7 @@ public class MemcacheDocumentServiceImpl implements DocumentService<Object, Obje
     }
 
     public Object post(Object key, Object entity) {
-        if( key == null ) {
+        if (key == null) {
             key = UUID.randomUUID().toString();
         }
 
@@ -73,8 +73,8 @@ public class MemcacheDocumentServiceImpl implements DocumentService<Object, Obje
     }
 
     public void put(Object key, Object entity) throws NotFoundException {
-        if( get(key) == null) {
-            throw new NotFoundException("Could not find entity with key '" + key.toString() +"'");
+        if (get(key) == null) {
+            throw new NotFoundException("Could not find entity with key '" + key.toString() + "'");
         }
 
         googleMemecacheService.put(key, entity, expiration);

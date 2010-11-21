@@ -23,7 +23,7 @@ import org.oasisopen.sca.annotation.Remotable;
 
 @Remotable
 public interface UserService {
-    
+
     public User getCurrentUser();
 
     public boolean isUserAdmin();
@@ -35,6 +35,5 @@ public interface UserService {
     public String createLoginURL(String destinationURL, String authDomain);
 
     public String createLogoutURL(String destinationURL, String authDomain);
-
 
 }

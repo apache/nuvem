@@ -8,7 +8,6 @@ import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
 
 /**
  * Default message listener which will log the message information.
- *
  */
 public class LoggingMessageListener implements MessageListener {
 

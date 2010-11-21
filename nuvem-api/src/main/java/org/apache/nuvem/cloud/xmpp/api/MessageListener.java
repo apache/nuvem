@@ -4,7 +4,6 @@ import org.apache.nuvem.cloud.xmpp.common.LoggingMessageListener;
 
 /**
  * Listens to XMPP messages of a specific type.
- *
  */
 public interface MessageListener {
 
@@ -15,7 +14,7 @@ public interface MessageListener {
 
     /**
      * Listens for messages.
-     *
+     * 
      * @param message
      */
     void listen(Message message);

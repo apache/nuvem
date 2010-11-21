@@ -23,9 +23,7 @@ import org.oasisopen.sca.annotation.Remotable;
 
 @Remotable
 public interface CurrencyConverter {
-    public double getConversion(String fromCurrenycCode, 
-                                String toCurrencyCode, 
-                                double amount);
+    public double getConversion(String fromCurrenycCode, String toCurrencyCode, double amount);
 
     public String getCurrencySymbol(String currencyCode);
 }

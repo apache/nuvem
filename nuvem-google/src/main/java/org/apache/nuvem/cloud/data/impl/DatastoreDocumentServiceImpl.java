@@ -51,18 +51,17 @@ public class DatastoreDocumentServiceImpl implements DocumentService<Key, Entity
         Entity entity = null;
 
         try {
-            entity =  googleDataStoreService.get(key);
-        } catch(EntityNotFoundException nf) {
+            entity = googleDataStoreService.get(key);
+        } catch (EntityNotFoundException nf) {
             throw new NotFoundException(nf);
         }
 
         return entity;
     }
 
-
     public Key post(Key key, Entity entity) {
 
-        if( key == null ) {
+        if (key == null) {
             key = KeyFactory.createKey("key", UUID.randomUUID().toString());
         }
 
@@ -70,8 +69,8 @@ public class DatastoreDocumentServiceImpl implements DocumentService<Key, Entity
     }
 
     public void put(Key key, Entity entity) throws NotFoundException {
-        if( get(key) == null) {
-            throw new NotFoundException("Could not find entity with key '" + key.toString() +"'");
+        if (get(key) == null) {
+            throw new NotFoundException("Could not find entity with key '" + key.toString() + "'");
         }
 
         googleDataStoreService.put(entity);

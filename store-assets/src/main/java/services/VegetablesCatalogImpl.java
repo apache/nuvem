@@ -27,21 +27,27 @@ import org.oasisopen.sca.annotation.Property;
 import org.oasisopen.sca.annotation.Reference;
 
 public class VegetablesCatalogImpl implements Catalog {
-    
+
     @Property
     public String currencyCode = "USD";
-    
+
     @Reference
     public CurrencyConverter currencyConverter;
-    
+
     private List<Item> catalog = new ArrayList<Item>();
 
     @Init
     public void init() {
         String currencySymbol = currencyConverter.getCurrencySymbol(currencyCode);
-        catalog.add(new Item("Broccoli",  currencyCode, currencySymbol, currencyConverter.getConversion("USD", currencyCode, 2.99)));
-        catalog.add(new Item("Asparagus", currencyCode, currencySymbol, currencyConverter.getConversion("USD", currencyCode, 3.55)));
-        catalog.add(new Item("Cauliflower", currencyCode, currencySymbol, currencyConverter.getConversion("USD", currencyCode, 1.55)));
+        catalog.add(new Item("Broccoli", currencyCode, currencySymbol, currencyConverter.getConversion("USD",
+                                                                                                       currencyCode,
+                                                                                                       2.99)));
+        catalog.add(new Item("Asparagus", currencyCode, currencySymbol, currencyConverter.getConversion("USD",
+                                                                                                        currencyCode,
+                                                                                                        3.55)));
+        catalog.add(new Item("Cauliflower", currencyCode, currencySymbol, currencyConverter.getConversion("USD",
+                                                                                                          currencyCode,
+                                                                                                          1.55)));
     }
 
     public Item[] items() {

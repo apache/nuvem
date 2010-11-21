@@ -22,7 +22,6 @@ package org.apache.nuvem.cloud.xmpp.api;
 
 /**
  * Used to label the type of content present in the payload of a message.
- *
  */
 public enum ContentType {
     PLAN_STRING, GROUP_CHAT;

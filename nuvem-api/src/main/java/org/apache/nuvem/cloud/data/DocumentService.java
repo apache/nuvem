@@ -22,7 +22,7 @@ package org.apache.nuvem.cloud.data;
 import org.apache.tuscany.sca.data.collection.Collection;
 import org.apache.tuscany.sca.data.collection.NotFoundException;
 
-public interface DocumentService<K, D> extends Collection <K, D>{
+public interface DocumentService<K, D> extends Collection<K, D> {
 
     /**
      * Delete multiple items.

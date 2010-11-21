@@ -20,17 +20,22 @@
 package org.apache.nuvem.cloud.user;
 
 public class UserContext extends User {
-	private static final long serialVersionUID = 1339319191804052423L;
+    private static final long serialVersionUID = 1339319191804052423L;
 
-	protected String loginUrl;
+    protected String loginUrl;
     protected String logoutUrl;
     protected boolean isUserLoggedIn;
 
     public UserContext() {
-    	super();
+        super();
     }
 
-    public UserContext(String userId, String nickName, String email, boolean isUserLoggedIn, String loginUrl, String logoutUrl) {
+    public UserContext(String userId,
+                       String nickName,
+                       String email,
+                       boolean isUserLoggedIn,
+                       String loginUrl,
+                       String logoutUrl) {
         super(userId, nickName, email);
         this.isUserLoggedIn = isUserLoggedIn;
         this.loginUrl = loginUrl;

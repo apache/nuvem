@@ -22,7 +22,6 @@ package org.apache.nuvem.cloud.xmpp.api;
 
 /**
  * XMPP error codes.
- *
  */
 public enum ErrorCode {
 

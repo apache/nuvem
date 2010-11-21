@@ -2,7 +2,6 @@ package org.apache.nuvem.cloud.xmpp.api;
 
 /**
  * Thrown when unknown exception occurs at the layer beneath nuvem.
- *
  */
 public class XMPPException extends RuntimeException {
 

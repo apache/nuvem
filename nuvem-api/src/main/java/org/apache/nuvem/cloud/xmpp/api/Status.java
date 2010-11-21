@@ -26,7 +26,6 @@ import java.util.List;
 /**
  * The status of sending a message to indicate whether was message was sent to
  * the recipient successfully or was there any error.
- *
  */
 public final class Status {
 
