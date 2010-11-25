@@ -45,7 +45,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * Test the store-merger.
- * 
+ *
  * @version $Rev$ $Date$
  */
 public class StoreTestCase {
@@ -98,7 +98,7 @@ public class StoreTestCase {
         // webClient.waitForBackgroundJavaScriptStartingBefore(100000);
         webClient.setAjaxController(new NicelyResynchronizingAjaxController());
 
-        HtmlPage page = (HtmlPage)webClient.getPage("http://localhost:8080/store/store.html");
+        HtmlPage page = (HtmlPage)webClient.getPage("http://localhost:8085/store/store.html");
 
         HtmlForm form = (HtmlForm)page.getFormByName("catalogForm");
 
