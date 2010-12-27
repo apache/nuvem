@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.nuvem.cloud.data.DocumentService;
 import org.apache.tuscany.sca.data.collection.Entry;
 import org.apache.tuscany.sca.data.collection.NotFoundException;
@@ -110,4 +111,9 @@ public class ShoppingCartImpl implements ShoppingCart {
         }
         return currencySymbol + String.valueOf(total);
     }
+
+	@Override
+	public String shipItems(String jid) {
+		return StringUtils.EMPTY;
+	}
 }

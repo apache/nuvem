@@ -19,18 +19,23 @@
 
 package services;
 
+import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 import net.sf.jsr107cache.Cache;
 import net.sf.jsr107cache.CacheManager;
 
 import org.apache.nuvem.cloud.user.User;
 import org.apache.nuvem.cloud.user.UserService;
+import org.apache.nuvem.cloud.xmpp.api.JID;
 import org.apache.tuscany.sca.data.collection.Entry;
 import org.apache.tuscany.sca.data.collection.NotFoundException;
 import org.oasisopen.sca.annotation.Init;
@@ -46,6 +51,9 @@ public class CachedShoppingCartManager implements ShoppingCart {
 
     private Cache cache;
 
+	@Reference
+	private ShipmentService shipmentService;
+	
     @Init
     public void init() {
         try {
@@ -187,4 +195,16 @@ public class CachedShoppingCartManager implements ShoppingCart {
 
         return cartMap;
     }
+
+	@Override
+	public String shipItems(String jid) {
+		List<Item> items = new ArrayList<Item>();
+		items.addAll(getUserItems().values());
+		try {
+			return shipmentService.shipItemsAndRegisterForUpdates(
+					Address.DUMMY_ADDRESS, new JID(jid), items);
+		} catch (ShipmentException e) {
+			return "shipment error";
+		}
+	}
 }

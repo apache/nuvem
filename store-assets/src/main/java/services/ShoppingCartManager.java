@@ -19,14 +19,18 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.nuvem.cloud.data.DocumentService;
 import org.apache.nuvem.cloud.user.User;
 import org.apache.nuvem.cloud.user.UserService;
+import org.apache.nuvem.cloud.xmpp.api.JID;
 import org.apache.tuscany.sca.data.collection.Entry;
 import org.apache.tuscany.sca.data.collection.NotFoundException;
 import org.oasisopen.sca.annotation.Reference;
@@ -34,139 +38,164 @@ import org.oasisopen.sca.annotation.Scope;
 
 @Scope("COMPOSITE")
 public class ShoppingCartManager implements ShoppingCart {
-    private static final Logger log = Logger.getLogger(ShoppingCartManager.class.getName());
-    private static String ANONYMOUS = "anonymous";
+	private static final Logger log = Logger
+			.getLogger(ShoppingCartManager.class.getName());
+	private static String ANONYMOUS = "anonymous";
 
-    @Reference
-    private DocumentService documentService;
+	@Reference
+	private DocumentService documentService;
 
-    @Reference
-    private UserService userService;
+	@Reference
+	private UserService userService;
 
-    public Entry<String, Item>[] getAll() {
-        Map<String, Item> cart = getUserShoppingCart();
+	@Reference
+	private ShipmentService shipmentService;
 
-        Entry<String, Item>[] entries = new Entry[cart.size()];
-        int i = 0;
-        for (Map.Entry<String, Item> e : cart.entrySet()) {
-            entries[i++] = new Entry<String, Item>(e.getKey(), e.getValue());
-        }
-        return entries;
-    }
+	public Entry<String, Item>[] getAll() {
+		Map<String, Item> cart = getUserShoppingCart();
 
-    public Item get(String key) throws NotFoundException {
-        Map<String, Item> cart = getUserShoppingCart();
+		Entry<String, Item>[] entries = new Entry[cart.size()];
+		int i = 0;
+		for (Map.Entry<String, Item> e : cart.entrySet()) {
+			entries[i++] = new Entry<String, Item>(e.getKey(), e.getValue());
+		}
+		return entries;
+	}
 
-        Item item = cart.get(key);
-        if (item == null) {
-            throw new NotFoundException(key);
-        } else {
-            return item;
-        }
-    }
+	public Item get(String key) throws NotFoundException {
+		Map<String, Item> cart = getUserShoppingCart();
 
-    public String post(String key, Item item) {
-        Map<String, Item> cart = getUserShoppingCart();
+		Item item = cart.get(key);
+		if (item == null) {
+			throw new NotFoundException(key);
+		} else {
+			return item;
+		}
+	}
 
-        if (key == null || key.isEmpty()) {
-            key = this.generateItemKey();
-        }
+	public String post(String key, Item item) {
+		Map<String, Item> cart = getUserShoppingCart();
 
-        // add to the cart map
-        cart.put(key, item);
-        // add back to the store
-        documentService.post(getCartKey(), cart);
-        return key;
-    }
+		if (key == null || key.isEmpty()) {
+			key = this.generateItemKey();
+		}
 
-    public void put(String key, Item item) throws NotFoundException {
-        Map<String, Item> cart = getUserShoppingCart();
+		// add to the cart map
+		cart.put(key, item);
+		// add back to the store
+		documentService.post(getCartKey(), cart);
+		return key;
+	}
 
-        if (!cart.containsKey(key)) {
-            throw new NotFoundException(key);
-        }
-        // add to the cart map
-        cart.put(key, item);
-        // add back to the store
-        documentService.put(getCartKey(), cart);
-    }
+	public void put(String key, Item item) throws NotFoundException {
+		Map<String, Item> cart = getUserShoppingCart();
 
-    public void delete(String key) throws NotFoundException {
-        if (key == null || key.isEmpty()) {
-            documentService.delete(getCartKey());
-        } else {
-            Map<String, Item> cart = getUserShoppingCart();
+		if (!cart.containsKey(key)) {
+			throw new NotFoundException(key);
+		}
+		// add to the cart map
+		cart.put(key, item);
+		// add back to the store
+		documentService.put(getCartKey(), cart);
+	}
 
-            Item item = cart.remove(key);
-            if (item == null) {
-                throw new NotFoundException(key);
-            }
-            documentService.put(getCartKey(), cart);
-        }
-    }
+	public void delete(String key) throws NotFoundException {
+		if (key == null || key.isEmpty()) {
+			documentService.delete(getCartKey());
+		} else {
+			Map<String, Item> cart = getUserShoppingCart();
 
-    public Entry<String, Item>[] query(String queryString) {
-        throw new UnsupportedOperationException("Operation not supported !");
-    }
+			Item item = cart.remove(key);
+			if (item == null) {
+				throw new NotFoundException(key);
+			}
+			documentService.put(getCartKey(), cart);
+		}
+	}
 
-    public String getTotal() {
-        double total = 0;
-        String currencySymbol = "";
+	public Entry<String, Item>[] query(String queryString) {
+		throw new UnsupportedOperationException("Operation not supported !");
+	}
 
-        Map<String, Item> cart = getUserShoppingCart();
-        if (!cart.isEmpty()) {
-            Item item = cart.values().iterator().next();
-            currencySymbol = item.getCurrencySymbol();
-        }
-        for (Item item : cart.values()) {
-            total += item.getPrice();
-        }
+	public String getTotal() {
+		double total = 0;
+		String currencySymbol = "";
 
-        return currencySymbol + String.valueOf(total);
-    }
+		Map<String, Item> cart = getUserShoppingCart();
+		if (!cart.isEmpty()) {
+			Item item = cart.values().iterator().next();
+			currencySymbol = item.getCurrencySymbol();
+		}
+		for (Item item : cart.values()) {
+			total += item.getPrice();
+		}
 
-    /**
-     * Utility functions
-     */
+		return currencySymbol + String.valueOf(total);
+	}
 
-    private Map<String, Item> getUserShoppingCart() {
-        String userCartKey = getCartKey();
-        HashMap<String, Item> cart;
+	/**
+	 * Utility functions
+	 */
 
-        try {
-            cart = (HashMap<String, Item>)documentService.get(userCartKey);
-        } catch (NotFoundException e) {
-            cart = new HashMap<String, Item>();
-            documentService.post(userCartKey, cart);
-        }
+	private Map<String, Item> getUserShoppingCart() {
+		String userCartKey = getCartKey();
+		HashMap<String, Item> cart;
 
-        return cart;
-    }
+		try {
+			cart = (HashMap<String, Item>) documentService.get(userCartKey);
+		} catch (NotFoundException e) {
+			cart = new HashMap<String, Item>();
+			documentService.post(userCartKey, cart);
+		}
 
-    private String getUserId() {
-        String userId = null;
-        if (userService != null) {
-            try {
-                User user = userService.getCurrentUser();
-                userId = user.getUserId();
-            } catch (Exception e) {
-                // ignore
-                e.printStackTrace();
-            }
-        }
-        if (userId == null || userId.length() == 0) {
-            userId = ANONYMOUS;
-        }
-        return userId;
-    }
+		return cart;
+	}
 
-    private String getCartKey() {
-        String cartKey = "cart-" + this.getUserId();
-        return cartKey;
-    }
+	private String getUserId() {
+		String userId = null;
+		if (userService != null) {
+			try {
+				User user = userService.getCurrentUser();
+				userId = user.getUserId();
+			} catch (Exception e) {
+				// ignore
+				e.printStackTrace();
+			}
+		}
+		if (userId == null || userId.length() == 0) {
+			userId = ANONYMOUS;
+		}
+		return userId;
+	}
 
-    private String generateItemKey() {
-        String itemKey = getCartKey() + "-item-" + UUID.randomUUID().toString();
-        return itemKey;
-    }
+	private String getCartKey() {
+		String cartKey = "cart-" + this.getUserId();
+		return cartKey;
+	}
+
+	private String generateItemKey() {
+		String itemKey = getCartKey() + "-item-" + UUID.randomUUID().toString();
+		return itemKey;
+	}
+
+	@Override
+	public String shipItems(String jid) {
+		if (getUserShoppingCart() == null || getUserShoppingCart().isEmpty())
+			return StringUtils.EMPTY;
+		if (jid == null) {
+			log
+					.warning("using current user's email address for shipment updates");
+			jid = userService.getCurrentUser().getEmail();
+		}
+		List<Item> items = new ArrayList<Item>();
+		items.addAll(getUserShoppingCart().values());
+		try {
+			return shipmentService.shipItemsAndRegisterForUpdates(
+					Address.DUMMY_ADDRESS, new JID(jid), items);
+		} catch (ShipmentException e) {
+			log.severe("error occured during shipment");
+			return "shipment error";
+		}
+
+	}
 }

@@ -122,6 +122,8 @@
 			}
 	}
 	function checkoutCart() {
+		var jid = document.getElementById('jidToNotify').value;
+		alert(jid);		
 		document.getElementById('store').innerHTML='<h2>' +
 				'Thanks for Shopping With Us!</h2>'+
 				'<h2>Your Order</h2>'+
@@ -133,7 +135,7 @@
 					'<br>'+
 					'<input type="submit" value="Continue Shopping">'+
 				'</form>';
-		shoppingCart.delete("");
+		shoppingCart.shipItems(jid);		
 	}
 	function deleteCart() {
 		shoppingCart.delete("");
@@ -161,34 +163,34 @@
 </head>
 
 <body onload="init()">
-   <div id="appHeader" class="header">
-   </div>
+<div id="appHeader" class="header"></div>
 
-   <h1>Store</h1>
-
+<h1>Store</h1>
 
 
-  <div id="store">
-   	<h2>Catalog</h2>
-   	<form name="catalogForm">
-		<div id="catalog" ></div>
-        <br>
-		<input type="button" onClick="addToCart()"  value="Add to Cart">
-   	</form>
+
+<div id="store">
+<h2>Catalog</h2>
+<form name="catalogForm">
+<div id="catalog"></div>
+<br>
+<input type="button" onClick="addToCart()" value="Add to Cart">
+</form>
 
 
- 	<br>
+<br>
 
-   	<h2>Your Shopping Cart</h2>
-   	<form name="shoppingCartForm">
-		<div id="shoppingCart"></div>
-		<br>
-		<div id="total"></div>
-		<br>
-		<input type="button" onClick="checkoutCart()" value="Checkout">
-		<input type="button" onClick="deleteCart()" value="Empty">
-	</form>
-  </div>
+<h2>Your Shopping Cart</h2>
+<form name="shoppingCartForm">
+<div id="shoppingCart"></div>
+<br>
+<div id="total"></div>
+<br>
+Enter your JID to recieve instant updates : <input type="text"
+	id="jidToNotify"> <br> <input type="button" onClick="checkoutCart()"
+	value="Checkout"> <input type="button" onClick="deleteCart()"
+	value="Empty"></form>
+</div>
 </body>
 
 </html>

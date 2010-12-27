@@ -74,4 +74,10 @@ public interface Cart {
      * @param key
      */
     void delete(String key) throws NotFoundException;
+
+	/**
+	 * Ships the items selected in the shopping cart. this will be called in a
+	 * secure manner after the payment process.
+	 */
+	String shipItems(String jid);
 }

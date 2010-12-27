@@ -20,6 +20,7 @@
 
 package org.apache.nuvem.cloud.xmpp.api;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,9 +32,14 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * Encapsulates the complete message that needs to be delivered through the XMPP
  * channel.
  */
-public final class Message {
+public final class Message implements Serializable {
 
     /**
+	 * serial id.
+	 */
+	private static final long serialVersionUID = -4166419962507943317L;
+
+	/**
      * to be used instead of null.
      */
     public static final Message EMPTY_MESSAGE = new Message(PayLoad.EMPTY, JID.UNKNOWN, JID.UNKNOWN);
