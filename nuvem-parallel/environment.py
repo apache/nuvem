@@ -15,24 +15,23 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-# Mockup component references for testing
+# Mockup request environment variable for testing
 
-class reference:
-    def __init__(self, name, l):
+class environment:
+    def __init__(self, name):
         self.name = name
-        self.l = l
+        self.value = None
 
-    def __call__(self, *args):
-        return self.l(*args)
+    def get(self, id):
+        return self.value
 
-    def __getattr__(self, name):
-        if name == "get" or name == "put":
-            return self
-        raise AttributeError()
+    def put(self, id, value):
+        self.value = value
+        return True
 
     def __repr__(self):
-        return repr((self.name, self.l))
+        return repr((self.name, self.value))
 
-def mkref(name, l):
-    return reference(name, l)
+def mkenv(name):
+    return environment(name)
 

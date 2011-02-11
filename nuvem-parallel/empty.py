@@ -15,24 +15,6 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-# Mockup component references for testing
-
-class reference:
-    def __init__(self, name, l):
-        self.name = name
-        self.l = l
-
-    def __call__(self, *args):
-        return self.l(*args)
-
-    def __getattr__(self, name):
-        if name == "get" or name == "put":
-            return self
-        raise AttributeError()
-
-    def __repr__(self):
-        return repr((self.name, self.l))
-
-def mkref(name, l):
-    return reference(name, l)
+def get(id):
+    return ()
 

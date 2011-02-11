@@ -15,24 +15,10 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-# Mockup component references for testing
+def get(id, var, cond, l):
+    def cfun(i):
+        var.put(('var',), i)
+        return cond.get(())
 
-class reference:
-    def __init__(self, name, l):
-        self.name = name
-        self.l = l
-
-    def __call__(self, *args):
-        return self.l(*args)
-
-    def __getattr__(self, name):
-        if name == "get" or name == "put":
-            return self
-        raise AttributeError()
-
-    def __repr__(self):
-        return repr((self.name, self.l))
-
-def mkref(name, l):
-    return reference(name, l)
+    return tuple(filter(cfun, l.get(())))
 

@@ -21,6 +21,7 @@
 import unittest
 from property import *
 from reference import *
+from environment import *
 
 import true_
 import false_
@@ -36,6 +37,12 @@ import not_
 import equals
 import lesser
 import greater
+import list_
+import empty
+import first
+import rest
+import foreach
+import filter_
 
 def testValues():
     assert true_.get(()) == True
@@ -61,6 +68,20 @@ def testValues():
     assert greater.get((), mkref('a', lambda id: 'abc'), mkref('b', lambda id: 'abc')) == False
     assert greater.get((), mkref('a', lambda id: 'def'), mkref('b', lambda id: 'abc')) == True
 
+    assert list_.get((), mkref('first', lambda id: 'abc'), mkref('rest', lambda id: None)) == ('abc',)
+    assert list_.get((), mkref('first', lambda id: 'abc'), mkref('rest', lambda id: ())) == ('abc',)
+    assert list_.get((), mkref('first', lambda id: 'abc'), mkref('rest', lambda id: ('def',))) == ('abc','def')
+    assert list_.get((), mkref('first', lambda id: 'abc'), mkref('rest', lambda id: ('def', 'ghi'))) == ('abc','def', 'ghi')
+    assert empty.get(()) == ()
+    assert first.get((), mkref('l', lambda id: ('abc', 'def'))) == 'abc'
+    assert rest.get((), mkref('l', lambda id: ('abc', 'def', 'ghi'))) == ('def', 'ghi')
+    assert rest.get((), mkref('l', lambda id: ('abc',))) == ()
+
+    foreachenv = mkenv('foreach')
+    assert foreach.get((), foreachenv, mkref('transform', lambda id: foreachenv.get(()) * 2), mkref('list', lambda id: (1, 2, 3))) == (2, 4, 6)
+
+    filterenv = mkenv('filter')
+    assert filter_.get((), filterenv, mkref('transform', lambda id: filterenv.get(()) % 2 == 0), mkref('list', lambda id: (1, 2, 3, 4))) == (2, 4)
     return True
 
 if __name__ == '__main__':
