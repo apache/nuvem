@@ -23,26 +23,26 @@ from property import *
 from reference import *
 from environment import *
 
-import true_
-import false_
-import number
-import text
-import name
-import nothing
-import pair
-import if_
-import and_
-import or_
-import not_
-import equals
-import lesser
-import greater
-import list_
-import empty
-import first
-import rest
-import foreach
-import filter_
+from nuvem import true_
+from nuvem import false_
+from nuvem import number
+from nuvem import text
+from nuvem import name
+from nuvem import nothing
+from nuvem import pair
+from nuvem import if_
+from nuvem import and_
+from nuvem import or_
+from nuvem import not_
+from nuvem import equals
+from nuvem import lesser
+from nuvem import greater
+from nuvem import list_
+from nuvem import empty
+from nuvem import first
+from nuvem import rest
+from nuvem import foreach
+from nuvem import filter_
 
 def testValues():
     assert true_.get(()) == True
