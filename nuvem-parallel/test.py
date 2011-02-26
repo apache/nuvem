@@ -29,7 +29,7 @@ from nuvem import number
 from nuvem import text
 from nuvem import name
 from nuvem import nothing
-from nuvem import pair
+from nuvem import assoc
 from nuvem import if_
 from nuvem import and_
 from nuvem import or_
@@ -41,8 +41,31 @@ from nuvem import list_
 from nuvem import empty
 from nuvem import first
 from nuvem import rest
-from nuvem import foreach
+from nuvem import append
+from nuvem import itemnb
+from nuvem import find
+from nuvem import reverse
+from nuvem import range_
+from nuvem import map_
+from nuvem import valueof
 from nuvem import filter_
+from nuvem import reduce_
+from nuvem import add
+from nuvem import subtract
+from nuvem import multiply
+from nuvem import divide
+from nuvem import host
+from nuvem import path
+from nuvem import params
+from nuvem import user
+from nuvem import realm
+from nuvem import email
+from nuvem import contains
+from nuvem import split
+from nuvem import join
+from nuvem import replace
+from nuvem import lowercase
+from nuvem import uppercase
 
 def testValues():
     assert true_.get(()) == True
@@ -51,41 +74,78 @@ def testValues():
     assert number.get((), mkprop('value', lambda: 1)) == 1
     assert text.get((), mkprop('value', lambda: 'abc')) == 'abc'
     assert name.get((), mkprop('value', lambda: 'abc')) == "'abc"
-    assert pair.get((), mkref('a', lambda id: 'abc'), mkref('b', lambda id: 'def')) == ('abc', 'def')
+    assert assoc.get((), mkref('a', lambda r: 'abc'), mkref('b', lambda r: 'def')) == ('abc', 'def')
+    return True
 
-    assert if_.get((), mkref('cond', lambda id: True), mkref('then', lambda id: 'abc'), mkref('els', lambda id: 'def')) == 'abc'
-    assert if_.get((), mkref('cond', lambda id: False), mkref('then', lambda id: 'abc'), mkref('els', lambda id: 'def')) == 'def'
-    assert and_.get((), mkref('a', lambda id: False), mkref('b', lambda id: True)) == False
-    assert and_.get((), mkref('a', lambda id: True), mkref('b', lambda id: True)) == True
-    assert or_.get((), mkref('a', lambda id: False), mkref('b', lambda id: False)) == False
-    assert or_.get((), mkref('a', lambda id: False), mkref('b', lambda id: True)) == True
-    assert not_.get((), mkref('expr', lambda id: False)) == True
-    assert not_.get((), mkref('expr', lambda id: True)) == False
-    assert equals.get((), mkref('a', lambda id: 'abc'), mkref('b', lambda id: 'abc')) == True
-    assert equals.get((), mkref('a', lambda id: 'abc'), mkref('b', lambda id: 'def')) == False
-    assert lesser.get((), mkref('a', lambda id: 'abc'), mkref('b', lambda id: 'abc')) == False
-    assert lesser.get((), mkref('a', lambda id: 'abc'), mkref('b', lambda id: 'def')) == True
-    assert greater.get((), mkref('a', lambda id: 'abc'), mkref('b', lambda id: 'abc')) == False
-    assert greater.get((), mkref('a', lambda id: 'def'), mkref('b', lambda id: 'abc')) == True
+def testLogic():
+    assert if_.get((), mkref('cond', lambda r: True), mkref('then', lambda r: 'abc'), mkref('els', lambda r: 'def')) == 'abc'
+    assert if_.get((), mkref('cond', lambda r: False), mkref('then', lambda r: 'abc'), mkref('els', lambda r: 'def')) == 'def'
+    assert and_.get((), mkref('a', lambda r: False), mkref('b', lambda r: True)) == False
+    assert and_.get((), mkref('a', lambda r: True), mkref('b', lambda r: True)) == True
+    assert or_.get((), mkref('a', lambda r: False), mkref('b', lambda r: False)) == False
+    assert or_.get((), mkref('a', lambda r: False), mkref('b', lambda r: True)) == True
+    assert not_.get((), mkref('expr', lambda r: False)) == True
+    assert not_.get((), mkref('expr', lambda r: True)) == False
+    assert equals.get((), mkref('a', lambda r: 'abc'), mkref('b', lambda r: 'abc')) == True
+    assert equals.get((), mkref('a', lambda r: 'abc'), mkref('b', lambda r: 'def')) == False
+    assert lesser.get((), mkref('a', lambda r: 'abc'), mkref('b', lambda r: 'abc')) == False
+    assert lesser.get((), mkref('a', lambda r: 'abc'), mkref('b', lambda r: 'def')) == True
+    assert greater.get((), mkref('a', lambda r: 'abc'), mkref('b', lambda r: 'abc')) == False
+    assert greater.get((), mkref('a', lambda r: 'def'), mkref('b', lambda r: 'abc')) == True
+    return True
 
-    assert list_.get((), mkref('first', lambda id: 'abc'), mkref('rest', lambda id: None)) == ('abc',)
-    assert list_.get((), mkref('first', lambda id: 'abc'), mkref('rest', lambda id: ())) == ('abc',)
-    assert list_.get((), mkref('first', lambda id: 'abc'), mkref('rest', lambda id: ('def',))) == ('abc','def')
-    assert list_.get((), mkref('first', lambda id: 'abc'), mkref('rest', lambda id: ('def', 'ghi'))) == ('abc','def', 'ghi')
+def testLists():
+    assert list_.get((), mkref('first', lambda r: 'abc'), mkref('rest', lambda r: None)) == ('abc',)
+    assert list_.get((), mkref('first', lambda r: 'abc'), mkref('rest', lambda r: ())) == ('abc',)
+    assert list_.get((), mkref('first', lambda r: 'abc'), mkref('rest', lambda r: ('def',))) == ('abc', 'def')
+    assert list_.get((), mkref('first', lambda r: 'abc'), mkref('rest', lambda r: ('def', 'ghi'))) == ('abc', 'def', 'ghi')
     assert empty.get(()) == ()
-    assert first.get((), mkref('l', lambda id: ('abc', 'def'))) == 'abc'
-    assert rest.get((), mkref('l', lambda id: ('abc', 'def', 'ghi'))) == ('def', 'ghi')
-    assert rest.get((), mkref('l', lambda id: ('abc',))) == ()
+    assert first.get((), mkref('l', lambda r: ('abc', 'def'))) == 'abc'
+    assert rest.get((), mkref('l', lambda r: ('abc', 'def', 'ghi'))) == ('def', 'ghi')
+    assert rest.get((), mkref('l', lambda r: ('abc',))) == ()
+    assert append.get((), mkref('l', lambda r: ('abc', 'def')), mkref('b', lambda r: ('ghi',))) == ('abc', 'def', 'ghi')
+    assert itemnb.get((), mkref('i', lambda r: 1), mkref('l', lambda r: ('abc', 'def', 'ghi'))) == 'def'
+    assert find.get((), mkref('n', lambda r: "'d"), mkref('l', lambda r: (("'a", 'abc'), ("'d", 'def'), ("'g", 'ghi')))) == 'def'
+    assert reverse.get((), mkref('l', lambda r: ('abc', 'def', 'ghi'))) == ('ghi', 'def', 'abc')
+    assert range_.get((), mkref('a', lambda r: '1'), mkref('b', lambda r: '4')) == (1, 2, 3)
 
-    foreachenv = mkenv('foreach')
-    assert foreach.get((), foreachenv, mkref('transform', lambda id: foreachenv.get(()) * 2), mkref('list', lambda id: (1, 2, 3))) == (2, 4, 6)
+    assert map_.get((), mkref('item', lambda r: "'i"), mkref('transform', lambda r: valueof.get(r, mkprop('name', lambda: 'i')) * 2), mkref('list', lambda r: (1, 2, 3))) == (2, 4, 6)
+    assert filter_.get((), mkref('item', lambda r: "'i"), mkref('cond', lambda r: valueof.get(r, mkprop('name', lambda: 'i')) % 2 == 0), mkref('list', lambda r: (1, 2, 3, 4))) == (2, 4)
+    assert reduce_.get((), mkref('item', lambda r: "'i"), mkref('accum', lambda r: "'a"), mkref('transform', lambda r: valueof.get(r, mkprop('name', lambda: 'a')) + valueof.get(r, mkprop('name', lambda: 'i'))), mkref('list', lambda r: (1, 2, 3, 4))) == 10
+    return True
 
-    filterenv = mkenv('filter')
-    assert filter_.get((), filterenv, mkref('transform', lambda id: filterenv.get(()) % 2 == 0), mkref('list', lambda id: (1, 2, 3, 4))) == (2, 4)
+def testMath():
+    assert add.get((), mkref('a', lambda r: 3), mkref('b', lambda r: 2)) == 5
+    assert subtract.get((), mkref('a', lambda r: 3), mkref('b', lambda r: 2)) == 1
+    assert multiply.get((), mkref('a', lambda r: 2), mkref('b', lambda r: 3)) == 6
+    assert divide.get((), mkref('a', lambda r: 3), mkref('b', lambda r: 2)) == 1.5
+    return True
+
+def testURL():
+    assert host.get((), mkprop('host', lambda: 'localhost')) == 'localhost'
+    assert path.get((), mkprop('path', lambda: ('abc', 'def'))) == ('abc', 'def')
+    assert params.get((), mkprop('params', lambda: (("'a", 'abc'), ("'d", 'def')))) == (("'a", 'abc'), ("'d", 'def'))
+    assert user.get((), mkprop('user', lambda: 'joe')) == 'joe'
+    assert realm.get((), mkprop('realm', lambda: 'localhost')) == 'localhost'
+    assert email.get((), mkprop('email', lambda: 'joe@localhost')) == 'joe@localhost'
+    return True
+
+def testText():
+    assert contains.get((), mkref('sub', lambda r: 'bc'), mkref('s', lambda r: 'abcd')) == True
+    assert split.get((), mkref('sep', lambda r: 'x'), mkref('s', lambda r: 'abcxdef')) == ('abc', 'def')
+    assert join.get((), mkref('sep', lambda r: 'x'), mkref('s', lambda r: ('abc', 'def'))) == 'abcxdef'
+    assert replace.get((), mkref('from', lambda r: 'x'), mkref('to', lambda r: 'y'), mkref('s', lambda r: 'abcxdefxghi')) == 'abcydefyghi'
+    assert lowercase.get((), mkref('s', lambda r: 'ABC')) == 'abc'
+    assert uppercase.get((), mkref('s', lambda r: 'abc')) == 'ABC'
     return True
 
 if __name__ == '__main__':
     print 'Testing...'
     testValues()
+    testLogic()
+    testLists()
+    testMath()
+    testURL()
+    testText()
     print 'OK'
 

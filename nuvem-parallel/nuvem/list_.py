@@ -15,9 +15,9 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(id, first, rest):
-    r = rest.get(())
-    if r is None:
-        return (first.get(()),)
-    return (first.get(()),) + r
+def get(r, first, rest):
+    rst = rest.get(r)
+    if rst is None:
+        return (first.get(r),)
+    return (first.get(r),) + rst
 

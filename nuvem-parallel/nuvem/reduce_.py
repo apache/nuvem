@@ -15,6 +15,12 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, a, b):
-    return a.get(r) and b.get(r)
+def get(r, item, accum, transform, l):
+    iv = item.get(r)
+    av = accum.get(r)
+
+    def tfun(a, i):
+        return transform.get(r + ((av, a), (iv, i)))
+
+    return reduce(tfun, l.get(r))
 

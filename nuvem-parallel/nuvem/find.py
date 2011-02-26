@@ -15,6 +15,14 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, a, b):
-    return a.get(r) and b.get(r)
+def get(r, n, l):
+    def lookup(nv, lv):
+        if lv == ():
+            return None
+        a = lv[0]
+        if a[0] == nv:
+            return a[1]
+        return lookup(nv, lv[1:])
+
+    return lookup(n.get(r), l.get(r))
 

@@ -15,10 +15,11 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(id, var, cond, l):
-    def cfun(i):
-        var.put(('var',), i)
-        return cond.get(())
+def get(r, item, cond, l):
+    iv = item.get(r)
 
-    return tuple(filter(cfun, l.get(())))
+    def cfun(i):
+        return cond.get(r + ((iv, i),))
+
+    return tuple(filter(cfun, l.get(r)))
 

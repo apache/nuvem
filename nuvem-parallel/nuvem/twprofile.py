@@ -15,6 +15,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, a, b):
-    return a.get(r) and b.get(r)
+def get(r, twid, tw):
+    tid = twid.get(r)
+    return tw.get((("'screen_name", tid),))
 

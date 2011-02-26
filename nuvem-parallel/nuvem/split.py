@@ -15,6 +15,6 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, a, b):
-    return a.get(r) and b.get(r)
+def get(r, sep, s):
+    return tuple(s.get(r).split(sep.get(r)))
 

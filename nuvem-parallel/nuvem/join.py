@@ -15,6 +15,8 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, a, b):
-    return a.get(r) and b.get(r)
+import string
+
+def get(r, sep, l):
+    return string.join(l.get(r), sep.get(r))
 

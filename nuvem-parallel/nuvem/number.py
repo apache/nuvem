@@ -15,6 +15,6 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(id, prop):
+def get(r, prop):
     return float(prop.eval())
 

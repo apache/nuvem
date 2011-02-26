@@ -15,6 +15,11 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, a, b):
-    return a.get(r) and b.get(r)
+def get(r, item, transform, l):
+    iv = item.get(r)
+
+    def tfun(i):
+        return transform.get(r + ((iv, i),))
+
+    return tuple(map(tfun, l.get(r)))
 

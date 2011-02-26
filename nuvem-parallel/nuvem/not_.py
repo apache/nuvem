@@ -15,6 +15,6 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(id, expr):
-    return not expr.get(())
+def get(r, expr):
+    return not expr.get(r)
 

@@ -16,5 +16,5 @@
 #  under the License.
 
 def get(r, a, b):
-    return a.get(r) and b.get(r)
+    return a.get(r) + b.get(r)
 

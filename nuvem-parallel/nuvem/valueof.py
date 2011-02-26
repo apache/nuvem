@@ -15,6 +15,21 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, a, b):
-    return a.get(r) and b.get(r)
+def get(r, name):
+    def isList(v):
+        if getattr(v, '__iter__', False) == False:
+            return False
+        if isinstance(v, basestring) or isinstance(v, dict):
+            return False
+        return True
+
+    def lookup(n, r):
+        if r == ():
+            return None
+        a = r[0]
+        if isList(a) and a[0] == n:
+            return a[1]
+        return lookup(n, r[1:])
+
+    return lookup("'" + name.eval(), r)
 

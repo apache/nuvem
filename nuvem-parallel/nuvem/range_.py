@@ -16,5 +16,5 @@
 #  under the License.
 
 def get(r, a, b):
-    return a.get(r) and b.get(r)
+    return tuple(range(int(a.get(r)), int(b.get(r))))
 

@@ -15,9 +15,9 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(id, cond, then, els):
-    if cond.get(()):
-        return then.get(())
+def get(r, cond, then, els):
+    if cond.get(r):
+        return then.get(r)
     else:
-        return els.get(())
+        return els.get(r)
 

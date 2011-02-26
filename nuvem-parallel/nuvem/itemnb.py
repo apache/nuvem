@@ -15,10 +15,6 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(id, var, transform, l):
-    def tfun(i):
-        var.put(('var',), i)
-        return transform.get(())
-
-    return tuple(map(tfun, l.get(())))
+def get(r, i, l):
+    return l.get(r)[int(i.get(r))]
 

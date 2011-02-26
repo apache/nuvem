@@ -15,6 +15,6 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(id, a, b):
-    return (a.get(()), b.get(()))
+def get(r, fr, to, s):
+    return s.get(r).replace(fr.get(r), to.get(r))
 
