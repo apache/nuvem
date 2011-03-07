@@ -15,7 +15,9 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(*args):
-    r = args[0]
-    return tuple(map(lambda x: x.get(r), args[1:len(args) - 1]))
+def get(r, first, rest):
+    rst = rest.get(r)
+    if rst is None:
+        return (first.get(r),)
+    return (first.get(r),) + rst
 

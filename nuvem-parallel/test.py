@@ -37,6 +37,7 @@ from nuvem import not_
 from nuvem import equals
 from nuvem import lesser
 from nuvem import greater
+from nuvem import cons
 from nuvem import list_
 from nuvem import empty
 from nuvem import first
@@ -95,10 +96,13 @@ def testLogic():
     return True
 
 def testLists():
-    assert list_.get((), mkref('first', lambda r: 'abc'), mkref('rest', lambda r: None)) == ('abc',)
-    assert list_.get((), mkref('first', lambda r: 'abc'), mkref('rest', lambda r: ())) == ('abc',)
-    assert list_.get((), mkref('first', lambda r: 'abc'), mkref('rest', lambda r: ('def',))) == ('abc', 'def')
-    assert list_.get((), mkref('first', lambda r: 'abc'), mkref('rest', lambda r: ('def', 'ghi'))) == ('abc', 'def', 'ghi')
+    assert list_.get((), mkref('item', lambda r: None)) == ()
+    assert list_.get((), mkref('item', lambda r: 'abc'), mkref('item', lambda r: None)) == ('abc',)
+    assert list_.get((), mkref('item', lambda r: 'abc'), mkref('item', lambda r: 'def'), mkref('item', lambda r: None)) == ('abc', 'def')
+    assert cons.get((), mkref('first', lambda r: 'abc'), mkref('rest', lambda r: None)) == ('abc',)
+    assert cons.get((), mkref('first', lambda r: 'abc'), mkref('rest', lambda r: ())) == ('abc',)
+    assert cons.get((), mkref('first', lambda r: 'abc'), mkref('rest', lambda r: ('def',))) == ('abc', 'def')
+    assert cons.get((), mkref('first', lambda r: 'abc'), mkref('rest', lambda r: ('def', 'ghi'))) == ('abc', 'def', 'ghi')
     assert empty.get(()) == ()
     assert first.get((), mkref('l', lambda r: ('abc', 'def'))) == 'abc'
     assert rest.get((), mkref('l', lambda r: ('abc', 'def', 'ghi'))) == ('def', 'ghi')
