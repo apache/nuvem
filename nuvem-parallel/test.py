@@ -67,6 +67,8 @@ from nuvem import join
 from nuvem import replace
 from nuvem import lowercase
 from nuvem import uppercase
+from nuvem import eval_
+from nuvem import exec_
 
 def testValues():
     assert true_.get(()) == True
@@ -143,6 +145,15 @@ def testText():
     assert uppercase.get((), mkref('s', lambda r: 'abc')) == 'ABC'
     return True
 
+def testEval():
+    assert eval_.get((), mkref('py', lambda r: '1 + 2'), mkref('ref', lambda r: 4)) == 3
+    assert eval_.get((), mkref('py', lambda r: 'ref.get(r) + 2'), mkref('ref', lambda r: 4)) == 6
+    assert eval_.get((5,), mkref('py', lambda r: 'ref.get(r) + r[0] + 2'), mkref('ref', lambda r: 4)) == 11
+    assert exec_.get((), mkref('py', lambda r: 'val = 1 + 2'), mkref('ref', lambda r: 4)) == 3
+    assert exec_.get((), mkref('py', lambda r: 'val = ref.get(r) + 2'), mkref('ref', lambda r: 4)) == 6
+    assert exec_.get((5,), mkref('py', lambda r: 'val = ref.get(r) + r[0] + 2'), mkref('ref', lambda r: 4)) == 11
+    return True
+
 if __name__ == '__main__':
     print 'Testing...'
     testValues()
@@ -151,5 +162,6 @@ if __name__ == '__main__':
     testMath()
     testURL()
     testText()
+    testEval()
     print 'OK'
 
