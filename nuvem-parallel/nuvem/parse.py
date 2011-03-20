@@ -15,9 +15,9 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-import string
+import re
 
-def get(r, sep, l):
-    s = sep.get(r)
-    return string.join(l.get(r), '' if s is None else s)
+def get(r, e, s):
+    m = re.search(e.get(r), s.get(r))
+    return () if m is None else m.groups()
 

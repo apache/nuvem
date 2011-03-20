@@ -15,9 +15,26 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-import string
+def get(r, f, a):
+    def isList(v):
+        if getattr(v, '__iter__', False) == False:
+            return False
+        if isinstance(v, basestring) or isinstance(v, dict):
+            return False
+        return True
 
-def get(r, sep, l):
-    s = sep.get(r)
-    return string.join(l.get(r), '' if s is None else s)
+    def isAssoc(v):
+        if not isList(v):
+            return False
+        if len(v) != 2:
+            return False
+        if isinstance(v[0], basestring) and v[0][0:1] == "'":
+            return True
+        return False
+
+    l = a.get(r)
+    la = filter(lambda x: not isAssoc(x), l)
+    ka = dict(map(lambda x: (x[0][1:], x[1]), filter(lambda x: isAssoc(x), l)))
+
+    return f.get(r).format(*la, **ka)
 

@@ -67,6 +67,8 @@ from nuvem import join
 from nuvem import replace
 from nuvem import lowercase
 from nuvem import uppercase
+from nuvem import format_
+from nuvem import parse
 from nuvem import eval_
 from nuvem import exec_
 
@@ -140,9 +142,13 @@ def testText():
     assert contains.get((), mkref('sub', lambda r: 'bc'), mkref('s', lambda r: 'abcd')) == True
     assert split.get((), mkref('sep', lambda r: 'x'), mkref('s', lambda r: 'abcxdef')) == ('abc', 'def')
     assert join.get((), mkref('sep', lambda r: 'x'), mkref('s', lambda r: ('abc', 'def'))) == 'abcxdef'
+    assert join.get((), mkref('sep', lambda r: None), mkref('s', lambda r: ('abc', 'def'))) == 'abcdef'
     assert replace.get((), mkref('from', lambda r: 'x'), mkref('to', lambda r: 'y'), mkref('s', lambda r: 'abcxdefxghi')) == 'abcydefyghi'
+    assert replace.get((), mkref('from', lambda r: 'x'), mkref('to', lambda r: None), mkref('s', lambda r: 'abcxdefxghi')) == 'abcdefghi'
     assert lowercase.get((), mkref('s', lambda r: 'ABC')) == 'abc'
     assert uppercase.get((), mkref('s', lambda r: 'abc')) == 'ABC'
+    assert format_.get((), mkref('f', lambda r: '{0} + {1} = {r}'), mkref('a', lambda r: (2, 3, ("'r", 5)))) == '2 + 3 = 5'
+    assert parse.get((), mkref('e', lambda r: r'(\w+) (\w+)'), mkref('s', lambda r: 'a b c')) == ('a', 'b')
     return True
 
 def testEval():

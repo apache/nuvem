@@ -16,5 +16,6 @@
 #  under the License.
 
 def get(r, fr, to, s):
-    return s.get(r).replace(fr.get(r), to.get(r))
+    t = to.get(r)
+    return s.get(r).replace(fr.get(r), '' if t is None else t)
 
