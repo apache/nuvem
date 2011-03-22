@@ -153,6 +153,24 @@
                     <warSourceDirectory>war</warSourceDirectory>
                 </configuration>
             </plugin>
+            
+             <!--
+				The maven-gae-plugin. Type "mvn gae:run" to run project, "mvn
+				gae:deploy" to upload to GAE.
+			-->
+			<plugin>
+				<groupId>net.kindleit</groupId>
+				<artifactId>maven-gae-plugin</artifactId>
+				<version>${maven.gae.plugin.version}</version>	
+				<dependencies>
+					<dependency>
+						<groupId>net.kindleit</groupId>
+						<artifactId>gae-runtime</artifactId>
+						<version>${gae.version}</version>
+						<type>pom</type>
+					</dependency>
+				</dependencies>			
+			</plugin>
         </plugins>
     </build>
 
