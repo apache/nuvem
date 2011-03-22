@@ -194,6 +194,7 @@
                 <module>nuvem-google</module>
                 <module>nuvem-google-appengine-sdk</module>                
                 <module>nuvem-standalone</module>
+                <module>nuvem-parallel</module>
                 <!-- Store Scenario -->
                 <module>store-assets</module>
                 <module>store-appengine-webapp</module>
