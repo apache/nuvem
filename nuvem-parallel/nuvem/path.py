@@ -16,5 +16,6 @@
 #  under the License.
 
 def get(r, prop):
-    return prop.eval()
+    p = prop.eval()
+    return p[2:] if p[0:1] == ('components',) else p
 
