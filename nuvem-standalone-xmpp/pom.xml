@@ -30,7 +30,7 @@
 
 	<artifactId>nuvem-cloud-standalone-xmpp</artifactId>
 	<name>Apache Nuvem Standalone XMPP Host</name>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.tuscany.sca</groupId>
@@ -81,6 +81,42 @@
 			<artifactId>junit</artifactId>
 			<version>4.8.1</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.nuvem</groupId>
+			<artifactId>nuvem-cloud-api</artifactId>
+			<version>1.0-incubating-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>jivesoftware</groupId>
+			<artifactId>smackx</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>3.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tuscany.sca</groupId>
+			<artifactId>tuscany-sca-api</artifactId>
+			<version>${tuscany.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.tuscany.sca</groupId>
+			<artifactId>tuscany-implementation-java-runtime</artifactId>
+			<version>${tuscany.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tuscany.sca</groupId>
+			<artifactId>tuscany-domain-node</artifactId>
+			<version>${tuscany.version}</version>
 		</dependency>
 	</dependencies>
 </project>
