@@ -23,19 +23,27 @@ import org.apache.nuvem.cloud.xmpp.common.LoggingMessageListener;
 
 /**
  * Listens to XMPP messages of a specific type.
+ * <p>
+ * In order to receive messages from a particular JID, an implementation of
+ * <code>MessageListener</code> should be registered with the
+ * {@link XMPPEndPoint} using the API
+ * {@link XMPPEndPoint#registerListner(JID, MessageListener)}.
+ * </p>
  */
 public interface MessageListener {
 
-    /**
-     * To be used as default one.
-     */
-    public static final MessageListener LOGGING_LISTENER = new LoggingMessageListener();
+	/**
+	 * To be used as default one.
+	 */
+	public static final MessageListener LOGGING_LISTENER = new LoggingMessageListener();
 
-    /**
-     * Listens for messages.
-     *
-     * @param message
-     */
-    void listen(Message message);
+	/**
+	 * This method will be called when a message is received by the XMPP
+	 * endpoint for a specific {@link JID} this listener is registred for.
+	 * 
+	 * @param message
+	 * @see org.apache.nuvem.cloud.xmpp.XMPPEndPoint
+	 */
+	void listen(Message message);
 
 }

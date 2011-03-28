@@ -22,22 +22,18 @@ package org.apache.nuvem.cloud.xmpp.common;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
 
 import org.apache.nuvem.cloud.xmpp.api.JID;
 import org.apache.nuvem.cloud.xmpp.api.Message;
 import org.apache.nuvem.cloud.xmpp.api.MessageBuilder;
 import org.apache.nuvem.cloud.xmpp.api.MessageListener;
 import org.apache.nuvem.cloud.xmpp.api.Status;
-import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
 
 /**
  * Encloses the common code for various types of end points irrespective of the
  * platform.
  */
 public abstract class AbstractXMPPEndPoint {
-    private static final Logger log = Logger.getLogger(XMPPEndPoint.class.getName());
-
     /**
      * Listeners for recivnig the XMPP messages from specific JIDs
      */
@@ -58,7 +54,7 @@ public abstract class AbstractXMPPEndPoint {
 
     }
 
-    public Status sendMessage(String content, String recipient) {
+    public Status sendTextMessage(String content, String recipient) {
         Message message = new MessageBuilder().containing(content).toRecipient(recipient).build();
         return sendMessage(message);
     }

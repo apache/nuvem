@@ -24,11 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The status of sending a message to indicate whether was message was sent to
- * the recipient successfully or was there any error.
+ * The status to indicate whether the message was sent to
+ * the recipient successfully or was there any error during the process.
  */
 public final class Status {
 
+	/**
+	 * List of errors that occurred during the XMPP interaction with the server..
+	 */
     private List<Error> errors = new ArrayList<Error>();
 
     public Status(List<Error> errors) {
@@ -49,6 +52,10 @@ public final class Status {
         this.errors.add(error);
     }
 
+    /**
+     * Returns true if the status implies that there was an internal error during message transmission.
+     * @return
+     */
     public boolean hasErrors() {
         return errors != null && errors.size() > 0;
     }

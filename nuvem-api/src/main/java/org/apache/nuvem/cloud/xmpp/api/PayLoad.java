@@ -23,13 +23,12 @@ package org.apache.nuvem.cloud.xmpp.api;
 import java.util.Locale;
 
 /**
- * The actual payload (can be considered to represent XMPP Stream) that will be
- * carried through the XMPP channel.
+ * The Container to hold the actual data and all related attributes about the data which are required for XMPP Protocol.
  */
 public final class PayLoad {
 
     /**
-     * usage instead of null.
+     * To be used instead of null.
      */
     public static final PayLoad EMPTY = new PayLoad("Empty Content");
 

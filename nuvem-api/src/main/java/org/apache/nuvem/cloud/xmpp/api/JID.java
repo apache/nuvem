@@ -129,7 +129,7 @@ public final class JID implements Serializable{
 	}
 
 	/**
-	 * .
+	 * returns true if the passed JID is same as this JID.
 	 */
 	public boolean equals(Object o) {
 		if (this == o)
