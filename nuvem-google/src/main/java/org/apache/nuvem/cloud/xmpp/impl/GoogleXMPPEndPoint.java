@@ -22,12 +22,15 @@ package org.apache.nuvem.cloud.xmpp.impl;
 
 import java.util.logging.Logger;
 
+import org.apache.commons.lang.Validate;
 import org.apache.nuvem.cloud.xmpp.api.Error;
 import org.apache.nuvem.cloud.xmpp.api.ErrorCode;
 import org.apache.nuvem.cloud.xmpp.api.Status;
+import org.apache.nuvem.cloud.xmpp.api.XMPPConnector;
 import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
 import org.apache.nuvem.cloud.xmpp.common.AbstractXMPPEndPoint;
 import org.oasisopen.sca.annotation.Init;
+import org.oasisopen.sca.annotation.Reference;
 import org.oasisopen.sca.annotation.Scope;
 import org.oasisopen.sca.annotation.Service;
 
@@ -35,92 +38,119 @@ import com.google.appengine.api.xmpp.JID;
 import com.google.appengine.api.xmpp.Message;
 import com.google.appengine.api.xmpp.SendResponse;
 import com.google.appengine.api.xmpp.XMPPService;
-import com.google.appengine.api.xmpp.XMPPServiceFactory;
 
+/**
+ * XMPPEndPoint IMplementation for the GAE Platform.
+ * 
+ */
 @Service(XMPPEndPoint.class)
 @Scope("COMPOSITE")
-public class GoogleXMPPEndPoint extends AbstractXMPPEndPoint implements XMPPEndPoint {
+public class GoogleXMPPEndPoint extends AbstractXMPPEndPoint implements
+		XMPPEndPoint {
 
-    private static final Logger log = Logger.getLogger(XMPPEndPoint.class.getName());
+	/**
+	 * Logger.
+	 */
+	private static final Logger log = Logger.getLogger(XMPPEndPoint.class
+			.getName());
 
-    /**
-     * Google's XMPP service.
-     */
-    private XMPPService xmpp;
+	@Reference(required = false)
+	protected XMPPConnector<XMPPService> connector;
 
-    @Init
-    public void init() {
-        xmpp = XMPPServiceFactory.getXMPPService();
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    public Status sendMessage(org.apache.nuvem.cloud.xmpp.api.Message message) {
-        if (message == null || message.recipient() == null) {
-            throw new IllegalArgumentException("invalid input");
-        }
+	@Init
+	public void init() {
+		if (connector == null) {
+			log
+					.info("Google XMPPEndPoint is getting initialized with a default connector...");
+			connector = new GoogleXMPPConnector();
+		}
+	}
 
-        Status deliveryStatus = new Status();
-        JID jid = new JID(message.recipient().asString());
-        Message msg = GoogleXMPPMessageAdapter.toGoogleMessage(message);
+	/**
+	 * Default constructor.
+	 */
+	public GoogleXMPPEndPoint() {
 
-        SendResponse status = null;
-        if (xmpp.getPresence(jid).isAvailable()) {
-            log.info("user online...");
-            try {
-                status = xmpp.sendMessage(msg);
-            } catch (RuntimeException e) {
-                deliveryStatus.addError(new Error(ErrorCode.UNKNOWN_ERROR,
-                                                  "unknown runtime error while sending message over XMPP"));
-                return deliveryStatus;
-            }
-            log.info(status.toString());
-        } else {
-            log.info("user offline...");
-            deliveryStatus.addError(new org.apache.nuvem.cloud.xmpp.api.Error(ErrorCode.USER_OFFLINE));
-            return deliveryStatus;
-        }
-        return GoogleStatusAdapter.toStatus(status);
-    }
+	}
 
-    @Override
-    public Status invite(org.apache.nuvem.cloud.xmpp.api.JID jid) {
-        if (jid == null)
-            throw new IllegalArgumentException("jid cannot be null");
-        Status deliveryStatus = new Status();
-        JID googleJID = new JID(jid.asString());
-        try {
-            xmpp.sendInvitation(googleJID);
-        } catch (RuntimeException e) {
-            deliveryStatus.addError(new Error(ErrorCode.UNKNOWN_ERROR,
-                                              "unknown runtime error while sending invitiation over XMPP"));
-            return deliveryStatus;
-        }
-        return deliveryStatus;
-    }
+	/**
+	 * Constructor to allow injection of xmpp service.
+	 * 
+	 * @param xmpp
+	 */
+	public GoogleXMPPEndPoint(XMPPConnector<XMPPService> xmppConnector) {
+		this.connector = xmppConnector;
+	}
 
-    /**
-     * {@inheritDoc} validation of the input will be done within
-     * {@link org.apache.nuvem.cloud.xmpp.api.JID}
-     */
-    @Override
-    public Status invite(String jid) {
-        return invite(new org.apache.nuvem.cloud.xmpp.api.JID(jid));
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public Status sendMessage(org.apache.nuvem.cloud.xmpp.api.Message message) {
+		XMPPService xmpp = connector.connect();
+		if (message == null || message.recipient() == null) {
+			throw new IllegalArgumentException("invalid input");
+		}
 
-    /**
-     * {@inheritDoc}
-     */
-    public boolean isPresent(org.apache.nuvem.cloud.xmpp.api.JID jid) {
-        return xmpp.getPresence(new JID(jid.asString())).isAvailable();
-    }
+		Status deliveryStatus = new Status();
+		JID jid = new JID(message.recipient().asString());
+		Message msg = GoogleXMPPMessageAdapter.toGoogleMessage(message);
 
-    /**
-     * {@inheritDoc}
-     */
-    public boolean isPresent(String id) {
-        return isPresent(new org.apache.nuvem.cloud.xmpp.api.JID(id));
-    }
+		SendResponse status = null;
+		if (xmpp.getPresence(jid).isAvailable()) {
+			log.info("user online...");
+			try {
+				status = xmpp.sendMessage(msg);
+			} catch (RuntimeException e) {
+				deliveryStatus
+						.addError(new Error(ErrorCode.UNKNOWN_ERROR,
+								"unknown runtime error while sending message over XMPP"));
+				return deliveryStatus;
+			}
+			log.info(status.toString());
+		} else {
+			log.info("user offline...");
+			deliveryStatus.addError(new org.apache.nuvem.cloud.xmpp.api.Error(
+					ErrorCode.USER_OFFLINE));
+			return deliveryStatus;
+		}
+		return GoogleStatusAdapter.toStatus(status);
+	}
+
+	private Status invite(org.apache.nuvem.cloud.xmpp.api.JID jid) {
+		if (jid == null)
+			throw new IllegalArgumentException("jid cannot be null");
+		
+		XMPPService xmpp = connector.connect();
+		Status deliveryStatus = new Status();
+		JID googleJID = new JID(jid.asString());
+		try {
+			xmpp.sendInvitation(googleJID);
+		} catch (RuntimeException e) {
+			deliveryStatus
+					.addError(new Error(ErrorCode.UNKNOWN_ERROR,
+							"unknown runtime error while sending invitiation over XMPP"));
+			return deliveryStatus;
+		}
+		return deliveryStatus;
+	}
+
+	/**
+	 * {@inheritDoc} validation of the input will be done within
+	 * {@link org.apache.nuvem.cloud.xmpp.api.JID}
+	 */
+	@Override
+	public Status invite(String jid) {
+		return invite(new org.apache.nuvem.cloud.xmpp.api.JID(jid));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean isPresent(String id) {
+		Validate.notNull(id);
+		XMPPService xmpp = connector.connect();
+		return xmpp.getPresence(new JID(id)).isAvailable();
+	}
 
 }
