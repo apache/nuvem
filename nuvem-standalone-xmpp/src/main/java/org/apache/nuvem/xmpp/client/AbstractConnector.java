@@ -22,36 +22,25 @@ package org.apache.nuvem.xmpp.client;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import javax.net.SocketFactory;
-import javax.net.ssl.SSLSocketFactory;
-
 import org.apache.nuvem.cloud.xmpp.api.XMPPConnectException;
 import org.apache.nuvem.cloud.xmpp.api.XMPPConnector;
-import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.oasisopen.sca.annotation.Property;
-import org.oasisopen.sca.annotation.Reference;
-import org.oasisopen.sca.annotation.Scope;
-import org.oasisopen.sca.annotation.Service;
 
 /**
- * Helps establish a connection to the XMPP Server and returns the same
- * connection instance once connected. This specific implementation of
- * {@link XMPPConnector} will just maintain on connection instance to the
- * XMPPServer and return the same each time the {@link #connect()} method is
- * called.
+ * Common Template to establish conneciton to the XMPPServer, which is extended
+ * by a more specific mechanisms.
+ * 
  * 
  */
-@Service(XMPPConnector.class)
-@Scope("COMPOSITE")
-public class SingleConnectionConnector implements XMPPConnector<XMPPConnection> {
-
+public abstract class AbstractConnector implements
+		XMPPConnector<XMPPConnection> {
 	/**
 	 * Logger.
 	 */
-	private static final Logger log = Logger.getLogger(XMPPConnector.class
+	protected static final Logger log = Logger.getLogger(XMPPConnector.class
 			.getName());
 
 	@Property(required = false)
@@ -65,42 +54,22 @@ public class SingleConnectionConnector implements XMPPConnector<XMPPConnection> 
 	@Property
 	protected String clientPassword = "password";
 	@Property(required = false)
-	protected boolean sslMode = false;
-	@Property(required = false)
-	protected String trustStorePath;
-	@Property(required = false)
-	protected String trustStorePassword;
+	protected String authenticationMechanism = "PLAIN";
 
-	/** Authentication mechanism. */
-	private String authenticationMechanism = "PLAIN";
-
-	@Reference(required = false)
-	protected SocketFactory socketFactory = SSLSocketFactory.getDefault();
-
-	// TODO: connection and connected classes like the chat are assumed to be
-	// thread safe.. if required, a connection pool needs to be implemented.
 	/**
 	 * The XMPP Connection.
 	 */
 	private XMPPConnection connection;
 
 	/**
-	 * {@inheritDoc}
+	 * Connects to the XMPP Server and returns the XMPPConnection.
 	 */
 	public XMPPConnection connect() {
 		if (connection != null)
 			return connection;
-		log
-				.info(String
-						.format(
-								"initializing XMPP Connection for server %s and with client jid %s",
-								host, clientJID));
-		if (host == null || port == 0 || clientJID == null
-				|| clientPassword == null) {
-			throw new IllegalStateException(
-					"the configuration parameters are not initlaized properly!");
-		}
-		connection = new XMPPConnection(buildConnectionConfiguration());
+		log.info("Initializing a new connection...");
+		checkConfigurations();
+		connection = prepareConnection();
 		SASLAuthentication.supportSASLMechanism(authenticationMechanism, 0);
 		log.info("Connecting to XMPP Server....");
 		try {
@@ -123,25 +92,8 @@ public class SingleConnectionConnector implements XMPPConnector<XMPPConnection> 
 		throw new UnsupportedOperationException("still not supported");
 	}
 
-	private ConnectionConfiguration buildConnectionConfiguration() {
-		ConnectionConfiguration connectionConfiguration = new ConnectionConfiguration(
-				host, port, serviceName);
-		if (sslMode && !(trustStorePassword == null || trustStorePath == null)) {
-			log.info("XMPP is configured to use SSL mode.");
-			connectionConfiguration
-					.setSecurityMode(ConnectionConfiguration.SecurityMode.enabled);
-			connectionConfiguration.setSocketFactory(socketFactory);
-			connectionConfiguration.setTruststorePath(trustStorePath);
-			connectionConfiguration.setTruststorePassword(trustStorePassword);
-		}
-		return connectionConfiguration;
-	}
+	protected abstract void checkConfigurations();
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public String getDescription() {
-		return "Single Connection Default connector";
-	}
+	protected abstract XMPPConnection prepareConnection();
 
 }

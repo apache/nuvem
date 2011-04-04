@@ -82,10 +82,6 @@ public class DefaultXMPPEndPoint extends AbstractXMPPEndPoint implements
 	 */
 	public Status sendMessage(Message message) {
 		XMPPConnection connection = connector.connect();
-		if (!connection.isConnected()) {
-			throw new IllegalStateException(
-					"XMPP Endpoint Not connected to the XMPP Server, please check the configurations");
-		}
 		if (message == null || message.recipient() == null) {
 			throw new IllegalArgumentException("invalid message");
 		}
@@ -126,10 +122,6 @@ public class DefaultXMPPEndPoint extends AbstractXMPPEndPoint implements
 	 */
 	public boolean isPresent(JID jid) {
 		XMPPConnection connection = connector.connect();
-		if (!connection.isConnected()) {
-			throw new IllegalStateException(
-					"XMPP Endpoint Not connected to the XMPP Server, please check the configurations");
-		}
 		if (jid == null)
 			throw new IllegalArgumentException(
 					"Illegal JID passed for finding presence");
@@ -146,10 +138,7 @@ public class DefaultXMPPEndPoint extends AbstractXMPPEndPoint implements
 	 */
 	public boolean isPresent(String id) {
 		XMPPConnection connection = connector.connect();
-		if (!connection.isConnected()) {
-			throw new IllegalStateException(
-					"XMPP Endpoint Not connected to the XMPP Server, please check the configurations");
-		}
+
 		if (id == null)
 			throw new IllegalArgumentException(
 					"Illegal JID passed for finding presence");

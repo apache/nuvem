@@ -28,19 +28,31 @@
 		<service name="XMPPEndPoint">
 			<interface.java interface="org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint" />
 		</service>
-		<reference name="connector" target="SingleConnectionConnector/XMPPConnector">
+		<reference name="connector" target="SimpleConnector/XMPPConnector">
 			<interface.java interface="org.apache.nuvem.cloud.xmpp.api.XMPPConnector" />
 		</reference>
 	</component>
 
-	<component name="SingleConnectionConnector">
+	<component name="SimpleConnector">
 		<implementation.java
-			class="org.apache.nuvem.xmpp.client.SingleConnectionConnector" />
+			class="org.apache.nuvem.xmpp.client.SimpleConnector" />
 		<service name="XMPPConnector">
 			<interface.java interface="org.apache.nuvem.cloud.xmpp.api.XMPPConnector" />
 		</service>
 		<property name="clientJID">nuvem@localhost</property>
 		<property name="clientPassword">password</property>
 	</component>
+
+    <component name="SSLConnector">
+        <implementation.java
+            class="org.apache.nuvem.xmpp.client.SSLConnector" />
+        <service name="XMPPConnector">
+            <interface.java interface="org.apache.nuvem.cloud.xmpp.api.XMPPConnector" />
+        </service>
+        <property name="clientJID">nuvem@localhost</property>
+        <property name="clientPassword">password</property>
+        <property name="trustStorePath">truststorepath</property>
+        <property name="trustStorePassword">changeit</property>
+    </component>
 
 </composite>
