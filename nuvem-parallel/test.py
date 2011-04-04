@@ -29,7 +29,7 @@ from nuvem import number
 from nuvem import text
 from nuvem import name
 from nuvem import nothing
-from nuvem import assoc
+from nuvem import pair
 from nuvem import if_
 from nuvem import and_
 from nuvem import or_
@@ -58,6 +58,7 @@ from nuvem import divide
 from nuvem import host
 from nuvem import path
 from nuvem import params
+from nuvem import param
 from nuvem import user
 from nuvem import realm
 from nuvem import email
@@ -79,7 +80,7 @@ def testValues():
     assert number.get((), mkprop('value', lambda: 1)) == 1
     assert text.get((), mkprop('value', lambda: 'abc')) == 'abc'
     assert name.get((), mkprop('value', lambda: 'abc')) == "'abc"
-    assert assoc.get((), mkref('a', lambda r: 'abc'), mkref('b', lambda r: 'def')) == ('abc', 'def')
+    assert pair.get((), mkref('a', lambda r: 'abc'), mkref('b', lambda r: 'def')) == ('abc', 'def')
     return True
 
 def testLogic():
@@ -133,6 +134,7 @@ def testURL():
     assert host.get((), mkprop('host', lambda: 'localhost')) == 'localhost'
     assert path.get((), mkprop('path', lambda: ('abc', 'def'))) == ('abc', 'def')
     assert params.get((), mkprop('params', lambda: (("'a", 'abc'), ("'d", 'def')))) == (("'a", 'abc'), ("'d", 'def'))
+    assert param.get((), mkref('n', lambda r: "'d"), mkprop('params', lambda: (("'a", 'abc'), ("'d", 'def'), ("'g", 'ghi')))) == 'def'
     assert user.get((), mkprop('user', lambda: 'joe')) == 'joe'
     assert realm.get((), mkprop('realm', lambda: 'localhost')) == 'localhost'
     assert email.get((), mkprop('email', lambda: 'joe@localhost')) == 'joe@localhost'

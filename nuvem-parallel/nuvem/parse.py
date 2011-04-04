@@ -17,7 +17,7 @@
 
 import re
 
-def get(r, e, s):
-    m = re.search(e.get(r), s.get(r))
+def get(r, expr, s):
+    m = re.search(expr.get(r), s.get(r))
     return () if m is None else m.groups()
 

@@ -15,26 +15,14 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, fmt, args):
-    def isList(v):
-        if getattr(v, '__iter__', False) == False:
-            return False
-        if isinstance(v, basestring) or isinstance(v, dict):
-            return False
-        return True
+def get(r, n, prop):
+    def lookup(nv, lv):
+        if lv == ():
+            return None
+        a = lv[0]
+        if a[0] == nv:
+            return a[1]
+        return lookup(nv, lv[1:])
 
-    def isAssoc(v):
-        if not isList(v):
-            return False
-        if len(v) != 2:
-            return False
-        if isinstance(v[0], basestring) and v[0][0:1] == "'":
-            return True
-        return False
-
-    l = args.get(r)
-    la = filter(lambda x: not isAssoc(x), l)
-    ka = dict(map(lambda x: (x[0][1:], x[1]), filter(lambda x: isAssoc(x), l)))
-
-    return fmt.get(r).format(*la, **ka)
+    return lookup(n.get(r), prop.eval())
 
