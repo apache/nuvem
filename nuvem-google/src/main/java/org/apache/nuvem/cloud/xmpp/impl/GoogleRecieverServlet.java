@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.nuvem.cloud.xmpp.api.MessageListener;
+import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
+import org.oasisopen.sca.annotation.Reference;
 
 import com.google.appengine.api.xmpp.JID;
 import com.google.appengine.api.xmpp.Message;
@@ -50,8 +52,13 @@ public class GoogleRecieverServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = -6839442887435183490L;
 
+	@Reference
+	private XMPPEndPoint endPoint;
+
 	/**
-	 * Adapts the HTTP Post request into a call to the {@link MessageListener#listen(org.apache.nuvem.cloud.xmpp.api.Message)}.
+	 * Adapts the HTTP Post request into a call to the
+	 * {@link MessageListener#listen(org.apache.nuvem.cloud.xmpp.api.Message)}.
+	 * 
 	 * @see org.apache.nuvem.cloud.xmpp.api.MessageListener
 	 * @see org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint
 	 */
@@ -66,7 +73,8 @@ public class GoogleRecieverServlet extends HttpServlet {
 		// for identifying the listeners, we exclude the resource.
 		String jidExcludingResource = StringUtils.substringBefore(from.getId(),
 				"/");
-		GoogleXMPPEndPoint.getListenerFor(
+
+		endPoint.getListenerFor(
 				new org.apache.nuvem.cloud.xmpp.api.JID(jidExcludingResource))
 				.listen(nuvemMessage);
 	}

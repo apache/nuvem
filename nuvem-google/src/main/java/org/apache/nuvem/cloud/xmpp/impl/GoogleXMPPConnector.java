@@ -42,16 +42,16 @@ public class GoogleXMPPConnector implements XMPPConnector<XMPPService> {
 	/**
 	 * {@inheritDoc}
 	 */
-	public XMPPService connect() {
+	public XMPPService getConnection() {
 		return XMPPServiceFactory.getXMPPService();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public XMPPService connect(Map<String, String> connectionProperties) {
+	public XMPPService getConnection(Map<String, String> connectionProperties) {
 		log.warning("Google App engine doesnt support overriding any connection properties, the conneciton properties passed as parameters are ignored!");
-		return connect();
+		return getConnection();
 	}
 
 	/**

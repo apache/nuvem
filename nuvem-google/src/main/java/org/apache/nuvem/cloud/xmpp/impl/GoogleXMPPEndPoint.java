@@ -87,7 +87,7 @@ public class GoogleXMPPEndPoint extends AbstractXMPPEndPoint implements
 	 * {@inheritDoc}
 	 */
 	public Status sendMessage(org.apache.nuvem.cloud.xmpp.api.Message message) {
-		XMPPService xmpp = connector.connect();
+		XMPPService xmpp = connector.getConnection();
 		if (message == null || message.recipient() == null) {
 			throw new IllegalArgumentException("invalid input");
 		}
@@ -121,7 +121,7 @@ public class GoogleXMPPEndPoint extends AbstractXMPPEndPoint implements
 		if (jid == null)
 			throw new IllegalArgumentException("jid cannot be null");
 		
-		XMPPService xmpp = connector.connect();
+		XMPPService xmpp = connector.getConnection();
 		Status deliveryStatus = new Status();
 		JID googleJID = new JID(jid.asString());
 		try {
@@ -149,7 +149,7 @@ public class GoogleXMPPEndPoint extends AbstractXMPPEndPoint implements
 	 */
 	public boolean isPresent(String id) {
 		Validate.notNull(id);
-		XMPPService xmpp = connector.connect();
+		XMPPService xmpp = connector.getConnection();
 		return xmpp.getPresence(new JID(id)).isAvailable();
 	}
 

@@ -52,7 +52,7 @@ public class GoogleXMPPEndPointTestCase {
 	public void setUp() throws IllegalArgumentException, IllegalAccessException {
 		mockedConnector = EasyMock.createMock(XMPPConnector.class);
 		mockXMPPService = EasyMock.createMock(XMPPService.class);
-		EasyMock.expect(mockedConnector.connect()).andReturn(mockXMPPService);
+		EasyMock.expect(mockedConnector.getConnection()).andReturn(mockXMPPService);
 		endPoint = new GoogleXMPPEndPoint(mockedConnector);
 	}
 
@@ -157,7 +157,7 @@ public class GoogleXMPPEndPointTestCase {
 		};
 		endPoint.registerListner(new org.apache.nuvem.cloud.xmpp.api.JID(
 				"test@domain.com"), listener);
-		MessageListener registeredListener = GoogleXMPPEndPoint
+		MessageListener registeredListener = endPoint
 				.getListenerFor(new org.apache.nuvem.cloud.xmpp.api.JID(
 						"test@domain.com"));
 		Assert.assertNotNull(registeredListener);
@@ -175,12 +175,12 @@ public class GoogleXMPPEndPointTestCase {
 		org.apache.nuvem.cloud.xmpp.api.JID jid = new org.apache.nuvem.cloud.xmpp.api.JID(
 				"test@domain.com");
 		endPoint.registerListner(jid, listener);
-		MessageListener registeredListener = GoogleXMPPEndPoint
+		MessageListener registeredListener = endPoint
 				.getListenerFor(new org.apache.nuvem.cloud.xmpp.api.JID(
 						"test@domain.com"));
 		Assert.assertNotNull(registeredListener);
 		Assert.assertTrue(endPoint.clearListenersFor(jid));
 		Assert.assertEquals(MessageListener.LOGGING_LISTENER,
-				GoogleXMPPEndPoint.getListenerFor(jid));
+				endPoint.getListenerFor(jid));
 	}
 }
