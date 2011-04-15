@@ -26,7 +26,9 @@ import javax.net.ssl.SSLSocketFactory;
 
 import org.apache.nuvem.cloud.xmpp.api.XMPPConnector;
 import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
 import org.oasisopen.sca.annotation.Property;
 import org.oasisopen.sca.annotation.Reference;
 import org.oasisopen.sca.annotation.Service;
@@ -48,7 +50,7 @@ public final class SSLConnector extends AbstractConnector {
 	/**
 	 * {@inheritDoc}
 	 */
-	public XMPPConnection connect(Map<String, String> connectionProperties) {
+	public XMPPConnection getConnection(Map<String, String> connectionProperties) {
 		throw new UnsupportedOperationException("still not supported");
 	}
 
@@ -69,8 +71,10 @@ public final class SSLConnector extends AbstractConnector {
 		}
 	}
 
-	@Override
-	protected XMPPConnection prepareConnection() {
+	/**
+	 * Establishes a secure connection with the XMPP Server.
+	 */
+	protected void establishConnection() throws XMPPException {
 		ConnectionConfiguration connectionConfiguration = new ConnectionConfiguration(
 				host, port, serviceName);
 		connectionConfiguration
@@ -78,7 +82,17 @@ public final class SSLConnector extends AbstractConnector {
 		connectionConfiguration.setSocketFactory(socketFactory);
 		connectionConfiguration.setTruststorePath(trustStorePath);
 		connectionConfiguration.setTruststorePassword(trustStorePassword);
-		return new XMPPConnection(connectionConfiguration);
+		SASLAuthentication.supportSASLMechanism(authenticationMechanism, 0);
+		this.connection = new XMPPConnection(connectionConfiguration);
+		this.connection.connect();
+	}
+
+	/**
+	 * Authenticates with the XMPP Server.
+	 */
+	protected void authenticateWithServer() throws XMPPException {
+		this.connection.login(this.clientJID, this.clientPassword);
+
 	}
 
 }

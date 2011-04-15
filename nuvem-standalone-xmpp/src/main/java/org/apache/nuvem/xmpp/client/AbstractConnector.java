@@ -24,7 +24,6 @@ import java.util.logging.Logger;
 
 import org.apache.nuvem.cloud.xmpp.api.XMPPConnectException;
 import org.apache.nuvem.cloud.xmpp.api.XMPPConnector;
-import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.oasisopen.sca.annotation.Property;
@@ -59,22 +58,21 @@ public abstract class AbstractConnector implements
 	/**
 	 * The XMPP Connection.
 	 */
-	private XMPPConnection connection;
+	protected XMPPConnection connection;
 
 	/**
 	 * Connects to the XMPP Server and returns the XMPPConnection.
 	 */
-	public XMPPConnection connect() {
+	public XMPPConnection getConnection() {
 		if (connection != null)
 			return connection;
 		log.info("Initializing a new connection...");
 		checkConfigurations();
-		connection = prepareConnection();
-		SASLAuthentication.supportSASLMechanism(authenticationMechanism, 0);
-		log.info("Connecting to XMPP Server....");
 		try {
-			connection.connect();
-			connection.login(clientJID, clientPassword);
+			log.info("Connecting to XMPP Server....");
+			establishConnection();
+			log.info("Authenticating with the XMPP Server....");
+			authenticateWithServer();
 			log.info("EndPoint connected to XMPP Server successfuly!");
 		} catch (XMPPException e) {
 			log.severe("Error while connecting to the XMPP Server..."
@@ -88,12 +86,14 @@ public abstract class AbstractConnector implements
 	/**
 	 * {@inheritDoc}
 	 */
-	public XMPPConnection connect(Map<String, String> connectionProperties) {
+	public XMPPConnection getConnection(Map<String, String> connectionProperties) {
 		throw new UnsupportedOperationException("still not supported");
 	}
 
 	protected abstract void checkConfigurations();
 
-	protected abstract XMPPConnection prepareConnection();
+	protected abstract void establishConnection() throws XMPPException;
+
+	protected abstract void authenticateWithServer() throws XMPPException;
 
 }

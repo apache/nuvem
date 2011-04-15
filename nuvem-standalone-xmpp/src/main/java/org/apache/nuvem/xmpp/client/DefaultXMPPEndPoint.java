@@ -56,8 +56,19 @@ public class DefaultXMPPEndPoint extends AbstractXMPPEndPoint implements
 	private static final Logger log = Logger.getLogger(XMPPEndPoint.class
 			.getName());
 
-	@Reference 
+	@Reference
 	protected XMPPConnector<XMPPConnection> connector;
+
+	/**
+	 * The packet filter to decide what packets to recieve from the XMPP
+	 * Server..
+	 */
+	private NuvemPacketFilter filter;
+
+	/**
+	 * The Packet listener.
+	 */
+	private NuvemPacketListener listener;
 
 	/**
 	 * Default constructor.
@@ -71,17 +82,20 @@ public class DefaultXMPPEndPoint extends AbstractXMPPEndPoint implements
 		this.connector = connector;
 	}
 
-
 	@Init
 	public void init() {
-		log.info("Initializing DefaultXMPPEndPoint using connector " + connector.getDescription());
+		log.info("Initializing DefaultXMPPEndPoint using connector "
+				+ connector.getDescription());
+		filter = new NuvemPacketFilter(this);
+		listener = new NuvemPacketListener(this);
+		connector.getConnection().addPacketListener(this.listener, filter);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	public Status sendMessage(Message message) {
-		XMPPConnection connection = connector.connect();
+		XMPPConnection connection = connector.getConnection();
 		if (message == null || message.recipient() == null) {
 			throw new IllegalArgumentException("invalid message");
 		}
@@ -121,7 +135,7 @@ public class DefaultXMPPEndPoint extends AbstractXMPPEndPoint implements
 	 * {@inheritDoc}
 	 */
 	public boolean isPresent(JID jid) {
-		XMPPConnection connection = connector.connect();
+		XMPPConnection connection = connector.getConnection();
 		if (jid == null)
 			throw new IllegalArgumentException(
 					"Illegal JID passed for finding presence");
@@ -137,7 +151,7 @@ public class DefaultXMPPEndPoint extends AbstractXMPPEndPoint implements
 	 * {@inheritDoc}
 	 */
 	public boolean isPresent(String id) {
-		XMPPConnection connection = connector.connect();
+		XMPPConnection connection = connector.getConnection();
 
 		if (id == null)
 			throw new IllegalArgumentException(
@@ -154,6 +168,6 @@ public class DefaultXMPPEndPoint extends AbstractXMPPEndPoint implements
 	 * {@inheritDoc}
 	 */
 	public boolean isConnected() {
-		return connector.connect().isConnected();
+		return connector.getConnection().isConnected();
 	}
 }

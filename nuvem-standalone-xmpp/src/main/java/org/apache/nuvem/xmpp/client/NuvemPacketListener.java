@@ -20,40 +20,37 @@
 
 package org.apache.nuvem.xmpp.client;
 
-import org.apache.nuvem.cloud.xmpp.api.MessageBuilder;
+import org.apache.commons.lang.StringUtils;
+import org.apache.nuvem.cloud.xmpp.api.JID;
+import org.apache.nuvem.cloud.xmpp.api.MessageListener;
+import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
+import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.packet.Packet;
 
 /**
- * Adapter to transform nuvem message into smack message.
- * 
+ * Listens to Packets from XMPP Server and transfers them to the appropriate
+ * Listener registered with the XMPPEndPoint.
  * 
  */
-public class SmackMessageAdapter {
+public class NuvemPacketListener implements PacketListener {
 
-	/**
-	 * Converts nuvem specific message object to the one smack API accepts.
-	 * 
-	 */
-	public static Message toSmackMessage(
-			org.apache.nuvem.cloud.xmpp.api.Message nuvemMessage, String sender) {
-		Message smackMessage = new Message();
-		smackMessage.setFrom(sender);
-		smackMessage.setBody(nuvemMessage.payLoad().content());
-		smackMessage.setTo(nuvemMessage.recipient().asString());
-		return smackMessage;
+	private XMPPEndPoint endPoint;
+
+	public NuvemPacketListener(XMPPEndPoint endPoint) {
+		this.endPoint = endPoint;
 	}
 
-	/**
-	 * Converts smack message to Nuvem Message.
-	 * 
-	 * @param message
-	 *            the smack message.
-	 * @return nuvem message.
-	 */
-	public static org.apache.nuvem.cloud.xmpp.api.Message toNuvemMessage(
-			Message message) {
-		return new MessageBuilder().from(message.getFrom()).toRecipient(
-				message.getTo()).containing(message.getBody()).build();
+	@Override
+	public void processPacket(Packet packet) {
+		if (packet instanceof Message) {
+			String from = StringUtils.substringBeforeLast(packet.getFrom(),
+					"/");
+			MessageListener listener = endPoint
+					.getListenerFor(new JID(from));
+			listener.listen(SmackMessageAdapter
+					.toNuvemMessage((Message) packet));
+		}
 	}
 
 }

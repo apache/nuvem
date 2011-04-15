@@ -37,17 +37,20 @@ public class XMPPEndPointIntegrationTest {
 
 	private static XMPPServer server;
 	private static Node xmppNode;
-	private static XMPPEndPoint xmppEndPoint;
+	private static XMPPEndPoint xmppEndPointSender;
+	private static XMPPEndPoint xmppEndPointReciever;
 
 	@BeforeClass
 	public static void setUp() throws Exception {
 		server = new DefaultXMPPServer();
 		server.start();
 		xmppNode = NodeFactory.getInstance().createNode(
-				"nuvemxmpp.composite");
+				"testnuvemxmpp.composite");
 		xmppNode.start();
-		xmppEndPoint = xmppNode.getService(XMPPEndPoint.class,
-				"XMPPComponent/XMPPEndPoint");
+		xmppEndPointSender = xmppNode.getService(XMPPEndPoint.class,
+				"TestXMPPComponentSender/XMPPEndPoint");
+		xmppEndPointReciever = xmppNode.getService(XMPPEndPoint.class,
+				"TestXMPPComponentReciever/XMPPEndPoint");
 
 	}
 
@@ -61,25 +64,39 @@ public class XMPPEndPointIntegrationTest {
 		}
 	}
 
+
 	@Test
-	public void ShouldBeConnectedAndReadyToUse() {
-		Assert.assertTrue(xmppEndPoint.isConnected());
+	public void SendAndRecieveMessage() throws InterruptedException {
+		final String message = "hello xmpp";
+		MessageListenerValidator validator = new MessageListenerValidator(
+				message);
+		xmppEndPointReciever.registerListner(new JID("nuvem@localhost"),
+				validator);
+		xmppEndPointSender.sendTextMessage(message, "reciever@localhost");
+		Thread.sleep(3000);
+		validator.checkIfValidMessageRecieved();
 	}
 
-	@Test
-	public void SendRoundTripMessage() {
-		final String message = "hello xmpp";
-		xmppEndPoint.registerListner(new JID("nuvem@localhost"),
-				new MessageListener() {
-					@Override
-					public void listen(Message message) {
-						Assert.assertNotNull(message);
-						Assert.assertTrue(message.equals(message.payLoad()
-								.content()));
-					}
-				});
+	public class MessageListenerValidator implements MessageListener {
 
-		xmppEndPoint.sendTextMessage(message, "nuvem@localhost");
+		private Message recievedMessage = null;
+
+		private String expectedMessage;
+
+		public MessageListenerValidator(String expectedMessage) {
+			this.expectedMessage = expectedMessage;
+		}
+
+		@Override
+		public void listen(Message message) {
+			this.recievedMessage = message;
+		}
+
+		public void checkIfValidMessageRecieved() {
+			Assert.assertNotNull(recievedMessage);
+			Assert.assertTrue(expectedMessage.equals(recievedMessage.payLoad()
+					.content()));
+		}
 	}
 
 }

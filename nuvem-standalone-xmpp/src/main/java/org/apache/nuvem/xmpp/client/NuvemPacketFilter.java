@@ -20,40 +20,38 @@
 
 package org.apache.nuvem.xmpp.client;
 
-import org.apache.nuvem.cloud.xmpp.api.MessageBuilder;
+import org.apache.commons.lang.StringUtils;
+import org.apache.nuvem.cloud.xmpp.api.JID;
+import org.apache.nuvem.cloud.xmpp.api.MessageListener;
+import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
+import org.jivesoftware.smack.filter.PacketFilter;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smack.packet.Packet;
 
 /**
- * Adapter to transform nuvem message into smack message.
- * 
+ * A package filter to accept only necessary packets based on the the listeners
+ * registered for the reciever.
  * 
  */
-public class SmackMessageAdapter {
+public class NuvemPacketFilter implements PacketFilter {
 
-	/**
-	 * Converts nuvem specific message object to the one smack API accepts.
-	 * 
-	 */
-	public static Message toSmackMessage(
-			org.apache.nuvem.cloud.xmpp.api.Message nuvemMessage, String sender) {
-		Message smackMessage = new Message();
-		smackMessage.setFrom(sender);
-		smackMessage.setBody(nuvemMessage.payLoad().content());
-		smackMessage.setTo(nuvemMessage.recipient().asString());
-		return smackMessage;
+	private XMPPEndPoint endPoint;
+
+	public NuvemPacketFilter(XMPPEndPoint endPoint) {
+		this.endPoint = endPoint;
 	}
 
 	/**
-	 * Converts smack message to Nuvem Message.
-	 * 
-	 * @param message
-	 *            the smack message.
-	 * @return nuvem message.
+	 * Accepts only those packets for which a {@link MessageListener} is
+	 * registered.
 	 */
-	public static org.apache.nuvem.cloud.xmpp.api.Message toNuvemMessage(
-			Message message) {
-		return new MessageBuilder().from(message.getFrom()).toRecipient(
-				message.getTo()).containing(message.getBody()).build();
+	public boolean accept(Packet packet) {
+		if (packet instanceof Message) {
+			String from = StringUtils.substringBeforeLast(packet.getFrom(),
+					"/");
+			return endPoint.getListenerFor(new JID(from)) != null;
+		}
+		return false;
 	}
 
 }

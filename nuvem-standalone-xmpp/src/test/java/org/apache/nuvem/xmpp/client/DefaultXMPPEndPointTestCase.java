@@ -55,7 +55,7 @@ public class DefaultXMPPEndPointTestCase {
 		connection = createMock(XMPPConnection.class);
 		chatManager = createMock(ChatManager.class);
 		connector = createMock(XMPPConnector.class);
-		expect(connector.connect()).andReturn(connection);
+		expect(connector.getConnection()).andReturn(connection);
 		chat = createMock(Chat.class);
 		endPoint = new DefaultXMPPEndPoint(connector);
 	}

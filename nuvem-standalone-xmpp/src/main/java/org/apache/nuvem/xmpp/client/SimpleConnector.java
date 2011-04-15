@@ -21,7 +21,9 @@ package org.apache.nuvem.xmpp.client;
 
 import org.apache.nuvem.cloud.xmpp.api.XMPPConnector;
 import org.jivesoftware.smack.ConnectionConfiguration;
+import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
 import org.oasisopen.sca.annotation.Service;
 
 /**
@@ -51,11 +53,23 @@ public class SimpleConnector extends AbstractConnector {
 		}
 	}
 
-	@Override
-	protected XMPPConnection prepareConnection() {
+	/**
+	 * Establishes a simple connection with the XMPP Server.
+	 */
+	protected void establishConnection() throws XMPPException {
 		ConnectionConfiguration connectionConfiguration = new ConnectionConfiguration(
 				host, port, serviceName);
-		return new XMPPConnection(connectionConfiguration);
+		SASLAuthentication.supportSASLMechanism(authenticationMechanism, 0);
+		this.connection = new XMPPConnection(connectionConfiguration);
+		connection.connect();
+	}
+
+	/**
+	 * Authenticates with the XMPPServer using client JID and password.
+	 */
+	protected void authenticateWithServer() throws XMPPException {
+		this.connection.login(this.clientJID, this.clientPassword);
+
 	}
 
 }
