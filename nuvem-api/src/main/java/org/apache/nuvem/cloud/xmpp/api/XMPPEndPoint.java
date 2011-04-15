@@ -95,6 +95,16 @@ public interface XMPPEndPoint {
 	void registerListner(JID jid, MessageListener listener);
 
 	/**
+	 * Returns the message listener registered for the specific JID.
+	 * 
+	 * @param jid
+	 *            the JID
+	 * @return the registered Message Listener if one available, otherwise returns a default listener 
+	 * @see MessageListener#LOGGING_LISTENER
+	 */
+	MessageListener getListenerFor(JID jid);
+
+	/**
 	 * Clears the listener for the specified JID, which means, the messages
 	 * received from this specific JID will be ignored/lost!
 	 * 

@@ -31,13 +31,14 @@ import java.util.Map;
 public interface XMPPConnector<T> {
 
 	/**
-	 * Attempts to connect to the XMPPServer by using the connection properties injected into the implementation class.
+	 * Returns a connection to the XMPPServer by using the connection properties
+	 * injected into the implementation class.
 	 * 
 	 * 
 	 * @throws XMPPConnectException
 	 *             if any error during connection setup.
 	 */
-	T connect() throws XMPPConnectException;
+	T getConnection() throws XMPPConnectException;
 
 	/**
 	 * Connects to the XMPPServer by making use of the connection configuration
@@ -50,7 +51,7 @@ public interface XMPPConnector<T> {
 	 * 
 	 * @param connectionProperties
 	 */
-	T connect(Map<String, String> connectionProperties);
+	T getConnection(Map<String, String> connectionProperties);
 
 	/**
 	 * Returns the description of the connector.

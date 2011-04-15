@@ -34,58 +34,65 @@ import org.apache.nuvem.cloud.xmpp.api.Status;
  * platform.
  */
 public abstract class AbstractXMPPEndPoint {
-    /**
-     * Listeners for recivnig the XMPP messages from specific JIDs
-     */
-    protected static Map<JID, MessageListener> listeners = new ConcurrentHashMap<JID, MessageListener>();
+	/**
+	 * Listeners for recivnig the XMPP messages from specific JIDs
+	 */
+	protected Map<JID, MessageListener> listeners = new ConcurrentHashMap<JID, MessageListener>();
 
-    public boolean isConnected() {
-        throw new UnsupportedOperationException("still not implemented");
-    }
+	public boolean isConnected() {
+		throw new UnsupportedOperationException("still not implemented");
+	}
 
-    public String uniqueID() {
-        throw new UnsupportedOperationException("still not implemented");
-    }
+	public String uniqueID() {
+		throw new UnsupportedOperationException("still not implemented");
+	}
 
-    public void registerListner(org.apache.nuvem.cloud.xmpp.api.JID jid, MessageListener listener) {
-        if (listener == null || jid == null)
-            return;
-        listeners.put(jid, listener);
+	public void registerListner(org.apache.nuvem.cloud.xmpp.api.JID jid,
+			MessageListener listener) {
+		if (listener == null || jid == null)
+			throw new IllegalArgumentException("invalid jid/listener");
+		listeners.put(jid, listener);
 
-    }
+	}
 
-    public Status sendTextMessage(String content, String recipient) {
-        Message message = new MessageBuilder().containing(content).toRecipient(recipient).build();
-        return sendMessage(message);
-    }
+	public Status sendTextMessage(String content, String recipient) {
+		Message message = new MessageBuilder().containing(content).toRecipient(
+				recipient).build();
+		return sendMessage(message);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public boolean clearListenersFor(JID jid) {
-        if (listeners != null) {
-            return listeners.remove(jid) != null;
-        }
-        return false;
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean clearListenersFor(JID jid) {
+		if (listeners != null) {
+			return listeners.remove(jid) != null;
+		}
+		return false;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public void clearAllListeners() {
-        if (listeners != null)
-            listeners.clear();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public void clearAllListeners() {
+		if (listeners != null)
+			listeners.clear();
+	}
 
-    public abstract Status sendMessage(org.apache.nuvem.cloud.xmpp.api.Message message);
+	public abstract Status sendMessage(
+			org.apache.nuvem.cloud.xmpp.api.Message message);
 
-    public static MessageListener getListenerFor(JID jid) {
+	/**
+	 * 
+	 * {@inheritDoc}
+	 */
+	public MessageListener getListenerFor(JID jid) {
 
-        MessageListener target = null;
-        if (listeners != null && (target = listeners.get(jid)) != null)
-            return target;
-        // default listener.
-        return MessageListener.LOGGING_LISTENER;
+		MessageListener target = null;
+		if (listeners != null && (target = listeners.get(jid)) != null)
+			return target;
+		// default listener.
+		return MessageListener.LOGGING_LISTENER;
 
-    }
+	}
 }
