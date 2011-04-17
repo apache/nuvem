@@ -19,7 +19,8 @@ def get(r, item, cond, l):
     iv = item.get(r)
 
     def cfun(i):
-        return cond.get(r + ((iv, i),))
+        return cond.get(((iv, i),) + r)
 
-    return tuple(filter(cfun, l.get(r)))
+    vl = l.get(r)
+    return tuple(filter(cfun, () if vl is None else vl))
 

@@ -15,14 +15,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, n, l):
-    def lookup(nv, lv):
-        if lv == ():
-            return None
-        a = lv[0]
-        if a[0] == nv:
-            return a[1]
-        return lookup(nv, lv[1:])
-
-    return lookup(n.get(r), l.get(r))
+def get(r):
+    from random import random
+    return random()
 

@@ -16,5 +16,10 @@
 #  under the License.
 
 def get(r, l):
-    return l.get(r)[0]
+    lv = l.get(r)
+    if lv is None:
+        return lv
+    if len(lv) == 0:
+        return None
+    return lv[0]
 

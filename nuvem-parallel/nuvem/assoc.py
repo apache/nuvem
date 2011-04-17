@@ -15,9 +15,6 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, first, rest):
-    rst = rest.get(r)
-    if rst is None:
-        return (first.get(r),)
-    return (first.get(r),) + rst
+def get(r, v, prop):
+    return ("'" + prop.eval(), v.get(r))
 

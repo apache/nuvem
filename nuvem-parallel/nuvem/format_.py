@@ -32,9 +32,15 @@ def get(r, fmt, args):
             return True
         return False
 
+    def trimq(x):
+        if not isinstance(x, basestring):
+            return x
+        return x[1:] if x[0:1] == "'" else x
+
     l = args.get(r)
-    la = filter(lambda x: not isAssoc(x), l)
-    ka = dict(map(lambda x: (x[0][1:], x[1]), filter(lambda x: isAssoc(x), l)))
+    lv = () if l is None else l
+    la = map(trimq, filter(lambda x: not isAssoc(x), lv))
+    ka = dict(map(lambda x: (x[0][1:], x[1]), filter(lambda x: isAssoc(x), lv)))
 
     return fmt.get(r).format(*la, **ka)
 

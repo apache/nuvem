@@ -15,7 +15,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, i, l):
-    lv = l.get(r)
-    return (() if lv is None else lv)[int(i.get(r))]
+def get(r, x):
+    from math import sin
+    return sin(float(x.get(r)))
 

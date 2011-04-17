@@ -15,7 +15,9 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, i, l):
-    lv = l.get(r)
-    return (() if lv is None else lv)[int(i.get(r))]
+def get(r, l):
+    from random import shuffle
+    rl = list(l.get(r))
+    shuffle(rl)
+    return tuple(rl)
 

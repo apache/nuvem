@@ -15,7 +15,8 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, coll, id):
+# Return a list of name value pairs that match a name
+def get(r, n, l):
     def isList(v):
         if getattr(v, '__iter__', False) == False:
             return False
@@ -23,6 +24,32 @@ def get(r, coll, id):
             return False
         return True
 
-    idv = id.get(r)
-    return coll.delete(() if idv is None else idv if isList(idv) else (idv,))
+    def isAssoc(v):
+        return isList(v) and len(v) == 2 and isinstance(v[0], basestring) and v[0][0:1] == "'"
+
+    def lookup(nv, lv):
+        if lv == ():
+            return ()
+
+        # Check if list element is a name value pair assoc
+        a = lv[0]
+        if not isAssoc(a):
+            return lookup(nv, lv[1:])
+
+        # Got a match, return it and lookup rest of the list
+        an = "'" + a[0][2:] if a[0][0:2] == "'@" else a[0]
+        if an == nv:
+            return (a,) + lookup(nv, lv[1:])
+
+        # No match, lookup rest of the list
+        return lookup(nv, lv[1:])
+
+    def qsymbol(x):
+        if not isinstance(x, basestring):
+            return x
+        return x if x[0:1] == "'" else "'" + x
+
+    nv = n.get(r)
+    lv = l.get(r)
+    return lookup(qsymbol(nv), () if lv is None else lv)
 

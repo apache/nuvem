@@ -15,7 +15,11 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, i, l):
+def get(r, l):
     lv = l.get(r)
-    return (() if lv is None else lv)[int(i.get(r))]
+    if lv is None:
+        return lv
+    if len(lv) == 0:
+        return None
+    return lv[len(lv) - 1]
 

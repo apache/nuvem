@@ -24,5 +24,5 @@ def get(r, coll, id, val):
         return True
 
     idv = id.get(r)
-    return coll.post(idv if isList(idv) else (idv,), val.get(r))
+    return coll.post(() if idv is None else idv if isList(idv) else (idv,), val.get(r))
 

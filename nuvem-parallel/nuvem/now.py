@@ -15,7 +15,10 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r):
+def get(r, f):
     from datetime import datetime
-    return datetime.now().ctime()
+    fv = f.get(r)
+    if fv is None:
+        return datetime.now().ctime()
+    return datetime.now().strftime(fv)
 

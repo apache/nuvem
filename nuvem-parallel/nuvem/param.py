@@ -15,7 +15,7 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, n, prop):
+def get(r, name, params):
     def lookup(nv, lv):
         if lv == ():
             return None
@@ -24,5 +24,5 @@ def get(r, n, prop):
             return a[1]
         return lookup(nv, lv[1:])
 
-    return lookup(n.get(r), prop.eval())
+    return lookup("'" + name.eval(), params.eval())
 

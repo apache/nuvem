@@ -19,7 +19,8 @@ def get(r, item, transform, l):
     iv = item.get(r)
 
     def tfun(i):
-        return transform.get(r + ((iv, i),))
+        return transform.get(((iv, i),) + r)
 
-    return tuple(map(tfun, l.get(r)))
+    lv = l.get(r)
+    return tuple(map(tfun, () if lv is None else lv))
 

@@ -15,12 +15,13 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, item, accum, transform, l):
+def get(r, item, accum, transform, init, l):
     iv = item.get(r)
     av = accum.get(r)
 
     def tfun(a, i):
-        return transform.get(r + ((av, a), (iv, i)))
+        return transform.get(((av, a), (iv, i)) + r)
 
-    return reduce(tfun, l.get(r))
+    lv = l.get(r)
+    return reduce(tfun, () if lv is None else lv, init.get(r))
 
