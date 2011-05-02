@@ -21,9 +21,9 @@
 package services;
 
 import org.apache.nuvem.cloud.xmpp.api.JID;
-import org.apache.nuvem.cloud.xmpp.api.MessageBuilder;
 import org.apache.nuvem.cloud.xmpp.api.Status;
 import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
+import org.apache.nuvem.cloud.xmpp.api.message.MessageBuilder;
 import org.oasisopen.sca.annotation.Reference;
 import org.oasisopen.sca.annotation.Scope;
 
@@ -36,7 +36,7 @@ public class XMPPShipmentObserver implements ShipmentObserver {
 	public void onStatusUpdate(Shipment shipment, Event event) {
 		JID jid = shipment.getJidToUpdate();
 		System.out.println("inviting user of jid : " + jid.asString());
-		Status status = endpoint.invite(jid);
+		Status status = endpoint.invite(jid.asString());
 		System.out.println("status of invite:" + status.hasErrors());
 		if (!status.hasErrors()) {
 			endpoint.sendMessage(new MessageBuilder().toRecipient(
