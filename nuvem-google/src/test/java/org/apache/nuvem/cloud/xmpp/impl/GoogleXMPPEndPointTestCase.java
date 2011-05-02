@@ -22,11 +22,11 @@ package org.apache.nuvem.cloud.xmpp.impl;
 import junit.framework.Assert;
 
 import org.apache.nuvem.cloud.xmpp.api.ErrorCode;
-import org.apache.nuvem.cloud.xmpp.api.Message;
-import org.apache.nuvem.cloud.xmpp.api.MessageBuilder;
-import org.apache.nuvem.cloud.xmpp.api.MessageListener;
 import org.apache.nuvem.cloud.xmpp.api.Status;
 import org.apache.nuvem.cloud.xmpp.api.XMPPConnector;
+import org.apache.nuvem.cloud.xmpp.api.message.Message;
+import org.apache.nuvem.cloud.xmpp.api.message.MessageBuilder;
+import org.apache.nuvem.cloud.xmpp.api.message.MessageListener;
 import org.easymock.EasyMock;
 import org.easymock.IArgumentMatcher;
 import org.junit.Before;
@@ -34,6 +34,8 @@ import org.junit.Test;
 
 import com.google.appengine.api.xmpp.JID;
 import com.google.appengine.api.xmpp.Presence;
+import com.google.appengine.api.xmpp.PresenceBuilder;
+import com.google.appengine.api.xmpp.PresenceType;
 import com.google.appengine.api.xmpp.SendResponse;
 import com.google.appengine.api.xmpp.XMPPService;
 
@@ -52,7 +54,8 @@ public class GoogleXMPPEndPointTestCase {
 	public void setUp() throws IllegalArgumentException, IllegalAccessException {
 		mockedConnector = EasyMock.createMock(XMPPConnector.class);
 		mockXMPPService = EasyMock.createMock(XMPPService.class);
-		EasyMock.expect(mockedConnector.getConnection()).andReturn(mockXMPPService);
+		EasyMock.expect(mockedConnector.getConnection()).andReturn(
+				mockXMPPService);
 		endPoint = new GoogleXMPPEndPoint(mockedConnector);
 	}
 
@@ -63,7 +66,8 @@ public class GoogleXMPPEndPointTestCase {
 
 	@Test
 	public void testWithValidMessageButToOfflineRecipient() {
-		Presence presence = new Presence(false);
+		Presence presence = new PresenceBuilder().withPresenceType(
+				PresenceType.UNAVAILABLE).build();
 		JID jid = new JID("test@test.com");
 		Message message = new MessageBuilder().containing("content")
 				.toRecipient("test@test.com").from("from@test.com").build();
@@ -81,7 +85,8 @@ public class GoogleXMPPEndPointTestCase {
 
 	@Test
 	public void testWithValidMessageAndForOnlineRecipient() {
-		Presence presence = new Presence(true);
+		Presence presence = new PresenceBuilder().withPresenceType(
+				PresenceType.AVAILABLE).build();
 		JID jid = new JID("test@test.com");
 		Message message = new MessageBuilder().containing("content")
 				.toRecipient("test@test.com").from("from@test.com").build();
@@ -180,7 +185,7 @@ public class GoogleXMPPEndPointTestCase {
 						"test@domain.com"));
 		Assert.assertNotNull(registeredListener);
 		Assert.assertTrue(endPoint.clearListenersFor(jid));
-		Assert.assertEquals(MessageListener.LOGGING_LISTENER,
-				endPoint.getListenerFor(jid));
+		Assert.assertEquals(MessageListener.LOGGING_LISTENER, endPoint
+				.getListenerFor(jid));
 	}
 }
