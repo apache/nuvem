@@ -60,9 +60,6 @@ public final class Status {
         return errors != null && errors.size() > 0;
     }
 
-    public boolean wasSentSuccessfuly() {
-        return errors == null || errors.size() == 0;
-    }
 
     public List<Error> errors() {
         return errors;

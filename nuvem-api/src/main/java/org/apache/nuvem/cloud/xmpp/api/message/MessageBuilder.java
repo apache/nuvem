@@ -19,11 +19,13 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api;
+package org.apache.nuvem.cloud.xmpp.api.message;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import org.apache.nuvem.cloud.xmpp.api.JID;
 
 /**
  * Used to build the message.

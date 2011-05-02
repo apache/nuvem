@@ -25,8 +25,13 @@ package org.apache.nuvem.cloud.xmpp.api;
  */
 public enum ErrorCode {
 
-    // TODO:the value of the code should be used in the constructor.
+	// TODO:the value of the code should be used in the constructor.
 
-    // TODO: complete by adding all error codes along with the descriptions.
-    BAD_FORMAT, CONFLICT, HOST_UNKNOWN, HOST_GONE, IMPROPER_ADDRESSING, USER_OFFLINE, CONNECTION_TIMEOUT, INVALID_FROM, NOT_AUTHORIZED, UNSUPPORTED_ENCODING, INVALID_TO, INVALID_ID, UNKNOWN_ERROR;
+	// TODO: complete by adding all error codes along with the descriptions.
+	BAD_FORMAT, CONFLICT, HOST_UNKNOWN, HOST_GONE, IMPROPER_ADDRESSING, USER_OFFLINE, CONNECTION_TIMEOUT, INVALID_FROM, NOT_AUTHORIZED, UNSUPPORTED_ENCODING, INVALID_TO, INVALID_ID, UNKNOWN_ERROR,
+	
+	
+	//PUB SUB Error Codes
+	
+	;
 }

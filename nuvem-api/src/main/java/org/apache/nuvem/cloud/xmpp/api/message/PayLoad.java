@@ -18,9 +18,10 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api;
+package org.apache.nuvem.cloud.xmpp.api.message;
 
 import java.util.Locale;
+
 
 /**
  * The Container to hold the actual data and all related attributes about the data which are required for XMPP Protocol.

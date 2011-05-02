@@ -20,6 +20,11 @@
 
 package org.apache.nuvem.cloud.xmpp.api;
 
+import org.apache.nuvem.cloud.xmpp.api.message.Message;
+import org.apache.nuvem.cloud.xmpp.api.message.MessageBuilder;
+import org.apache.nuvem.cloud.xmpp.api.message.MessageListener;
+import org.apache.nuvem.cloud.xmpp.api.presence.PresenceManager;
+
 /**
  * Represents An EndPoint for client to send and receive XMPP messages.
  * <p>
@@ -61,7 +66,7 @@ public interface XMPPEndPoint {
 	 *         message.
 	 * @throws XMPPConnectException
 	 *             if an error occurs when trying to connect to the XMPP Server.
-	 * @see org.apache.nuvem.cloud.xmpp.api.Message
+	 * @see org.apache.nuvem.cloud.xmpp.api.message.Message
 	 */
 	Status sendMessage(Message message);
 
@@ -99,7 +104,8 @@ public interface XMPPEndPoint {
 	 * 
 	 * @param jid
 	 *            the JID
-	 * @return the registered Message Listener if one available, otherwise returns a default listener 
+	 * @return the registered Message Listener if one available, otherwise
+	 *         returns a default listener
 	 * @see MessageListener#LOGGING_LISTENER
 	 */
 	MessageListener getListenerFor(JID jid);
@@ -139,5 +145,13 @@ public interface XMPPEndPoint {
 	 *             if JID is invalid.
 	 */
 	Status invite(String jid);
+
+	/**
+	 * Returns a new interface to perform Presence related operations with the
+	 * XMPP Server.
+	 * 
+	 * @return the PresenceManager
+	 */
+	PresenceManager presenceManager();
 
 }

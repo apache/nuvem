@@ -18,7 +18,7 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api;
+package org.apache.nuvem.cloud.xmpp.api.message;
 
 /**
  * Used to label the type of content present in the payload of a message.
