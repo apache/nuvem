@@ -26,8 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.nuvem.cloud.xmpp.api.MessageListener;
 import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
+import org.apache.nuvem.cloud.xmpp.api.message.MessageListener;
 import org.oasisopen.sca.annotation.Reference;
 
 import com.google.appengine.api.xmpp.JID;
@@ -41,7 +41,7 @@ import com.google.appengine.api.xmpp.XMPPServiceFactory;
  * This servlet will recieve the messages posted in the HTTP POST request, parse
  * the message using the APIs provided by GAE convert the message into nuvem
  * specific message so that the
- * {@link MessageListener#listen(org.apache.nuvem.cloud.xmpp.api.Message)} will
+ * {@link MessageListener#listen(org.apache.nuvem.cloud.xmpp.api.message.Message)} will
  * be called for the <code>JID</code> the <code>MessageListener</code> is
  * registered for.
  * </p>
@@ -57,16 +57,16 @@ public class GoogleRecieverServlet extends HttpServlet {
 
 	/**
 	 * Adapts the HTTP Post request into a call to the
-	 * {@link MessageListener#listen(org.apache.nuvem.cloud.xmpp.api.Message)}.
+	 * {@link MessageListener#listen(org.apache.nuvem.cloud.xmpp.api.message.Message)}.
 	 * 
-	 * @see org.apache.nuvem.cloud.xmpp.api.MessageListener
+	 * @see org.apache.nuvem.cloud.xmpp.api.message.MessageListener
 	 * @see org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint
 	 */
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		XMPPService xmpp = XMPPServiceFactory.getXMPPService();
 		Message message = xmpp.parseMessage(req);
-		org.apache.nuvem.cloud.xmpp.api.Message nuvemMessage = GoogleXMPPMessageAdapter
+		org.apache.nuvem.cloud.xmpp.api.message.Message nuvemMessage = GoogleXMPPMessageAdapter
 				.toNuvemMessage(message);
 		JID from = message.getFromJid();
 

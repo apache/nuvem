@@ -28,6 +28,7 @@ import org.apache.nuvem.cloud.xmpp.api.ErrorCode;
 import org.apache.nuvem.cloud.xmpp.api.Status;
 import org.apache.nuvem.cloud.xmpp.api.XMPPConnector;
 import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
+import org.apache.nuvem.cloud.xmpp.api.presence.PresenceManager;
 import org.apache.nuvem.cloud.xmpp.common.AbstractXMPPEndPoint;
 import org.oasisopen.sca.annotation.Init;
 import org.oasisopen.sca.annotation.Reference;
@@ -57,6 +58,8 @@ public class GoogleXMPPEndPoint extends AbstractXMPPEndPoint implements
 	@Reference(required = false)
 	protected XMPPConnector<XMPPService> connector;
 
+	@Reference
+	protected PresenceManager presenceManager;
 
 	@Init
 	public void init() {
@@ -86,7 +89,8 @@ public class GoogleXMPPEndPoint extends AbstractXMPPEndPoint implements
 	/**
 	 * {@inheritDoc}
 	 */
-	public Status sendMessage(org.apache.nuvem.cloud.xmpp.api.Message message) {
+	public Status sendMessage(
+			org.apache.nuvem.cloud.xmpp.api.message.Message message) {
 		XMPPService xmpp = connector.getConnection();
 		if (message == null || message.recipient() == null) {
 			throw new IllegalArgumentException("invalid input");
@@ -120,7 +124,7 @@ public class GoogleXMPPEndPoint extends AbstractXMPPEndPoint implements
 	private Status invite(org.apache.nuvem.cloud.xmpp.api.JID jid) {
 		if (jid == null)
 			throw new IllegalArgumentException("jid cannot be null");
-		
+
 		XMPPService xmpp = connector.getConnection();
 		Status deliveryStatus = new Status();
 		JID googleJID = new JID(jid.asString());
@@ -151,6 +155,13 @@ public class GoogleXMPPEndPoint extends AbstractXMPPEndPoint implements
 		Validate.notNull(id);
 		XMPPService xmpp = connector.getConnection();
 		return xmpp.getPresence(new JID(id)).isAvailable();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public PresenceManager presenceManager() {
+		return presenceManager;
 	}
 
 }
