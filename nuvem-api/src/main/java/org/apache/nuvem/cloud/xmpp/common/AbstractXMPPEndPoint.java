@@ -24,10 +24,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.nuvem.cloud.xmpp.api.JID;
-import org.apache.nuvem.cloud.xmpp.api.Message;
-import org.apache.nuvem.cloud.xmpp.api.MessageBuilder;
-import org.apache.nuvem.cloud.xmpp.api.MessageListener;
 import org.apache.nuvem.cloud.xmpp.api.Status;
+import org.apache.nuvem.cloud.xmpp.api.message.Message;
+import org.apache.nuvem.cloud.xmpp.api.message.MessageBuilder;
+import org.apache.nuvem.cloud.xmpp.api.message.MessageListener;
 
 /**
  * Encloses the common code for various types of end points irrespective of the
@@ -47,8 +47,7 @@ public abstract class AbstractXMPPEndPoint {
 		throw new UnsupportedOperationException("still not implemented");
 	}
 
-	public void registerListner(org.apache.nuvem.cloud.xmpp.api.JID jid,
-			MessageListener listener) {
+	public void registerListner(JID jid, MessageListener listener) {
 		if (listener == null || jid == null)
 			throw new IllegalArgumentException("invalid jid/listener");
 		listeners.put(jid, listener);
@@ -80,7 +79,7 @@ public abstract class AbstractXMPPEndPoint {
 	}
 
 	public abstract Status sendMessage(
-			org.apache.nuvem.cloud.xmpp.api.Message message);
+			org.apache.nuvem.cloud.xmpp.api.message.Message message);
 
 	/**
 	 * 

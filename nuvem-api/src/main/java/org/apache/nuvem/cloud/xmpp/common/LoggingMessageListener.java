@@ -21,9 +21,9 @@ package org.apache.nuvem.cloud.xmpp.common;
 
 import java.util.logging.Logger;
 
-import org.apache.nuvem.cloud.xmpp.api.Message;
-import org.apache.nuvem.cloud.xmpp.api.MessageListener;
 import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
+import org.apache.nuvem.cloud.xmpp.api.message.Message;
+import org.apache.nuvem.cloud.xmpp.api.message.MessageListener;
 
 /**
  * Default message listener which will log the message information.
