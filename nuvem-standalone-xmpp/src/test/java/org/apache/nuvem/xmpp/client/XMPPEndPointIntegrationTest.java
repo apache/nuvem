@@ -22,10 +22,10 @@ package org.apache.nuvem.xmpp.client;
 import junit.framework.Assert;
 
 import org.apache.nuvem.cloud.xmpp.api.JID;
-import org.apache.nuvem.cloud.xmpp.api.Message;
-import org.apache.nuvem.cloud.xmpp.api.MessageListener;
 import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
 import org.apache.nuvem.cloud.xmpp.api.XMPPServer;
+import org.apache.nuvem.cloud.xmpp.api.message.Message;
+import org.apache.nuvem.cloud.xmpp.api.message.MessageListener;
 import org.apache.nuvem.xmpp.server.DefaultXMPPServer;
 import org.apache.tuscany.sca.node.Node;
 import org.apache.tuscany.sca.node.NodeFactory;

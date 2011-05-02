@@ -20,34 +20,44 @@
 
 package org.apache.nuvem.xmpp.client;
 
-import org.apache.nuvem.cloud.xmpp.api.MessageBuilder;
-import org.jivesoftware.smack.Chat;
-import org.jivesoftware.smack.MessageListener;
-import org.jivesoftware.smack.packet.Message;
+import java.util.Collection;
+
+import org.apache.nuvem.cloud.xmpp.api.presence.PresenceListener;
 
 /**
- * Message Listener to listen to smack api and adapt it to nuvem specific
- * messages.
+ * Listens to smack roster events and adapts it to nuvem roster events.
  * 
  */
-public class SmackMessageListenerAdapter implements MessageListener {
+public class RosterListenerAdapter implements
+		org.jivesoftware.smack.RosterListener {
 
 	/**
-	 * The Nuvem Listener.
+	 * Nuvem Roster Listener.
 	 */
-	private org.apache.nuvem.cloud.xmpp.api.MessageListener nuvemListener;
+	private PresenceListener listener;
 
-	public SmackMessageListenerAdapter(
-			org.apache.nuvem.cloud.xmpp.api.MessageListener nuvemMessageListener) {
-		if (nuvemMessageListener == null)
-			throw new IllegalArgumentException("listener should not be null");
-		this.nuvemListener = nuvemMessageListener;
+	public RosterListenerAdapter(PresenceListener listener) {
+		this.listener = listener;
 	}
 
 	@Override
-	public void processMessage(Chat chat, Message message) {
-		nuvemListener.listen(new MessageBuilder().from(message.getFrom())
-				.containing(message.getBody()).build());
+	public void entriesAdded(Collection<String> arg0) {
+
 	}
 
+	@Override
+	public void entriesDeleted(Collection<String> arg0) {
+
+	}
+
+	@Override
+	public void entriesUpdated(Collection<String> arg0) {
+
+	}
+
+	@Override
+	public void presenceChanged(org.jivesoftware.smack.packet.Presence presence) {
+		listener.listen(PresenceAdapter
+				.toNuvemPresence(presence));
+	}
 }

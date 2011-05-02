@@ -27,6 +27,21 @@
 		<reference name="connector" target="TestSimpleSenderConnector/XMPPConnector">
 			<interface.java interface="org.apache.nuvem.cloud.xmpp.api.XMPPConnector" />
 		</reference>
+		<reference name="presenceManager" target="TestSenderPresenceComponent/PresenceManager">
+            <interface.java interface="org.apache.nuvem.cloud.xmpp.api.presence.PresenceManager" />
+        </reference>
+	</component>
+
+	<component name="TestSenderPresenceComponent">
+		<implementation.java
+			class="org.apache.nuvem.xmpp.client.DefaultPresenceManager" />
+		<service name="PresenceManager">
+			<interface.java
+				interface="org.apache.nuvem.cloud.xmpp.api.presence.PresenceManager" />
+		</service>
+		<reference name="connector" target="TestSimpleSenderConnector/XMPPConnector">
+            <interface.java interface="org.apache.nuvem.cloud.xmpp.api.XMPPConnector" />
+        </reference>
 	</component>
 
 	<component name="TestSSLConnector">
@@ -49,7 +64,23 @@
 		<reference name="connector" target="TestSimpleRecieverConnector/XMPPConnector">
 			<interface.java interface="org.apache.nuvem.cloud.xmpp.api.XMPPConnector" />
 		</reference>
+		<reference name="presenceManager" target="TestRecieverPresenceComponent/PresenceManager">
+            <interface.java interface="org.apache.nuvem.cloud.xmpp.api.presence.PresenceManager" />
+        </reference>
 	</component>
+
+    <component name="TestRecieverPresenceComponent">
+        <implementation.java
+            class="org.apache.nuvem.xmpp.client.DefaultPresenceManager" />
+        <service name="PresenceManager">
+            <interface.java
+                interface="org.apache.nuvem.cloud.xmpp.api.presence.PresenceManager" />
+        </service>
+        <reference name="connector" target="TestSimpleRecieverConnector/XMPPConnector">
+            <interface.java interface="org.apache.nuvem.cloud.xmpp.api.XMPPConnector" />
+        </reference>
+    </component>
+
 
 	<component name="TestSimpleRecieverConnector">
 		<implementation.java class="org.apache.nuvem.xmpp.client.SimpleConnector" />

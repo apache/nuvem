@@ -75,7 +75,7 @@ public class DefaultXMPPEndPointTestCase {
 		expect(connection.getChatManager()).andReturn(chatManager);
 		expect(
 				chatManager.createChat(isA(String.class),
-						isA(SmackMessageListenerAdapter.class)))
+						isA(MessageListenerAdapter.class)))
 				.andReturn(chat);
 		chat.sendMessage(MESSAGE);
 		expectLastCall();
@@ -95,7 +95,7 @@ public class DefaultXMPPEndPointTestCase {
 		expect(connection.getChatManager()).andReturn(chatManager);
 		expect(
 				chatManager.createChat(isA(String.class),
-						isA(SmackMessageListenerAdapter.class)))
+						isA(MessageListenerAdapter.class)))
 				.andReturn(chat);
 		chat.sendMessage(MESSAGE);
 		expectLastCall().andThrow(

@@ -20,40 +20,34 @@
 
 package org.apache.nuvem.xmpp.client;
 
-import org.apache.nuvem.cloud.xmpp.api.MessageBuilder;
+import org.apache.nuvem.cloud.xmpp.api.message.MessageBuilder;
+import org.jivesoftware.smack.Chat;
+import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.packet.Message;
 
 /**
- * Adapter to transform nuvem message into smack message.
- * 
+ * Message Listener to listen to smack api and adapt it to nuvem specific
+ * messages.
  * 
  */
-public class SmackMessageAdapter {
+public class MessageListenerAdapter implements MessageListener {
 
 	/**
-	 * Converts nuvem specific message object to the one smack API accepts.
-	 * 
+	 * The Nuvem Listener.
 	 */
-	public static Message toSmackMessage(
-			org.apache.nuvem.cloud.xmpp.api.Message nuvemMessage, String sender) {
-		Message smackMessage = new Message();
-		smackMessage.setFrom(sender);
-		smackMessage.setBody(nuvemMessage.payLoad().content());
-		smackMessage.setTo(nuvemMessage.recipient().asString());
-		return smackMessage;
+	private org.apache.nuvem.cloud.xmpp.api.message.MessageListener nuvemListener;
+
+	public MessageListenerAdapter(
+			org.apache.nuvem.cloud.xmpp.api.message.MessageListener nuvemMessageListener) {
+		if (nuvemMessageListener == null)
+			throw new IllegalArgumentException("listener should not be null");
+		this.nuvemListener = nuvemMessageListener;
 	}
 
-	/**
-	 * Converts smack message to Nuvem Message.
-	 * 
-	 * @param message
-	 *            the smack message.
-	 * @return nuvem message.
-	 */
-	public static org.apache.nuvem.cloud.xmpp.api.Message toNuvemMessage(
-			Message message) {
-		return new MessageBuilder().from(message.getFrom()).toRecipient(
-				message.getTo()).containing(message.getBody()).build();
+	@Override
+	public void processMessage(Chat chat, Message message) {
+		nuvemListener.listen(new MessageBuilder().from(message.getFrom())
+				.containing(message.getBody()).build());
 	}
 
 }

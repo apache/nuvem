@@ -24,10 +24,11 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang.Validate;
 import org.apache.nuvem.cloud.xmpp.api.JID;
-import org.apache.nuvem.cloud.xmpp.api.Message;
 import org.apache.nuvem.cloud.xmpp.api.Status;
 import org.apache.nuvem.cloud.xmpp.api.XMPPConnector;
 import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
+import org.apache.nuvem.cloud.xmpp.api.message.Message;
+import org.apache.nuvem.cloud.xmpp.api.presence.PresenceManager;
 import org.apache.nuvem.cloud.xmpp.common.AbstractXMPPEndPoint;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.Roster;
@@ -59,6 +60,10 @@ public class DefaultXMPPEndPoint extends AbstractXMPPEndPoint implements
 	@Reference
 	protected XMPPConnector<XMPPConnection> connector;
 
+	@Reference
+	protected PresenceManager presenceManager; 
+	
+	
 	/**
 	 * The packet filter to decide what packets to recieve from the XMPP
 	 * Server..
@@ -101,18 +106,18 @@ public class DefaultXMPPEndPoint extends AbstractXMPPEndPoint implements
 		}
 		Status deliveryStatus = new Status();
 
-		org.apache.nuvem.cloud.xmpp.api.MessageListener nuvemListener = getListenerFor(message
+		org.apache.nuvem.cloud.xmpp.api.message.MessageListener nuvemListener = getListenerFor(message
 				.recipient());
 
 		Chat chat = connection.getChatManager().createChat(
 				message.recipient().asString(),
-				new SmackMessageListenerAdapter(nuvemListener));
+				new MessageListenerAdapter(nuvemListener));
 		try {
 			chat.sendMessage(message.payLoad().content());
 		} catch (XMPPException e) {
 			log.severe("error while sending xmpp message to "
 					+ message.recipient().asString());
-			deliveryStatus = SmackStatusAdapter.toStatus(e.getXMPPError());
+			deliveryStatus = StatusAdapter.toStatus(e.getXMPPError());
 		}
 		return deliveryStatus;
 	}
@@ -169,5 +174,10 @@ public class DefaultXMPPEndPoint extends AbstractXMPPEndPoint implements
 	 */
 	public boolean isConnected() {
 		return connector.getConnection().isConnected();
+	}
+
+	@Override
+	public PresenceManager presenceManager() {
+		return presenceManager;
 	}
 }

@@ -31,7 +31,7 @@ import org.jivesoftware.smack.packet.XMPPError;
  * Acts as an adapter to transform the status recieved by the the send API to
  * the form compatible with nuvem.
  */
-public class SmackStatusAdapter {
+public class StatusAdapter {
 
 	/**
 	 * converstion map.

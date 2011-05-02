@@ -22,8 +22,8 @@ package org.apache.nuvem.xmpp.client;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.nuvem.cloud.xmpp.api.JID;
-import org.apache.nuvem.cloud.xmpp.api.MessageListener;
 import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
+import org.apache.nuvem.cloud.xmpp.api.message.MessageListener;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
@@ -48,7 +48,7 @@ public class NuvemPacketListener implements PacketListener {
 					"/");
 			MessageListener listener = endPoint
 					.getListenerFor(new JID(from));
-			listener.listen(SmackMessageAdapter
+			listener.listen(MessageAdapter
 					.toNuvemMessage((Message) packet));
 		}
 	}

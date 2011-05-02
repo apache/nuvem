@@ -22,8 +22,8 @@ package org.apache.nuvem.xmpp.client;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.nuvem.cloud.xmpp.api.JID;
-import org.apache.nuvem.cloud.xmpp.api.MessageListener;
 import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
+import org.apache.nuvem.cloud.xmpp.api.message.MessageListener;
 import org.jivesoftware.smack.filter.PacketFilter;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
