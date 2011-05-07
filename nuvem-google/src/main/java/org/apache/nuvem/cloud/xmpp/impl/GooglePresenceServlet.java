@@ -26,9 +26,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
-import org.apache.nuvem.cloud.xmpp.api.presence.PresenceListener;
-import org.apache.nuvem.cloud.xmpp.api.presence.PresenceManager;
+import org.apache.nuvem.cloud.xmpp.XMPPEndPoint;
+import org.apache.nuvem.cloud.xmpp.presence.PresenceListener;
+import org.apache.nuvem.cloud.xmpp.presence.PresenceManager;
 import org.oasisopen.sca.annotation.Reference;
 
 import com.google.appengine.api.xmpp.Presence;
@@ -42,7 +42,7 @@ import com.google.appengine.api.xmpp.XMPPServiceFactory;
  * This servlet will recieve the presence change requests posted in the HTTP
  * POST request, parse the message using the APIs provided by GAE convert the
  * request into nuvem specific presence object so that the
- * {@link PresenceListener#listen(org.apache.nuvem.cloud.xmpp.api.presence.Presence)}
+ * {@link PresenceListener#listen(org.apache.nuvem.cloud.xmpp.presence.Presence)}
  * will for all listeners registered through the
  * {@link PresenceManager#registerListener(PresenceListener)} API.
  * </p>
@@ -66,10 +66,10 @@ public class GooglePresenceServlet extends HttpServlet {
 
 	/**
 	 * Adapts the HTTP Post request into a call to the
-	 * {@link PresenceListener#listen(org.apache.nuvem.cloud.xmpp.api.presence.Presence)}
+	 * {@link PresenceListener#listen(org.apache.nuvem.cloud.xmpp.presence.Presence)}
 	 * .
 	 * 
-	 * @see org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint
+	 * @see org.apache.nuvem.cloud.xmpp.XMPPEndPoint
 	 */
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {

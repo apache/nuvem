@@ -27,14 +27,14 @@
         <version>1.0-incubating-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>nuvem-cloud-google</artifactId>
+    <artifactId>nuvem-google</artifactId>
 	<version>1.0-incubating-SNAPSHOT</version>
     <name>Apache Nuvem Cloud API Implementation for Google AppEngine</name>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.nuvem</groupId>
-			<artifactId>nuvem-cloud-api</artifactId>
+			<artifactId>nuvem-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 

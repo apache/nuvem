@@ -21,12 +21,12 @@ package org.apache.nuvem.cloud.xmpp.impl;
 
 import junit.framework.Assert;
 
-import org.apache.nuvem.cloud.xmpp.api.ErrorCode;
-import org.apache.nuvem.cloud.xmpp.api.Status;
-import org.apache.nuvem.cloud.xmpp.api.XMPPConnector;
-import org.apache.nuvem.cloud.xmpp.api.message.Message;
-import org.apache.nuvem.cloud.xmpp.api.message.MessageBuilder;
-import org.apache.nuvem.cloud.xmpp.api.message.MessageListener;
+import org.apache.nuvem.cloud.xmpp.ErrorCode;
+import org.apache.nuvem.cloud.xmpp.Status;
+import org.apache.nuvem.cloud.xmpp.XMPPConnector;
+import org.apache.nuvem.cloud.xmpp.message.Message;
+import org.apache.nuvem.cloud.xmpp.message.MessageBuilder;
+import org.apache.nuvem.cloud.xmpp.message.MessageListener;
 import org.easymock.EasyMock;
 import org.easymock.IArgumentMatcher;
 import org.junit.Before;
@@ -160,10 +160,10 @@ public class GoogleXMPPEndPointTestCase {
 
 			}
 		};
-		endPoint.registerListner(new org.apache.nuvem.cloud.xmpp.api.JID(
+		endPoint.registerListner(new org.apache.nuvem.cloud.xmpp.JID(
 				"test@domain.com"), listener);
 		MessageListener registeredListener = endPoint
-				.getListenerFor(new org.apache.nuvem.cloud.xmpp.api.JID(
+				.getListenerFor(new org.apache.nuvem.cloud.xmpp.JID(
 						"test@domain.com"));
 		Assert.assertNotNull(registeredListener);
 	}
@@ -177,11 +177,11 @@ public class GoogleXMPPEndPointTestCase {
 
 			}
 		};
-		org.apache.nuvem.cloud.xmpp.api.JID jid = new org.apache.nuvem.cloud.xmpp.api.JID(
+		org.apache.nuvem.cloud.xmpp.JID jid = new org.apache.nuvem.cloud.xmpp.JID(
 				"test@domain.com");
 		endPoint.registerListner(jid, listener);
 		MessageListener registeredListener = endPoint
-				.getListenerFor(new org.apache.nuvem.cloud.xmpp.api.JID(
+				.getListenerFor(new org.apache.nuvem.cloud.xmpp.JID(
 						"test@domain.com"));
 		Assert.assertNotNull(registeredListener);
 		Assert.assertTrue(endPoint.clearListenersFor(jid));

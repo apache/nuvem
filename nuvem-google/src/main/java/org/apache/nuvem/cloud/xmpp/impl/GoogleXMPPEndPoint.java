@@ -23,13 +23,13 @@ package org.apache.nuvem.cloud.xmpp.impl;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang.Validate;
-import org.apache.nuvem.cloud.xmpp.api.Error;
-import org.apache.nuvem.cloud.xmpp.api.ErrorCode;
-import org.apache.nuvem.cloud.xmpp.api.Status;
-import org.apache.nuvem.cloud.xmpp.api.XMPPConnector;
-import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
-import org.apache.nuvem.cloud.xmpp.api.presence.PresenceManager;
-import org.apache.nuvem.cloud.xmpp.common.AbstractXMPPEndPoint;
+import org.apache.nuvem.cloud.xmpp.Error;
+import org.apache.nuvem.cloud.xmpp.ErrorCode;
+import org.apache.nuvem.cloud.xmpp.Status;
+import org.apache.nuvem.cloud.xmpp.XMPPConnector;
+import org.apache.nuvem.cloud.xmpp.XMPPEndPoint;
+import org.apache.nuvem.cloud.xmpp.presence.PresenceManager;
+import org.apache.nuvem.cloud.xmpp.AbstractXMPPEndPoint;
 import org.oasisopen.sca.annotation.Init;
 import org.oasisopen.sca.annotation.Reference;
 import org.oasisopen.sca.annotation.Scope;
@@ -90,7 +90,7 @@ public class GoogleXMPPEndPoint extends AbstractXMPPEndPoint implements
 	 * {@inheritDoc}
 	 */
 	public Status sendMessage(
-			org.apache.nuvem.cloud.xmpp.api.message.Message message) {
+			org.apache.nuvem.cloud.xmpp.message.Message message) {
 		XMPPService xmpp = connector.getConnection();
 		if (message == null || message.recipient() == null) {
 			throw new IllegalArgumentException("invalid input");
@@ -114,14 +114,14 @@ public class GoogleXMPPEndPoint extends AbstractXMPPEndPoint implements
 			log.info(status.toString());
 		} else {
 			log.info("user offline...");
-			deliveryStatus.addError(new org.apache.nuvem.cloud.xmpp.api.Error(
+			deliveryStatus.addError(new org.apache.nuvem.cloud.xmpp.Error(
 					ErrorCode.USER_OFFLINE));
 			return deliveryStatus;
 		}
 		return GoogleStatusAdapter.toStatus(status);
 	}
 
-	private Status invite(org.apache.nuvem.cloud.xmpp.api.JID jid) {
+	private Status invite(org.apache.nuvem.cloud.xmpp.JID jid) {
 		if (jid == null)
 			throw new IllegalArgumentException("jid cannot be null");
 
@@ -141,11 +141,11 @@ public class GoogleXMPPEndPoint extends AbstractXMPPEndPoint implements
 
 	/**
 	 * {@inheritDoc} validation of the input will be done within
-	 * {@link org.apache.nuvem.cloud.xmpp.api.JID}
+	 * {@link org.apache.nuvem.cloud.xmpp.JID}
 	 */
 	@Override
 	public Status invite(String jid) {
-		return invite(new org.apache.nuvem.cloud.xmpp.api.JID(jid));
+		return invite(new org.apache.nuvem.cloud.xmpp.JID(jid));
 	}
 
 	/**

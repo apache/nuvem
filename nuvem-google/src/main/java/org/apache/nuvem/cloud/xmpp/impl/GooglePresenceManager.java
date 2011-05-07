@@ -23,10 +23,10 @@ package org.apache.nuvem.cloud.xmpp.impl;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang.Validate;
-import org.apache.nuvem.cloud.xmpp.api.XMPPConnector;
-import org.apache.nuvem.cloud.xmpp.api.presence.PresenceListener;
-import org.apache.nuvem.cloud.xmpp.api.presence.PresenceManager;
-import org.apache.nuvem.cloud.xmpp.common.AbstractPresenceManager;
+import org.apache.nuvem.cloud.xmpp.AbstractPresenceManager;
+import org.apache.nuvem.cloud.xmpp.XMPPConnector;
+import org.apache.nuvem.cloud.xmpp.presence.PresenceListener;
+import org.apache.nuvem.cloud.xmpp.presence.PresenceManager;
 import org.oasisopen.sca.annotation.Init;
 import org.oasisopen.sca.annotation.Reference;
 import org.oasisopen.sca.annotation.Service;

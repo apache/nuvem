@@ -23,11 +23,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.nuvem.cloud.xmpp.api.JID;
-import org.apache.nuvem.cloud.xmpp.api.presence.Presence;
-import org.apache.nuvem.cloud.xmpp.api.presence.PresenceBuilder;
-import org.apache.nuvem.cloud.xmpp.api.presence.Presence.Show;
-import org.apache.nuvem.cloud.xmpp.api.presence.Presence.Type;
+import org.apache.nuvem.cloud.xmpp.JID;
+import org.apache.nuvem.cloud.xmpp.presence.Presence;
+import org.apache.nuvem.cloud.xmpp.presence.PresenceBuilder;
+import org.apache.nuvem.cloud.xmpp.presence.Presence.Show;
+import org.apache.nuvem.cloud.xmpp.presence.Presence.Type;
 
 import com.google.appengine.api.xmpp.PresenceShow;
 import com.google.appengine.api.xmpp.PresenceType;
@@ -55,7 +55,7 @@ public final class PresenceAdapter {
 	/**
 	 * 
 	 Converts the google {@link com.google.appengine.api.xmpp.Presence} into
-	 * nuvem's {@link org.apache.nuvem.cloud.xmpp.api.presence.Presence} object
+	 * nuvem's {@link org.apache.nuvem.cloud.xmpp.presence.Presence} object
 	 */
 	public static Presence toNuvemPresence(
 			com.google.appengine.api.xmpp.Presence presence) {

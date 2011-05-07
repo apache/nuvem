@@ -22,7 +22,7 @@ package org.apache.nuvem.cloud.xmpp.impl;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import org.apache.nuvem.cloud.xmpp.api.XMPPConnector;
+import org.apache.nuvem.cloud.xmpp.XMPPConnector;
 
 import com.google.appengine.api.xmpp.XMPPService;
 import com.google.appengine.api.xmpp.XMPPServiceFactory;

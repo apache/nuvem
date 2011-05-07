@@ -22,9 +22,9 @@ package org.apache.nuvem.cloud.xmpp.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.nuvem.cloud.xmpp.api.Error;
-import org.apache.nuvem.cloud.xmpp.api.ErrorCode;
-import org.apache.nuvem.cloud.xmpp.api.Status;
+import org.apache.nuvem.cloud.xmpp.Error;
+import org.apache.nuvem.cloud.xmpp.ErrorCode;
+import org.apache.nuvem.cloud.xmpp.Status;
 
 import com.google.appengine.api.xmpp.JID;
 import com.google.appengine.api.xmpp.SendResponse;
