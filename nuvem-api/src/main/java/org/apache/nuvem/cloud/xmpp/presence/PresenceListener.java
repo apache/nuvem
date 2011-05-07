@@ -18,19 +18,10 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api.presence;
+package org.apache.nuvem.cloud.xmpp.presence;
 
-import java.util.List;
-
-/**
- * Manages Presence inboud and outboud stanzas, Each cloud platform will have
- * its own implementation of the PresenceManager.
- * 
- */
-public interface PresenceManager {
-
-	void registerListener(PresenceListener listener);
-
-	List<PresenceListener> listeners();
+public interface PresenceListener {
+	
+	void listen(Presence presence);
 
 }

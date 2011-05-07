@@ -1,5 +1,6 @@
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
+
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
@@ -17,32 +18,36 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api;
+package org.apache.nuvem.cloud.xmpp;
 
 /**
- * Entry point for interacting with the XMPP Server implementation. Each cloud
- * platform will have its own implementation of the XMPPServer if the platform
- * doesn't support a built in XMPP Server.
- * 
+ * Signals an error during an attempt to connect to an XMPP Server.
  * 
  */
-public interface XMPPServer {
+public class XMPPConnectException extends RuntimeException {
 
 	/**
-	 * Starts the XMPPServer for use if it was not already started.
-	 * 
-	 * @throws XMPPException
-	 *             if any problem starting the server or if the XMPPServer is
-	 *             already running.
+	 * serial id.
 	 */
-	public void start() throws XMPPException;
+	private static final long serialVersionUID = 4874219100692016046L;
 
 	/**
-	 * Stops the XMPP Server if it is started before.
-	 * 
-	 * @throws XMPPException
-	 *             if any internal problem during stopping the server.
+	 * Default constructor.
 	 */
-	public void stop() throws XMPPException;
+	public XMPPConnectException() {
 
+	}
+
+	/**
+	 * Constructor with message as argument
+	 * 
+	 * @param message
+	 */
+	public XMPPConnectException(String message) {
+		super(message);
+	}
+
+	public XMPPConnectException(String message, Throwable t) {
+		super(message, t);
+	}
 }

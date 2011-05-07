@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api;
+package org.apache.nuvem.cloud.xmpp;
 
 /**
  * Thrown when unknown exception occurs at the layer beneath nuvem.

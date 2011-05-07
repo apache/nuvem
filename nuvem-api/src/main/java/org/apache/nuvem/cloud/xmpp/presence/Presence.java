@@ -18,7 +18,7 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api.presence;
+package org.apache.nuvem.cloud.xmpp.presence;
 
 /**
  * Represents the presence XMPP stanza, it could be one of the below type of

@@ -1,6 +1,5 @@
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
-
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
@@ -18,36 +17,29 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api;
+package org.apache.nuvem.cloud.xmpp;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.nuvem.cloud.xmpp.presence.PresenceListener;
+import org.apache.nuvem.cloud.xmpp.presence.PresenceManager;
 
 /**
- * Signals an error during an attempt to connect to an XMPP Server.
- * 
+ * Holds common code between various cloud platform to avoid duplication.
+ *
  */
-public class XMPPConnectException extends RuntimeException {
+public abstract class AbstractPresenceManager implements PresenceManager {
 
-	/**
-	 * serial id.
-	 */
-	private static final long serialVersionUID = 4874219100692016046L;
+	protected List<PresenceListener> listeners = new ArrayList<PresenceListener>();
 
-	/**
-	 * Default constructor.
-	 */
-	public XMPPConnectException() {
-
+	public void clearListeners() {
+		listeners.clear();
 	}
 
-	/**
-	 * Constructor with message as argument
-	 * 
-	 * @param message
-	 */
-	public XMPPConnectException(String message) {
-		super(message);
+	public List<PresenceListener> listeners() {
+		return Collections.unmodifiableList(listeners);
 	}
 
-	public XMPPConnectException(String message, Throwable t) {
-		super(message, t);
-	}
 }

@@ -18,45 +18,20 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api;
-
-import java.io.Serializable;
+package org.apache.nuvem.cloud.xmpp;
 
 /**
- * Contains the error details used.
+ * XMPP error codes.
  */
-public final class Error implements Serializable {
+public enum ErrorCode {
 
-    /**
-	 * serial id.
-	 */
-	private static final long serialVersionUID = 234776753829641455L;
+	// TODO:the value of the code should be used in the constructor.
 
-	/**
-     * Description of the error.
-     */
-    private String description;
-
-    /**
-     * The actual error code.
-     */
-    private ErrorCode code;
-
-    public Error(ErrorCode code) {
-        this.code = code;
-    }
-
-    public Error(ErrorCode code, String description) {
-        this.code = code;
-        this.description = description;
-    }
-
-    public String description() {
-        return description;
-    }
-
-    public ErrorCode code() {
-        return code;
-    }
-
+	// TODO: complete by adding all error codes along with the descriptions.
+	BAD_FORMAT, CONFLICT, HOST_UNKNOWN, HOST_GONE, IMPROPER_ADDRESSING, USER_OFFLINE, CONNECTION_TIMEOUT, INVALID_FROM, NOT_AUTHORIZED, UNSUPPORTED_ENCODING, INVALID_TO, INVALID_ID, UNKNOWN_ERROR,
+	
+	
+	//PUB SUB Error Codes
+	
+	;
 }

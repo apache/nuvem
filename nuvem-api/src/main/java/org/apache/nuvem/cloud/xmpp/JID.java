@@ -18,7 +18,7 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api;
+package org.apache.nuvem.cloud.xmpp;
 
 import java.io.Serializable;
 import java.util.regex.Pattern;

@@ -18,7 +18,7 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api;
+package org.apache.nuvem.cloud.xmpp;
 
 import java.util.ArrayList;
 import java.util.List;

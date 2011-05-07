@@ -17,11 +17,10 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api.message;
+package org.apache.nuvem.cloud.xmpp.message;
 
-import org.apache.nuvem.cloud.xmpp.api.JID;
-import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
-import org.apache.nuvem.cloud.xmpp.common.LoggingMessageListener;
+import org.apache.nuvem.cloud.xmpp.JID;
+import org.apache.nuvem.cloud.xmpp.XMPPEndPoint;
 
 /**
  * Listens to XMPP messages of a specific type.

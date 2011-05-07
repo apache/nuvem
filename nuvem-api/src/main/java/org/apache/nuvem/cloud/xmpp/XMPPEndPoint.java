@@ -18,12 +18,12 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api;
+package org.apache.nuvem.cloud.xmpp;
 
-import org.apache.nuvem.cloud.xmpp.api.message.Message;
-import org.apache.nuvem.cloud.xmpp.api.message.MessageBuilder;
-import org.apache.nuvem.cloud.xmpp.api.message.MessageListener;
-import org.apache.nuvem.cloud.xmpp.api.presence.PresenceManager;
+import org.apache.nuvem.cloud.xmpp.message.Message;
+import org.apache.nuvem.cloud.xmpp.message.MessageBuilder;
+import org.apache.nuvem.cloud.xmpp.message.MessageListener;
+import org.apache.nuvem.cloud.xmpp.presence.PresenceManager;
 
 /**
  * Represents An EndPoint for client to send and receive XMPP messages.
@@ -66,7 +66,7 @@ public interface XMPPEndPoint {
 	 *         message.
 	 * @throws XMPPConnectException
 	 *             if an error occurs when trying to connect to the XMPP Server.
-	 * @see org.apache.nuvem.cloud.xmpp.api.message.Message
+	 * @see org.apache.nuvem.cloud.xmpp.message.Message
 	 */
 	Status sendMessage(Message message);
 
@@ -132,7 +132,7 @@ public interface XMPPEndPoint {
 	 * @param id
 	 *            the JID in string format
 	 * @return true if the JID is present, false otherwise.
-	 * @see org.apache.nuvem.cloud.xmpp.api.JID
+	 * @see org.apache.nuvem.cloud.xmpp.JID
 	 */
 	boolean isPresent(String id);
 

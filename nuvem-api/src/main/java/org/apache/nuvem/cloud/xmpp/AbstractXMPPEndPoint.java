@@ -18,16 +18,14 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.common;
+package org.apache.nuvem.cloud.xmpp;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.nuvem.cloud.xmpp.api.JID;
-import org.apache.nuvem.cloud.xmpp.api.Status;
-import org.apache.nuvem.cloud.xmpp.api.message.Message;
-import org.apache.nuvem.cloud.xmpp.api.message.MessageBuilder;
-import org.apache.nuvem.cloud.xmpp.api.message.MessageListener;
+import org.apache.nuvem.cloud.xmpp.message.Message;
+import org.apache.nuvem.cloud.xmpp.message.MessageBuilder;
+import org.apache.nuvem.cloud.xmpp.message.MessageListener;
 
 /**
  * Encloses the common code for various types of end points irrespective of the
@@ -79,7 +77,7 @@ public abstract class AbstractXMPPEndPoint {
 	}
 
 	public abstract Status sendMessage(
-			org.apache.nuvem.cloud.xmpp.api.message.Message message);
+			org.apache.nuvem.cloud.xmpp.message.Message message);
 
 	/**
 	 * 

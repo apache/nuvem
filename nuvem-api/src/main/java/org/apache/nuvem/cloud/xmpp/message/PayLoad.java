@@ -18,7 +18,7 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api.message;
+package org.apache.nuvem.cloud.xmpp.message;
 
 import java.util.Locale;
 

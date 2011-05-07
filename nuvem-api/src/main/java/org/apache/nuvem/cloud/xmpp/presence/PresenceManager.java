@@ -1,5 +1,6 @@
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
+
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
@@ -17,29 +18,19 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.common;
+package org.apache.nuvem.cloud.xmpp.presence;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import org.apache.nuvem.cloud.xmpp.api.presence.PresenceListener;
-import org.apache.nuvem.cloud.xmpp.api.presence.PresenceManager;
-
 /**
- * Holds common code between various cloud platform to avoid duplication.
- *
+ * Manages Presence inboud and outboud stanzas, Each cloud platform will have
+ * its own implementation of the PresenceManager.
+ * 
  */
-public abstract class AbstractPresenceManager implements PresenceManager {
+public interface PresenceManager {
 
-	protected List<PresenceListener> listeners = new ArrayList<PresenceListener>();
+	void registerListener(PresenceListener listener);
 
-	public void clearListeners() {
-		listeners.clear();
-	}
-
-	public List<PresenceListener> listeners() {
-		return Collections.unmodifiableList(listeners);
-	}
+	List<PresenceListener> listeners();
 
 }

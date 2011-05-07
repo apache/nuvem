@@ -18,7 +18,7 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api.message;
+package org.apache.nuvem.cloud.xmpp.message;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -27,7 +27,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.nuvem.cloud.xmpp.api.JID;
+import org.apache.nuvem.cloud.xmpp.JID;
 
 /**
  * Encapsulates the complete message that needs to be delivered through the XMPP

@@ -19,7 +19,6 @@
 
 package org.apache.nuvem.cloud.xmpp;
 
-import org.apache.nuvem.cloud.xmpp.api.XMPPEndPoint;
 
 public final class XMPPEndPointFactory {
 

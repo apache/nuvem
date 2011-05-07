@@ -18,9 +18,9 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api.presence;
+package org.apache.nuvem.cloud.xmpp.presence;
 
-import org.apache.nuvem.cloud.xmpp.api.JID;
+import org.apache.nuvem.cloud.xmpp.JID;
 
 /**
  * Serves as a super class to hold all the attributes related to the presence

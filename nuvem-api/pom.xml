@@ -27,7 +27,7 @@
         <version>1.0-incubating-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>nuvem-cloud-api</artifactId>
+    <artifactId>nuvem-api</artifactId>
     <version>1.0-incubating-SNAPSHOT</version>
     <name>Apache Nuvem Cloud API</name>
 

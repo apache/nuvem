@@ -1,6 +1,5 @@
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
-
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
@@ -18,11 +17,22 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp.api.message;
+package org.apache.nuvem.cloud.xmpp.message;
+
+import java.util.logging.Logger;
+
+import org.apache.nuvem.cloud.xmpp.XMPPEndPoint;
 
 /**
- * Used to label the type of content present in the payload of a message.
+ * Default message listener which will log the message information.
  */
-public enum ContentType {
-    PLAN_STRING, GROUP_CHAT;
+public class LoggingMessageListener implements MessageListener {
+
+    private static final Logger log = Logger.getLogger(XMPPEndPoint.class.getName());
+
+    @Override
+    public void listen(Message message) {
+        log.warning("no listeners found to listen to a specific message:" + message);
+    }
+
 }
