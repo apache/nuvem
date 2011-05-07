@@ -1,0 +1,11 @@
+Steps to run with Maven 
+
+ 1.)  "mvn gae:unpack " to unpack appengine SDK. 
+
+ 2.) "mvn gae:run" to run the application locally. You can access application using http://localhost:8080/ url.
+
+ 3.)  Change the application name in the "appengine-web.xml" file located in store-appengine-webapp/war/WEB-INF directory. 
+
+       e.g -  <application>yournamedemo1</application>
+
+ 4.) "mvn gae:update" to upload the application. 
