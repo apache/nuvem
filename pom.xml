@@ -196,6 +196,8 @@
                 <module>nuvem-standalone</module>
                 <module>nuvem-parallel</module>
                 <module>nuvem-samples</module>
+               	<module>nuvem-ibm</module>
+		    	<module>nuvem-azure</module>
             </modules>
         </profile>
 
