@@ -195,13 +195,7 @@
                 <module>nuvem-google-appengine-sdk</module>                
                 <module>nuvem-standalone</module>
                 <module>nuvem-parallel</module>
-                <!-- Store Scenario -->
-                <module>store-assets</module>
-                <module>store-appengine-webapp</module>
-                <module>store-merger-appengine-webapp</module>                
-                <module>store-catalog-appengine-webapp</module>
-                <module>store-catalog-ibmcloud-webapp</module>
-                <module>store-standalone</module>
+                <module>nuvem-samples</module>
             </modules>
         </profile>
 
