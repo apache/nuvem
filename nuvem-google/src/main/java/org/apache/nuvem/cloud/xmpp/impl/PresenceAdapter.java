@@ -22,6 +22,8 @@ package org.apache.nuvem.cloud.xmpp.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.collections.BidiMap;
+import org.apache.commons.collections.bidimap.DualHashBidiMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.nuvem.cloud.xmpp.JID;
 import org.apache.nuvem.cloud.xmpp.presence.Presence;
@@ -37,8 +39,17 @@ import com.google.appengine.api.xmpp.PresenceType;
  */
 public final class PresenceAdapter {
 
-	private static final Map<PresenceShow, Presence.Show> showConverstionMap = new HashMap<PresenceShow, Show>();
-	private static final Map<PresenceType, Presence.Type> typeConversionMap = new HashMap<PresenceType, Type>();
+	/**
+	 * A bidirectional converstion map with key as google presence show and
+	 * value as nuvem's show value.
+	 */
+	private static final BidiMap showConverstionMap = new DualHashBidiMap();
+
+	/**
+	 * A bidirectional converstion map with key as google's presence type value
+	 * and value as nuvem's presence type value.F
+	 */
+	private static final BidiMap typeConverstionMap = new DualHashBidiMap();
 
 	static {
 		showConverstionMap.put(PresenceShow.AWAY, Show.AWAY);
@@ -47,9 +58,12 @@ public final class PresenceAdapter {
 		showConverstionMap.put(PresenceShow.XA, Show.XA);
 		showConverstionMap.put(PresenceShow.NONE, Show.NONE);
 
-		typeConversionMap.put(PresenceType.AVAILABLE, Type.AVAILABLE);
-		typeConversionMap.put(PresenceType.PROBE, Type.PROBE);
-		typeConversionMap.put(PresenceType.UNAVAILABLE, Type.UNAVAILABLE);
+		typeConverstionMap.put(PresenceType.AVAILABLE,
+				Type.AVAILABLE);
+		typeConverstionMap.put(PresenceType.PROBE, Type.PROBE);
+		typeConverstionMap.put(PresenceType.UNAVAILABLE,
+				Type.UNAVAILABLE);
+
 	}
 
 	/**
@@ -59,8 +73,10 @@ public final class PresenceAdapter {
 	 */
 	public static Presence toNuvemPresence(
 			com.google.appengine.api.xmpp.Presence presence) {
-		Show show = showConverstionMap.get(presence.getPresenceShow());
-		Type type = typeConversionMap.get(presence.getPresenceType());
+		Show show = (Show) showConverstionMap.get(presence
+				.getPresenceShow());
+		Type type = (Type) typeConverstionMap.get(presence
+				.getPresenceType());
 		String status = StringUtils.defaultString(presence.getStatus());
 		String stanza = StringUtils.defaultString(presence.getStanza());
 
@@ -71,5 +87,23 @@ public final class PresenceAdapter {
 			builder.to(new JID(presence.getToJid().getId()));
 		}
 		return builder.build();
+	}
+
+	public static Presence.Type toNuvemPresenceType(
+			com.google.appengine.api.xmpp.PresenceType type) {
+		return (Presence.Type) typeConverstionMap.get(type);
+	}
+
+	public static PresenceType toGooglePresenceType(Presence.Type type) {
+		return (PresenceType) typeConverstionMap.getKey(type);
+	}
+
+	public static Presence.Show toNuvemPresenceShow(
+			com.google.appengine.api.xmpp.PresenceShow show) {
+		return (Presence.Show) showConverstionMap.get(show);
+	}
+
+	public static PresenceShow toGooglePresenceShow(Presence.Show show) {
+		return (PresenceShow) showConverstionMap.getKey(show);
 	}
 }

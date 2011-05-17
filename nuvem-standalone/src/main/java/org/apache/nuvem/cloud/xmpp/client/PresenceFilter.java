@@ -1,5 +1,6 @@
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
+
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
@@ -17,29 +18,36 @@
  * under the License.
  */
 
-package org.apache.nuvem.cloud.xmpp;
+package org.apache.nuvem.cloud.xmpp.client;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.nuvem.cloud.xmpp.presence.PresenceListener;
-import org.apache.nuvem.cloud.xmpp.presence.PresenceManager;
+import org.apache.commons.lang.Validate;
+import org.jivesoftware.smack.filter.PacketFilter;
+import org.jivesoftware.smack.packet.Packet;
+import org.jivesoftware.smack.packet.Presence;
+import org.jivesoftware.smack.packet.Presence.Type;
 
 /**
- * Holds common code between various cloud platform to avoid duplication.
- *
+ * Accepts only {@link Presence} stanza of {@link Type} which is injected as a
+ * constructor argument
+ * 
  */
-public abstract class AbstractPresenceManager implements PresenceManager {
+public class PresenceFilter implements PacketFilter {
 
-	protected List<PresenceListener> listeners = new ArrayList<PresenceListener>();
+	private Type type;
 
-	public void clearListeners() {
-		listeners.clear();
+	public PresenceFilter(Type type) {
+		Validate.notNull(type);
+		this.type = type;
 	}
 
-	public List<PresenceListener> listeners() {
-		return Collections.unmodifiableList(listeners);
+	/**
+	 * Accepts only Presence stanza of type "subscribe".
+	 */
+	public boolean accept(Packet packet) {
+		if (packet != null) {
+			return (packet instanceof Presence)
+					&& ((Presence) packet).getType() == type;
+		}
+		return false;
 	}
-
 }

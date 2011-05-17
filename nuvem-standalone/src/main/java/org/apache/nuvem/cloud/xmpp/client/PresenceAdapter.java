@@ -19,9 +19,8 @@
 
 package org.apache.nuvem.cloud.xmpp.client;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.apache.commons.collections.BidiMap;
+import org.apache.commons.collections.bidimap.DualHashBidiMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.nuvem.cloud.xmpp.JID;
 import org.apache.nuvem.cloud.xmpp.presence.Presence;
@@ -37,8 +36,17 @@ import org.jivesoftware.smack.packet.Presence.Mode;
  */
 public final class PresenceAdapter {
 
-	private static final Map<Mode, Presence.Show> showConverstionMap = new HashMap<Mode, Show>();
-	private static final Map<org.jivesoftware.smack.packet.Presence.Type, Presence.Type> typeConversionMap = new HashMap<org.jivesoftware.smack.packet.Presence.Type, Type>();
+	/**
+	 * A bidirectional map with key being smack's mode and value being nuvem's
+	 * show values respectively.
+	 */
+	private static final BidiMap showConverstionMap = new DualHashBidiMap();
+
+	/**
+	 * A bidirectional map with key being smack's type and value being nuvems
+	 * presence types respectively.
+	 */
+	private static final BidiMap typeConversionMap = new DualHashBidiMap();
 
 	static {
 		showConverstionMap.put(Mode.available, Show.AVAILABLE);
@@ -78,8 +86,8 @@ public final class PresenceAdapter {
 		String from = presence.getFrom();
 		String to = presence.getTo();
 		String status = presence.getStatus();
-		Show show = showConverstionMap.get(presence.getMode());
-		Type type = typeConversionMap.get(presence.getType());
+		Show show = (Show) showConverstionMap.get(presence.getMode());
+		Type type = (Type) typeConversionMap.get(presence.getType());
 		PresenceBuilder builder = new PresenceBuilder().withShow(show)
 				.withType(type).withStatus(status);
 		builder.from(new JID(from));
@@ -87,5 +95,29 @@ public final class PresenceAdapter {
 			builder.to(new JID(to));
 		}
 		return builder.build();
+	}
+
+	/**
+	 * Converts Nuvem's {@link org.apache.nuvem.cloud.xmpp.presence.Presence} to
+	 * smack's {@link org.jivesoftware.smack.packet.Presence} object.
+	 * 
+	 * @param presence
+	 * @return
+	 */
+	public static org.jivesoftware.smack.packet.Presence toSmackPresence(
+			Presence presence) {
+		Mode mode = (Mode) showConverstionMap.getKey(presence.show());
+		org.jivesoftware.smack.packet.Presence.Type type = (org.jivesoftware.smack.packet.Presence.Type) typeConversionMap
+				.getKey(presence.type());
+		String status = StringUtils.defaultString(presence.status());
+		org.jivesoftware.smack.packet.Presence smackPresence = new org.jivesoftware.smack.packet.Presence(
+				type, status, 0, mode);
+		if (presence.from() != null) {
+			smackPresence.setFrom(presence.from().asString());
+		}
+		if (presence.to() != null) {
+			smackPresence.setTo(presence.to().asString());
+		}
+		return smackPresence;
 	}
 }

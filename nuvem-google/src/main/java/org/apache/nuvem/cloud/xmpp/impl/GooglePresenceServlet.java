@@ -39,7 +39,7 @@ import com.google.appengine.api.xmpp.XMPPServiceFactory;
  * A servlet to recieve XMPP presence change requests from google cloud
  * platform.
  * <p>
- * This servlet will recieve the presence change requests posted in the HTTP
+ * This servlet will receive the presence change requests posted in the HTTP
  * POST request, parse the message using the APIs provided by GAE convert the
  * request into nuvem specific presence object so that the
  * {@link PresenceListener#listen(org.apache.nuvem.cloud.xmpp.presence.Presence)}

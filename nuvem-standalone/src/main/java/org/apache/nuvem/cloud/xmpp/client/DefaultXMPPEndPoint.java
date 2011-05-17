@@ -61,9 +61,8 @@ public class DefaultXMPPEndPoint extends AbstractXMPPEndPoint implements
 	protected XMPPConnector<XMPPConnection> connector;
 
 	@Reference
-	protected PresenceManager presenceManager; 
-	
-	
+	protected PresenceManager presenceManager;
+
 	/**
 	 * The packet filter to decide what packets to recieve from the XMPP
 	 * Server..
@@ -94,6 +93,9 @@ public class DefaultXMPPEndPoint extends AbstractXMPPEndPoint implements
 		filter = new NuvemPacketFilter(this);
 		listener = new NuvemPacketListener(this);
 		connector.getConnection().addPacketListener(this.listener, filter);
+		connector.getConnection().addPacketListener(
+				new PresenceSubscriptionListener(presenceManager),
+				new PresenceFilter(Type.subscribe));
 	}
 
 	/**
