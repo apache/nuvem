@@ -26,7 +26,7 @@ def get(r, p, l):
         return True
 
     def isAssoc(v):
-        return isList(v) and len(v) == 2 and isinstance(v[0], basestring) and v[0][0:1] == "'"
+        return isList(v) and len(v) >= 2 and isinstance(v[0], basestring) and v[0][0:1] == "'"
 
     def lookup(pv, lv):
         if lv == ():
@@ -49,9 +49,7 @@ def get(r, p, l):
             if len(pv) == 1:
                 return (a,) + lookup(pv, lv[1:])
             # Continue to lookup children if any plus rest of the list
-            if isList(a[1]):
-                return lookup(pv[1:], a[1]) + lookup(pv, lv[1:])
-            return lookup(pv, lv[1:])
+            return lookup(pv[1:], a[1:]) + lookup(pv, lv[1:])
 
         # No match, lookup any children and rest of the list
         if (isList(a[1])):

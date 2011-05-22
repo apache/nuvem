@@ -15,7 +15,24 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, name, proxy):
-    nv = name.get(r)
-    return proxy.get(nv if nv[0:1] == "'" else "'" + nv, r)
+def get(r, n, a):
+    nv = n.get(r)
+    ntv = nv[1:] if nv[0:1] == "'" else nv
+    av = a.get(r)
+
+    content = filter(lambda e: e[0] == "'content", av[0])
+    account = filter(lambda e: e[0] == "'account", () if len(content) == 0 else content[0])
+    keys = filter(lambda e: e[0] == "'keys", () if len(account) == 0 else account[0])
+    key = filter(lambda e: e[0] == "'key", () if len(keys) == 0 else keys[0])
+    ekey = () if len(key) == 0 else key[0]
+    akey = () if len(ekey) < 2 else ekey[1]
+
+    def namedkey(k):
+        return len(filter(lambda e: e[0] == "'@name" and e[1] == ntv, k)) != 0
+
+    def keyvalue(k):
+        return filter(lambda e: e[0] == "'@value", k)
+
+    kv = map(keyvalue, filter(namedkey, akey))
+    return None if len(kv) == 0 else kv[0][0][1]
 

@@ -15,7 +15,6 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, name, proxy):
-    nv = name.get(r)
-    return proxy.get(nv if nv[0:1] == "'" else "'" + nv, r)
+def get(r, prop):
+    return prop.eval()
 
