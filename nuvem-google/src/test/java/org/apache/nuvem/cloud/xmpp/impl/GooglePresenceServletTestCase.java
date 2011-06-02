@@ -19,6 +19,9 @@
 
 package org.apache.nuvem.cloud.xmpp.impl;
 
+import org.junit.Ignore;
+
+@Ignore
 public class GooglePresenceServletTestCase {
 	
 	

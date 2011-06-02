@@ -15,16 +15,16 @@
 	-->
 <composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
 	xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.1"
-	targetNamespace="http://nuvemstandalone" name="xmpp">
+	targetNamespace="http://nuvemgoogle" name="xmpp">
 
 
 	<component name="XMPPComponent">
 		<implementation.java
-			class="org.apache.nuvem.cloud.xmpp.client.DefaultXMPPEndPoint" />
+			class="org.apache.nuvem.cloud.xmpp.impl.GoogleXMPPEndPoint" />
 		<service name="XMPPEndPoint">
 			<interface.java interface="org.apache.nuvem.cloud.xmpp.XMPPEndPoint" />
 		</service>
-		<reference name="connector" target="SimpleConnector/XMPPConnector">
+		<reference name="connector" target="GoogleConnector/XMPPConnector">
 			<interface.java interface="org.apache.nuvem.cloud.xmpp.XMPPConnector" />
 		</reference>
 		<reference name="presenceManager" target="PresenceComponent/PresenceManager">
@@ -34,33 +34,20 @@
 
 	<component name="PresenceComponent">
 		<implementation.java
-			class="org.apache.nuvem.cloud.xmpp.client.DefaultPresenceManager" />
+			class="org.apache.nuvem.cloud.xmpp.impl.GooglePresenceManager" />
 		<service name="PresenceManager">
 			<interface.java interface="org.apache.nuvem.cloud.xmpp.presence.PresenceManager" />
 		</service>
-		<reference name="connector" target="SimpleConnector/XMPPConnector">
+		<reference name="connector" target="GoogleConnector/XMPPConnector">
 			<interface.java interface="org.apache.nuvem.cloud.xmpp.XMPPConnector" />
 		</reference>
 	</component>
 	
-	<component name="SimpleConnector">
-		<implementation.java class="org.apache.nuvem.cloud.xmpp.client.SimpleConnector" />
+	<component name="GoogleConnector">
+		<implementation.java class="org.apache.nuvem.cloud.xmpp.impl.GoogleXMPPConnector" />
 		<service name="XMPPConnector">
 			<interface.java interface="org.apache.nuvem.cloud.xmpp.XMPPConnector" />
 		</service>
-		<property name="clientJID">nuvem@localhost</property>
-		<property name="clientPassword">password</property>
-	</component>
-
-	<component name="SSLConnector">
-		<implementation.java class="org.apache.nuvem.cloud.xmpp.client.SSLConnector" />
-		<service name="XMPPConnector">
-			<interface.java interface="org.apache.nuvem.cloud.xmpp.XMPPConnector" />
-		</service>
-		<property name="clientJID">nuvem@localhost</property>
-		<property name="clientPassword">password</property>
-		<property name="trustStorePath">truststorepath</property>
-		<property name="trustStorePassword">changeit</property>
 	</component>
 
 </composite>

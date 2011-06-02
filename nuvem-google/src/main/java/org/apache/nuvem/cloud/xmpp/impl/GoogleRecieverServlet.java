@@ -21,6 +21,7 @@ package org.apache.nuvem.cloud.xmpp.impl;
 
 import java.io.IOException;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.apache.nuvem.cloud.xmpp.XMPPEndPoint;
 import org.apache.nuvem.cloud.xmpp.message.MessageListener;
+import org.oasisopen.sca.ComponentContext;
 import org.oasisopen.sca.annotation.Reference;
 
 import com.google.appengine.api.xmpp.JID;
@@ -41,8 +43,8 @@ import com.google.appengine.api.xmpp.XMPPServiceFactory;
  * This servlet will recieve the messages posted in the HTTP POST request, parse
  * the message using the APIs provided by GAE convert the message into nuvem
  * specific message so that the
- * {@link MessageListener#listen(org.apache.nuvem.cloud.xmpp.message.Message)} will
- * be called for the <code>JID</code> the <code>MessageListener</code> is
+ * {@link MessageListener#listen(org.apache.nuvem.cloud.xmpp.message.Message)}
+ * will be called for the <code>JID</code> the <code>MessageListener</code> is
  * registered for.
  * </p>
  */
@@ -56,8 +58,24 @@ public class GoogleRecieverServlet extends HttpServlet {
 	private XMPPEndPoint endPoint;
 
 	/**
+	 * If the servlet container doesnt support SCA then the endpoint will be
+	 * identified explicitly.
+	 */
+	@Override
+	public void init(ServletConfig config) {
+		if (endPoint == null) {
+			ComponentContext context = (ComponentContext) config
+					.getServletContext().getAttribute(
+							"org.osoa.sca.ComponentContext");
+			endPoint = context.getService(XMPPEndPoint.class,
+					"XMPPComponent/XMPPEndPoint");
+		}
+	}
+
+	/**
 	 * Adapts the HTTP Post request into a call to the
-	 * {@link MessageListener#listen(org.apache.nuvem.cloud.xmpp.message.Message)}.
+	 * {@link MessageListener#listen(org.apache.nuvem.cloud.xmpp.message.Message)}
+	 * .
 	 * 
 	 * @see org.apache.nuvem.cloud.xmpp.message.MessageListener
 	 * @see org.apache.nuvem.cloud.xmpp.XMPPEndPoint

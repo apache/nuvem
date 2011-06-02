@@ -27,4 +27,17 @@
 	<version>1.0-incubating-SNAPSHOT</version>
 	<name>Apache Nuvem Cloud Store common assets</name>
 	<packaging>pom</packaging>
+
+
+	
+	<modules>
+		<!-- Modules -->
+		<module>store-assets</module>
+		<module>store-appengine-webapp</module>
+		<module>store-catalog-appengine-webapp</module>
+		<module>store-catalog-ibmcloud-webapp</module>
+		<module>store-merger-appengine-webapp</module>
+		<module>store-standalone</module>
+	</modules>
+	
 </project>
