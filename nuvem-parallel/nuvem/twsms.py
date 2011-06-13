@@ -14,18 +14,7 @@
 #  KIND, either express or implied.  See the License for the
 #  specific language governing permissions and limitations
 #  under the License.
-  
-# git-ls-files --others --exclude-from=.git/info/exclude
-# Lines that start with '#' are comments.
-# For a project mostly in C, the following would be a good set of
-# exclude patterns (uncomment them if you want to use them):
-# *.[oa]
-# *~
 
-target/
-dojo/
-classes/
-lib/
-*.pyc
-*.patch
+def get(r, sid, tok, fr, to, msg, s):
+    return s.get('app://twsms', ('c', 'send', ("'sid", sid.get(r)), ("'token", tok.get(r)), ("'from", fr.get(r)), ("'to", to.get(r)), ("'msg", msg.get(r))))
 
