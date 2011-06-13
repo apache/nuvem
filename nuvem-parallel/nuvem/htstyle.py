@@ -15,12 +15,29 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, msec, content):
-    if r[0:1] == ('setup',):
-        ms = msec.get(r)
-        if ms is None or ms == 0:
-            return ''
-        return 'setupIntervalHandler(' + str(int(ms)) + ');'
+import string
 
-    return content.get(r)
+def get(r, value):
+    v = value.get(r)
+
+    def isList(v):
+        if getattr(v, '__iter__', False) == False:
+            return False
+        if isinstance(v, basestring) or isinstance(v, dict):
+            return False
+        return True
+
+    def isAssoc(v):
+        if not isList(v):
+            return False
+        if len(v) != 2:
+            return False
+        if isinstance(v[0], basestring) and v[0][0:1] == "'":
+            return True
+        return False
+
+    if isList(v):
+        return ("'style", string.join(map(lambda x: (x[0][1:] + ': ' + str(x[1]) + ';') if isAssoc(x) else x, v), ' '))
+
+    return ("'style", v)
 

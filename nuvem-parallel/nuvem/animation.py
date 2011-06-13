@@ -15,12 +15,14 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r, msec, content):
+def get(r, msec, loop, content):
     if r[0:1] == ('setup',):
         ms = msec.get(r)
         if ms is None or ms == 0:
             return ''
-        return 'setupIntervalHandler(' + str(int(ms)) + ');'
+        l = loop.get(r)
+        lv = -1 if l is True else 0 if l is None or l is False else int(l)
+        return 'setupAnimationHandler(' + str(int(ms)) + ', ' + str(lv) + ');'
 
     return content.get(r)
 

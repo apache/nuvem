@@ -87,6 +87,13 @@ from nuvem import lowercase
 from nuvem import uppercase
 from nuvem import format_
 from nuvem import parse
+from nuvem import htattrs
+from nuvem import htimg
+from nuvem import htlink
+from nuvem import htbutton
+from nuvem import htcheck
+from nuvem import htstyle
+from nuvem import pixels
 from nuvem import eval_
 from nuvem import exec_
 
@@ -204,6 +211,30 @@ def testText():
     assert parse.get((), mkref('e', lambda r: r'(\w+) (\w+)'), mkref('s', lambda r: 'a b c')) == ('a', 'b')
     return True
 
+def testAnimation():
+    assert htattrs.get((), mkref('value', lambda r: ("'value", 'abc'))) == ("'htattrs", ("'value", 'abc'))
+    assert htimg.get((), mkref('value', lambda r: 'http://abc.png')) == '<SPAN id="http://abc.png" class="img"><IMG src="http://abc.png"/></SPAN>'
+    assert htimg.get((), mkref('value', lambda r: ('i1', 'http://abc.png'))) == '<SPAN id="i1" class="img"><IMG src="http://abc.png"/></SPAN>'
+    assert htimg.get((), mkref('value', lambda r: ("'htattrs", (("'id", 'i1'), ("'src", 'http://abc.png'), ("'x", 'X'))))) == '<SPAN id="i1" class="img"><IMG src="http://abc.png" x="X"/></SPAN>'
+    assert htimg.get((), mkref('value', lambda r: (("'htattrs", (("'id", 'i1'), ("'src", 'http://abc.png'), ("'x", 'X'))),))) == '<SPAN id="i1" class="img"><IMG src="http://abc.png" x="X"/></SPAN>'
+    assert htlink.get((), mkref('value', lambda r: ('http://abc'))) == '<SPAN id="http://abc" class="link"><A href="http://abc"><SPAN>http://abc</SPAN></A></SPAN>'
+    assert htlink.get((), mkref('value', lambda r: ('http://abc', 'abc'))) == '<SPAN id="http://abc" class="link"><A href="http://abc"><SPAN>abc</SPAN></A></SPAN>'
+    assert htlink.get((), mkref('value', lambda r: ('h1', 'http://abc', 'abc'))) == '<SPAN id="h1" class="link"><A href="http://abc"><SPAN>abc</SPAN></A></SPAN>'
+    assert htlink.get((), mkref('value', lambda r: ("'htattrs", (("'id", 'h1'), ("'href", 'http://abc'), ("'value", 'abc'), ("'x", "X"))))) == '<SPAN id="h1" class="link"><A href="http://abc" x="X"><SPAN>abc</SPAN></A></SPAN>'
+    assert htlink.get((), mkref('value', lambda r: (("'htattrs", (("'id", 'h1'), ("'href", 'http://abc'), ("'value", 'abc'), ("'x", "X"))),))) == '<SPAN id="h1" class="link"><A href="http://abc" x="X"><SPAN>abc</SPAN></A></SPAN>'
+    assert htbutton.get((), mkref('value', lambda r: ('abc'))) == '<SPAN id="abc" class="button"><INPUT type="button" value="abc" class="graybutton"/></SPAN>'
+    assert htbutton.get((), mkref('value', lambda r: ('b1', 'abc'))) == '<SPAN id="b1" class="button"><INPUT type="button" value="abc" class="graybutton"/></SPAN>'
+    assert htbutton.get((), mkref('value', lambda r: ("'htattrs", (("'id", 'b1'), ("'value", 'abc'), ("'x", 'X'))))) == '<SPAN id="b1" class="button"><INPUT type="button" value="abc" x="X" class="graybutton"/></SPAN>'
+    assert htbutton.get((), mkref('value', lambda r: (("'htattrs", (("'id", 'b1'), ("'value", 'abc'), ("'x", 'X'))),))) == '<SPAN id="b1" class="button"><INPUT type="button" value="abc" x="X" class="graybutton"/></SPAN>'
+    assert htcheck.get((), mkref('value', lambda r: 'abc')) == '<SPAN id="abc" class="checkbox"><INPUT type="checkbox" value="abc"/><SPAN>abc</SPAN></SPAN>'
+    assert htcheck.get((), mkref('value', lambda r: ('c1', 'abc'))) == '<SPAN id="c1" class="checkbox"><INPUT type="checkbox" value="abc"/><SPAN>abc</SPAN></SPAN>'
+    assert htcheck.get((), mkref('value', lambda r: ("'htattrs", (("'id", 'c1'), ("'value", 'abc'), ("'x", 'X'))))) == '<SPAN id="c1" class="checkbox"><INPUT type="checkbox" value="abc" x="X"/><SPAN>abc</SPAN></SPAN>'
+    assert htcheck.get((), mkref('value', lambda r: (("'htattrs", (("'id", 'c1'), ("'value", 'abc'), ("'x", 'X'))),))) == '<SPAN id="c1" class="checkbox"><INPUT type="checkbox" value="abc" x="X"/><SPAN>abc</SPAN></SPAN>'
+    assert htstyle.get((), mkref('value', lambda r: (("'width", '320px'), ("'height", '460px')))) == ("'style", 'width: 320px; height: 460px;')
+    assert htstyle.get((), mkref('value', lambda r: ('width: 320px;', ("'height", '460px')))) == ("'style", 'width: 320px; height: 460px;')
+    assert pixels.get((), mkref('value', lambda r: 320.0)) == '320px'
+    return True
+
 def testEval():
     assert eval_.get((), mkref('py', lambda r: '1 + 2'), mkref('ref', lambda r: 4)) == 3
     assert eval_.get((), mkref('py', lambda r: 'ref.get(r) + 2'), mkref('ref', lambda r: 4)) == 6
@@ -222,6 +253,7 @@ if __name__ == '__main__':
     testMath()
     testHTTP()
     testText()
+    testAnimation()
     testEval()
     print 'OK'
 
