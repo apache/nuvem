@@ -20,8 +20,10 @@
 package org.apache.nuvem.cloud.xmpp.impl;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,12 +51,19 @@ import com.google.appengine.api.xmpp.XMPPServiceFactory;
  * </p>
  */
 public class GoogleRecieverServlet extends HttpServlet {
+
+	/**
+	 * Logger.
+	 */
+	private static final Logger log = Logger.getLogger(XMPPEndPoint.class
+			.getName());
+
 	/**
 	 * serial id.
 	 */
 	private static final long serialVersionUID = -6839442887435183490L;
 
-	@Reference
+	@Reference(required = false)
 	private XMPPEndPoint endPoint;
 
 	/**
@@ -64,11 +73,13 @@ public class GoogleRecieverServlet extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) {
 		if (endPoint == null) {
-			ComponentContext context = (ComponentContext) config
-					.getServletContext().getAttribute(
-							"org.osoa.sca.ComponentContext");
-			endPoint = context.getService(XMPPEndPoint.class,
-					"XMPPComponent/XMPPEndPoint");
+			log.info("endpoint not wired, trying to fetch one from the component context using the name: XMPPComponent/XMPPEndPoint");
+			ServletContext servletContext = config.getServletContext();
+			ComponentContext context = (ComponentContext) servletContext
+					.getAttribute("org.oasisopen.sca.ComponentContext");
+			
+			endPoint = context.getService(XMPPEndPoint.class, "endPoint");
+			log.info("endpoint: " + endPoint);
 		}
 	}
 
