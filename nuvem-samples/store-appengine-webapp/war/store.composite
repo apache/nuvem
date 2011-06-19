@@ -64,9 +64,12 @@
 		</service>
 	</component>
 
-	<component name="XMPPEndpoint">
+	<component name="XMPPComponent">
 		<implementation.java
 			class="org.apache.nuvem.cloud.xmpp.impl.GoogleXMPPEndPoint" />
+	   <service name="XMPPEndPoint">
+            <interface.java interface="org.apache.nuvem.cloud.xmpp.XMPPEndPoint" />
+        </service>
 		<reference name="presenceManager" target="PresenceComponent/PresenceManager">
 			<interface.java
 				interface="org.apache.nuvem.cloud.xmpp.presence.PresenceManager" />
@@ -84,12 +87,21 @@
 
 	<component name="ShipmentObserver">
 		<implementation.java class="services.XMPPShipmentObserver" />
-		<reference name="endpoint" target="XMPPEndpoint" />
+		<reference name="endpoint" target="XMPPComponent/XMPPEndPoint">
+            <interface.java interface="org.apache.nuvem.cloud.xmpp.XMPPEndPoint" />
+        </reference>
 	</component>
 
 	<component name="ShipmentService">
 		<implementation.java class="services.ShipmentServiceImpl" />
 		<reference name="observer" target="ShipmentObserver" />
 	</component>
+
+    <component name="XMPPReciever">
+        <implementation.web web-uri="/_ah/xmpp/message/chat/"/>
+        <reference name="endPoint" target="XMPPComponent/XMPPEndPoint">
+            <interface.java interface="org.apache.nuvem.cloud.xmpp.XMPPEndPoint" />
+        </reference>
+    </component>
 
 </composite>
