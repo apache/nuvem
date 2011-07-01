@@ -42,6 +42,7 @@ import org.oasisopen.sca.annotation.Service;
 public class DefaultXMPPServer implements XMPPServer {
 
 	private static String DEFAULT_HOST = "localhost";
+	private static String CERT_PATH = "/config/bogus_mina_tls.cert";
 
 	private org.apache.vysper.xmpp.server.XMPPServer server;
 
@@ -70,10 +71,7 @@ public class DefaultXMPPServer implements XMPPServer {
 			server.addEndpoint(new StanzaSessionFactory());
 			server.setStorageProviderRegistry(providerRegistry);
 
-			server
-					.setTLSCertificateInfo(new File(
-							"C:\\john\\nuvem\\ssl\\bogus_mina_tls.cert"),
-							"boguspw");
+			server.setTLSCertificateInfo(new File(getClass().getResource(CERT_PATH).toURI()), "boguspw");
 
 			try {
 				server.start();
