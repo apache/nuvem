@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import org.apache.nuvem.cloud.xmpp.XMPPConnector;
+import org.oasisopen.sca.annotation.Scope;
+import org.oasisopen.sca.annotation.Service;
 
 import com.google.appengine.api.xmpp.XMPPService;
 import com.google.appengine.api.xmpp.XMPPServiceFactory;
@@ -31,6 +33,8 @@ import com.google.appengine.api.xmpp.XMPPServiceFactory;
  * Connects to the google XMPP Server inside the GAE platform.
  * 
  */
+@Service(XMPPConnector.class)
+@Scope("COMPOSITE")
 public class GoogleXMPPConnector implements XMPPConnector<XMPPService> {
 
 	/**

@@ -13,11 +13,14 @@
 		License for the * specific language governing permissions and
 		limitations * under the License.
 	-->
+	    
 <composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
 	xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.1"
-	targetNamespace="http://nuvemgoogle" name="xmpp">
+	targetNamespace="http://apache.org/nuvem" name="xmppgoogle">
 
-
+    <service name="XMPPEndPoint" promote="XMPPComponent/XMPPEndPoint" />
+    
+    
 	<component name="XMPPComponent">
 		<implementation.java
 			class="org.apache.nuvem.cloud.xmpp.impl.GoogleXMPPEndPoint" />

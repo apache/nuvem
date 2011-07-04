@@ -19,9 +19,11 @@
 -->
 <contribution xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
 	xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.1" 
-	xmlns:google="http://nuvemgoogle">
-	<export namespace="http://nuvemgoogle" />
-	<export.java package="org.apache.nuvem.cloud.xmpp.client" />
+	xmlns:nuvem="http://apache.org/nuvem">
 	
-	<deployable composite="google:xmpp" />
+	<deployable composite="nuvem:xmppgoogle" />
+	<export namespace="http://apache.org/nuvem" />
+<!-- 	<export.java package="org.apache.nuvem.cloud.xmpp.impl" /> -->
+	
+	
 </contribution>
