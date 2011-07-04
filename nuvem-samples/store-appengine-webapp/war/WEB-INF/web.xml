@@ -17,6 +17,11 @@
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
+    <context-param>
+        <param-name>node.configuration</param-name>
+        <param-value>nodeConfig.xml</param-value>
+    </context-param>
+    
 	<!-- Tuscany Filter -->
 	<filter>
 		<filter-name>tuscany</filter-name>

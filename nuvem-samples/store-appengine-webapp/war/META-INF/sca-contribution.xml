@@ -10,7 +10,7 @@
     *
     *   http://www.apache.org/licenses/LICENSE-2.0
     *
-    * Unless required by applicable law or agreed to in writing,
+    * Unless required by applicable law or agreed to in writing,y
     * software distributed under the License is distributed on an
     * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     * KIND, either express or implied.  See the License for the
@@ -19,8 +19,13 @@
 -->
 <contribution xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
 	xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.1"
-	xmlns:store="http://store">
+	xmlns:store="http://store"
+	xmlns:nuvem="http://apache.org/nuvem">
 
+    
+<!--     <deployable composite="nuvem:xmppgoogle" /> -->
 	<deployable composite="store:store" />
-	<!-- import.java package="services" / -->
+	<import namespace="http://apache.org/nuvem"/>
+	
+<!-- 	<import.java package="org.apache.nuvem.cloud.xmpp.impl" /> -->
 </contribution>

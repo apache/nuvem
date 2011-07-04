@@ -15,6 +15,7 @@
 	-->
 <composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
 	xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:nuvem="http://apache.org/nuvem"
 	xmlns:s="http://store" targetNamespace="http://store" name="store">
 
 	<component name="Catalog">
@@ -64,34 +65,17 @@
 		</service>
 	</component>
 
-	<component name="XMPPComponent">
-		<implementation.java
-			class="org.apache.nuvem.cloud.xmpp.impl.GoogleXMPPEndPoint" />
-	   <service name="XMPPEndPoint">
-            <interface.java interface="org.apache.nuvem.cloud.xmpp.XMPPEndPoint" />
-        </service>
-		<reference name="presenceManager" target="PresenceComponent/PresenceManager">
-			<interface.java
-				interface="org.apache.nuvem.cloud.xmpp.presence.PresenceManager" />
-		</reference>
-	</component>
-
-	<component name="PresenceComponent">
-		<implementation.java
-			class="org.apache.nuvem.cloud.xmpp.impl.GooglePresenceManager" />
-		<service name="PresenceManager">
-			<interface.java
-				interface="org.apache.nuvem.cloud.xmpp.presence.PresenceManager" />
-		</service>
-	</component>
-
 	<component name="ShipmentObserver">
 		<implementation.java class="services.XMPPShipmentObserver" />
-		<reference name="endpoint" target="XMPPComponent/XMPPEndPoint">
+		<reference name="endpoint" target="XMPP/XMPPEndPoint">
             <interface.java interface="org.apache.nuvem.cloud.xmpp.XMPPEndPoint" />
         </reference>
 	</component>
 
+    <component name="XMPP">
+        <implementation.composite name="nuvem:xmppgoogle" /> 
+    </component>
+    
 	<component name="ShipmentService">
 		<implementation.java class="services.ShipmentServiceImpl" />
 		<reference name="observer" target="ShipmentObserver" />
