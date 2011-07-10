@@ -20,9 +20,13 @@
 
 package org.apache.nuvem.cloud.xmpp;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.nuvem.cloud.xmpp.message.Message;
 import org.apache.nuvem.cloud.xmpp.message.MessageBuilder;
 import org.apache.nuvem.cloud.xmpp.message.MessageListener;
@@ -36,6 +40,7 @@ public abstract class AbstractXMPPEndPoint {
 	 * Listeners for recivnig the XMPP messages from specific JIDs
 	 */
 	protected Map<JID, MessageListener> listeners = new ConcurrentHashMap<JID, MessageListener>();
+	protected List<MessageListener> genericListeners = Collections.synchronizedList(new ArrayList<MessageListener>());
 
 	public boolean isConnected() {
 		throw new UnsupportedOperationException("still not implemented");
@@ -48,10 +53,21 @@ public abstract class AbstractXMPPEndPoint {
 	public void registerListner(JID jid, MessageListener listener) {
 		if (listener == null || jid == null)
 			throw new IllegalArgumentException("invalid jid/listener");
-		listeners.put(jid, listener);
+		
+		//avoid resource identifier for listeners
+		listeners.put(new JID(StringUtils.substringBefore(jid.asString(), "/")), listener);
 
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	public void registerListener(MessageListener listener) {
+		if (listener == null)
+			throw new IllegalArgumentException("invalid listener");
+		genericListeners.add(listener);
+	}
+	
 	public Status sendTextMessage(String content, String recipient) {
 		Message message = new MessageBuilder().containing(content).toRecipient(
 				recipient).build();
@@ -86,10 +102,37 @@ public abstract class AbstractXMPPEndPoint {
 	public MessageListener getListenerFor(JID jid) {
 
 		MessageListener target = null;
-		if (listeners != null && (target = listeners.get(jid)) != null)
+		if (listeners != null
+				&& (target = listeners.get(new JID(StringUtils.substringBefore(
+						jid.asString(), "/")))) != null)
 			return target;
 		// default listener.
 		return MessageListener.LOGGING_LISTENER;
 
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<MessageListener> getListeners() {
+		if (this.genericListeners == null || this.genericListeners.size() == 0) {
+			return Collections.EMPTY_LIST;
+		}
+		//returning a copy to maintain thread safety.
+		List<MessageListener> listeners = new ArrayList<MessageListener>();
+		listeners.addAll(genericListeners);
+		return listeners;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public void broadCastToListeners(Message message) {
+		List<MessageListener> listeners = new ArrayList<MessageListener>();
+		listeners.add(getListenerFor(message.sender()));
+		listeners.addAll(getListeners());
+		for (MessageListener listener : listeners) {
+			listener.listen(message);
+		}
 	}
 }

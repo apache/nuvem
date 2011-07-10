@@ -15,9 +15,14 @@
 	-->
 <composite xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912"
 	xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.1"
-	targetNamespace="http://nuvemstandalone" name="xmpp">
-
-
+	targetNamespace="http://apache.org/nuvem" name="xmppstandalone">
+    
+    <service name="XMPPEndPoint" promote="XMPPComponent/XMPPEndPoint" />
+    <property name="clientJID" type="xs:string">nuvem@localhost</property>
+    <property name="clientPassword" type="xs:string">password</property>
+    <property name="trustStorePath" type="xs:string">truststorepath</property>
+    <property name="trustStorePassword" type="xs:string">changeit</property>
+    
 	<component name="XMPPComponent">
 		<implementation.java
 			class="org.apache.nuvem.cloud.xmpp.client.DefaultXMPPEndPoint" />
@@ -57,10 +62,10 @@
 		<service name="XMPPConnector">
 			<interface.java interface="org.apache.nuvem.cloud.xmpp.XMPPConnector" />
 		</service>
-		<property name="clientJID">nuvem@localhost</property>
-		<property name="clientPassword">password</property>
-		<property name="trustStorePath">truststorepath</property>
-		<property name="trustStorePassword">changeit</property>
+		<property name="clientJID" source="$clientJID" />
+		<property name="clientPassword" source="$clientPassword" />
+		<property name="trustStorePath" source="$trustStorePath" />
+		<property name="trustStorePassword" source="$trustStorePassword" />
 	</component>
 
 </composite>

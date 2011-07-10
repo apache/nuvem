@@ -20,6 +20,8 @@
 package org.apache.nuvem.cloud.xmpp.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletConfig;
@@ -97,14 +99,6 @@ public class GoogleRecieverServlet extends HttpServlet {
 		Message message = xmpp.parseMessage(req);
 		org.apache.nuvem.cloud.xmpp.message.Message nuvemMessage = GoogleXMPPMessageAdapter
 				.toNuvemMessage(message);
-		JID from = message.getFromJid();
-
-		// for identifying the listeners, we exclude the resource.
-		String jidExcludingResource = StringUtils.substringBefore(from.getId(),
-				"/");
-
-		endPoint.getListenerFor(
-				new org.apache.nuvem.cloud.xmpp.JID(jidExcludingResource))
-				.listen(nuvemMessage);
+		endPoint.broadCastToListeners(nuvemMessage);		
 	}
 }

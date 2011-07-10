@@ -20,6 +20,8 @@
 
 package org.apache.nuvem.cloud.xmpp;
 
+import java.util.List;
+
 import org.apache.nuvem.cloud.xmpp.message.Message;
 import org.apache.nuvem.cloud.xmpp.message.MessageBuilder;
 import org.apache.nuvem.cloud.xmpp.message.MessageListener;
@@ -98,6 +100,16 @@ public interface XMPPEndPoint {
 	 * @see MessageListener#listen(Message)
 	 */
 	void registerListner(JID jid, MessageListener listener);
+	
+	/**
+	 * Registers the {@link MessageListener} to listen to messages recieved from any JID!
+	 * On receipt of an XMPP message, the endpoint will call
+	 * the {@link MessageListener#listen(Message)} method by passing the
+	 * received message as argument.
+	 * @param listener
+	 * @see #registerListner(JID, MessageListener)
+	 */
+	void registerListener(MessageListener listener);
 
 	/**
 	 * Returns the message listener registered for the specific JID.
@@ -110,6 +122,18 @@ public interface XMPPEndPoint {
 	 */
 	MessageListener getListenerFor(JID jid);
 
+	/**
+	 * Returns the Message Listeners registered using {@link #registerListener(MessageListener)}
+	 * @return the listeners registered using {@link #registerListener(MessageListener)}
+	 */
+	List<MessageListener> getListeners();
+	
+	/**
+	 * Broadcasts the message to all listeners registered with this endpoint.
+	 * @param message the XMPP Message.
+	 */
+	void broadCastToListeners(Message message);
+	
 	/**
 	 * Clears the listener for the specified JID, which means, the messages
 	 * received from this specific JID will be ignored/lost!
