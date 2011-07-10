@@ -20,7 +20,6 @@
 
 package org.apache.nuvem.cloud.xmpp.client;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.nuvem.cloud.xmpp.JID;
 import org.apache.nuvem.cloud.xmpp.XMPPEndPoint;
 import org.apache.nuvem.cloud.xmpp.message.MessageListener;
@@ -44,10 +43,8 @@ public class NuvemPacketListener implements PacketListener {
 	@Override
 	public void processPacket(Packet packet) {
 		if (packet instanceof Message) {
-			String from = StringUtils.substringBeforeLast(packet.getFrom(),
-					"/");
 			MessageListener listener = endPoint
-					.getListenerFor(new JID(from));
+					.getListenerFor(new JID(packet.getFrom()));
 			listener.listen(MessageAdapter
 					.toNuvemMessage((Message) packet));
 		}

@@ -22,7 +22,6 @@ package org.apache.nuvem.cloud.xmpp.client;
 
 import org.apache.nuvem.cloud.xmpp.message.MessageBuilder;
 import org.jivesoftware.smack.packet.Message;
-import org.jivesoftware.smack.packet.Presence;
 
 /**
  * Adapter to transform nuvem message into smack message.
