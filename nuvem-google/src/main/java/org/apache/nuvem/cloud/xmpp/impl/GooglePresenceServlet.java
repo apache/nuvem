@@ -22,6 +22,8 @@ package org.apache.nuvem.cloud.xmpp.impl;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.nuvem.cloud.xmpp.XMPPEndPoint;
 import org.apache.nuvem.cloud.xmpp.presence.PresenceListener;
 import org.apache.nuvem.cloud.xmpp.presence.PresenceManager;
+import org.oasisopen.sca.ComponentContext;
 import org.oasisopen.sca.annotation.Reference;
 
 import com.google.appengine.api.xmpp.Presence;
@@ -61,9 +64,27 @@ public class GooglePresenceServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 3109512262386132981L;
 
-	@Reference
+	@Reference(required = false)
 	private XMPPEndPoint endPoint;
 
+	/**
+	 * If the servlet container doesnt support SCA then the endpoint will be
+	 * identified explicitly.
+	 */
+	@Override
+	public void init(ServletConfig config) {
+		if (endPoint == null) {
+			log.info("endpoint not wired, trying to fetch one from the component context");
+			ServletContext servletContext = config.getServletContext();
+			ComponentContext context = (ComponentContext) servletContext
+					.getAttribute("org.oasisopen.sca.ComponentContext");
+			
+			endPoint = context.getService(XMPPEndPoint.class, "endPoint");
+			log.info("endpoint: " + endPoint);
+		}
+	}
+
+	
 	/**
 	 * Adapts the HTTP Post request into a call to the
 	 * {@link PresenceListener#listen(org.apache.nuvem.cloud.xmpp.presence.Presence)}

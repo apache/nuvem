@@ -75,15 +75,16 @@
     <component name="XMPP">
         <implementation.composite name="nuvem:xmppgoogle" /> 
     </component>
+
     
 	<component name="ShipmentService">
 		<implementation.java class="services.ShipmentServiceImpl" />
 		<reference name="observer" target="ShipmentObserver" />
 	</component>
-
+    
     <component name="XMPPReciever">
         <implementation.web web-uri="/_ah/xmpp/message/chat/"/>
-        <reference name="endPoint" target="XMPPComponent/XMPPEndPoint">
+        <reference name="endPoint" target="XMPP/XMPPEndPoint">
             <interface.java interface="org.apache.nuvem.cloud.xmpp.XMPPEndPoint" />
         </reference>
     </component>

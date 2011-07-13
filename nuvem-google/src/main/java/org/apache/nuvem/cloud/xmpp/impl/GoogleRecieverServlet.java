@@ -75,7 +75,7 @@ public class GoogleRecieverServlet extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) {
 		if (endPoint == null) {
-			log.info("endpoint not wired, trying to fetch one from the component context using the name: XMPPComponent/XMPPEndPoint");
+			log.info("endpoint not wired, trying to fetch one from the component context");
 			ServletContext servletContext = config.getServletContext();
 			ComponentContext context = (ComponentContext) servletContext
 					.getAttribute("org.oasisopen.sca.ComponentContext");
