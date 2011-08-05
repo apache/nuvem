@@ -16,5 +16,7 @@
 #  under the License.
 
 def get(r, sep, s):
-    return tuple(s.get(r).split(sep.get(r)))
+    vsep = sep.get(r)
+    vs = s.get(r)
+    return tuple(('' if vs is None else str(vs)).split('' if vsep is None else str(vsep)))
 

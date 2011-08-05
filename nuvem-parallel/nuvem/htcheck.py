@@ -47,5 +47,5 @@ def get(r, value):
         text = filter(lambda x: x[0] == "'value", l)[0][1]
         return '<SPAN {0} class="checkbox"><INPUT type="checkbox" {1}/><SPAN>{2}</SPAN></SPAN>'.format(satts, catts, text)
 
-    return mkcheck(v) if isList(v) and not isAssoc(v) else mkcheck((v,))
+    return mkcheck(()) if v is None else mkcheck(v) if isList(v) and not isAssoc(v) else mkcheck((v,))
 

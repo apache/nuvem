@@ -17,5 +17,6 @@
 
 def get(r, i, l):
     lv = l.get(r)
-    return (() if lv is None else lv)[int(i.get(r))]
+    vi = i.get(r)
+    return (() if lv is None else lv)[0 if vi is None else int(vi)]
 

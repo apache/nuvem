@@ -46,5 +46,5 @@ def get(r, value):
         batts = string.join(map(lambda x: x[0][1:] + '="' + x[1] + '"', filter(lambda x: x[0] != "'id", l)), ' ')
         return '<SPAN {0} class="button"><INPUT type="button" {1} class="graybutton"/></SPAN>'.format(satts, batts)
 
-    return mkbutton(v) if isList(v) and not isAssoc(v) else mkbutton((v,))
+    return mkbutton(()) if v is None else mkbutton(v) if isList(v) and not isAssoc(v) else mkbutton((v,))
 

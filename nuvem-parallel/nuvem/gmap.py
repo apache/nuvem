@@ -21,15 +21,16 @@ def get(r, markers, s):
 
     def ismarker(m):
         from sys import stderr
-        print >> stderr, "####", m
         return m[1] is not None
 
     def marker(m):
-        # expecting (label, (color, loc))
+        # expecting (label or icon url, (color, loc))
         label = m[0][1:]
-        color = m[1][0]
+        deco = m[1][0]
         loc = string.join(map(str, m[1][1:3]), ',')
-        return ("'markers", 'color:{0}|label:{1}|{2}'.format(color, label, loc))
+        if deco.find(':') == -1:
+            return ("'markers", 'color:{0}|label:{1}|{2}'.format(deco, label, loc))
+        return ("'markers", 'icon:{0}|{1}'.format(deco, loc))
     
     mv = markers.get(r)
     return s.get((("'size", '320x320'), ("'maptype", 'roadmap'), ("'sensor", 'true')) + tuple(map(marker, filter(ismarker, () if mv is None else mv))))

@@ -25,7 +25,5 @@ def get(r, coll, id):
 
     idv = id.get(r)
     res = coll.get(() if idv is None else idv if isList(idv) else (idv,))
-    from sys import stderr
-    print >> stderr, 'get result', res
     return res
 

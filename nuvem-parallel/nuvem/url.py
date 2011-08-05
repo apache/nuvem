@@ -37,5 +37,6 @@ def get(r, address, args):
     la = map(lambda x: str(x), filter(lambda x: not isAssoc(x), lv))
     ka = map(lambda x: '='.join((x[0][1:], str(x[1]))), filter(lambda x: isAssoc(x), lv))
 
-    return address.get(r) + '/'.join(la) + ('?' if len(ka) != 0 else '') + '&'.join(ka)
+    va = address.get(r)
+    return ('' if va is None else str(va)) + '/'.join(la) + ('?' if len(ka) != 0 else '') + '&'.join(ka)
 

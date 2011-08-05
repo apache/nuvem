@@ -47,5 +47,5 @@ def get(r, value):
         text = filter(lambda x: x[0] == "'value", l)[0][1]
         return '<SPAN {0} class="link"><A {1}><SPAN>{2}</SPAN></A></SPAN>'.format(satts, hatts, text)
 
-    return mklink(v) if isList(v) and not isAssoc(v) else mklink((v,))
+    return mklink(()) if v is None else mklink(v) if isList(v) and not isAssoc(v) else mklink((v,))
 

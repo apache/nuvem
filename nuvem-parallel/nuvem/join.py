@@ -19,5 +19,6 @@ import string
 
 def get(r, sep, l):
     s = sep.get(r)
-    return string.join(l.get(r), '' if s is None else s)
+    lv = l.get(r)
+    return string.join(() if lv is None else lv, '' if s is None else s)
 

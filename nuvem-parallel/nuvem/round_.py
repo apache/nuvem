@@ -16,5 +16,7 @@
 #  under the License.
 
 def get(r, n, x):
-    return round(float(x.get(r)), int(n.get(r)))
+    vx = x.get(r)
+    vn = n.get(r)
+    return round(float(0 if vx is None else vx), int(0 if vn is None else vn))
 

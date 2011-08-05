@@ -17,5 +17,6 @@
 
 def get(r, x):
     from math import sin
-    return sin(float(x.get(r)))
+    vx = x.get(r)
+    return sin(float(0 if vx is None else vx))
 

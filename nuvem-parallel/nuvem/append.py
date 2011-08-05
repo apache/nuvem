@@ -16,7 +16,16 @@
 #  under the License.
 
 def get(r, a, b):
+    def isList(v):
+        if getattr(v, '__iter__', False) == False:
+            return False
+        if isinstance(v, basestring) or isinstance(v, dict):
+            return False
+        return True
+
     va = a.get(r)
+    la = () if va is None else va if isList(va) else (va,)
     vb = b.get(r)
-    return (() if va is None else va) + (() if vb is None else vb)
+    lb = () if vb is None else vb if isList(vb) else (vb,)
+    return la + lb
 

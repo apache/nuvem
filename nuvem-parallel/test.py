@@ -31,7 +31,9 @@ from nuvem import comment
 from nuvem import name
 from nuvem import nothing
 from nuvem import item
+from nuvem import single
 from nuvem import pair
+from nuvem import triple
 from nuvem import call
 from nuvem import if_
 from nuvem import and_
@@ -64,9 +66,13 @@ from nuvem import subtract
 from nuvem import multiply
 from nuvem import divide
 from nuvem import random_
+from nuvem import randoms
 from nuvem import sin_
 from nuvem import cos_
 from nuvem import round_
+from nuvem import floor_
+from nuvem import ceil_
+from nuvem import mod
 from nuvem import sum_
 from nuvem import min_
 from nuvem import max_
@@ -89,11 +95,17 @@ from nuvem import format_
 from nuvem import parse
 from nuvem import htattrs
 from nuvem import htimg
+from nuvem import htinline
 from nuvem import htlink
 from nuvem import htbutton
 from nuvem import htcheck
 from nuvem import htstyle
 from nuvem import pixels
+from nuvem import left
+from nuvem import top
+from nuvem import transform
+from nuvem import transition
+from nuvem import frames
 from nuvem import eval_
 from nuvem import exec_
 
@@ -128,7 +140,9 @@ def testLogic():
     return True
 
 def testLists():
+    assert single.get((), mkref('x', lambda r: 'abc')) == ('abc',)
     assert pair.get((), mkref('a', lambda r: 'abc'), mkref('b', lambda r: 'def')) == ('abc', 'def')
+    assert triple.get((), mkref('a', lambda r: 'abc'), mkref('b', lambda r: 'def'), mkref('c', lambda r: 'ghi')) == ('abc', 'def', 'ghi')
     assert list_.get((), mkref('item', lambda r: None)) == ()
     assert list_.get((), mkref('item', lambda r: 'abc'), mkref('item', lambda r: None)) == ('abc',)
     assert list_.get((), mkref('item', lambda r: 'abc'), mkref('item', lambda r: 'def'), mkref('item', lambda r: None)) == ('abc', 'def')
@@ -142,6 +156,8 @@ def testLists():
     assert rest.get((), mkref('l', lambda r: ('abc', 'def', 'ghi'))) == ('def', 'ghi')
     assert rest.get((), mkref('l', lambda r: ('abc',))) == ()
     assert append.get((), mkref('l', lambda r: ('abc', 'def')), mkref('b', lambda r: ('ghi',))) == ('abc', 'def', 'ghi')
+    assert append.get((), mkref('l', lambda r: 'abc'), mkref('b', lambda r: ('def', 'ghi'))) == ('abc', 'def', 'ghi')
+    assert append.get((), mkref('l', lambda r: ('abc', 'def')), mkref('b', lambda r: 'ghi')) == ('abc', 'def', 'ghi')
     assert itemnb.get((), mkref('i', lambda r: 1), mkref('l', lambda r: ('abc', 'def', 'ghi'))) == 'def'
     assert names.get((), mkref('l', lambda r: (("'a", 'abc'), ("'d", 'def'), ("'g", 'ghi'), ("'d", 'def2')))) == ("'a", "'d", "'g", "'d")
     assert values.get((), mkref('l', lambda r: (("'a", 'abc'), ("'d", 'def'), ("'g", 'ghi'), ("'d", 'def2')))) == ('abc', 'def', 'ghi', 'def2')
@@ -172,13 +188,26 @@ def testMath():
     assert subtract.get((), mkref('a', lambda r: 3), mkref('b', lambda r: 2)) == 1
     assert multiply.get((), mkref('a', lambda r: 2), mkref('b', lambda r: 3)) == 6
     assert divide.get((), mkref('a', lambda r: 3), mkref('b', lambda r: 2)) == 1.5
-    r1 = random_.get(())
-    assert r1 >= 0 and r1 <= 1
-    r2 = random_.get(())
-    assert r2 >= 0 and r2 <= 1 and r2 != r1
+    r1 = random_.get((), mkref('m', lambda r: 2))
+    assert r1 >= 0 and r1 <= 2
+    r2 = random_.get((), mkref('m', lambda r: 2))
+    assert r2 >= 0 and r2 <= 2 and r2 != r1
+    r3 = random_.get((), mkref('m', lambda r: ('a', 'b')))
+    assert r3 == 'a' or r3 == 'b'
+    r4 = randoms.get((), mkref('n', lambda r: 5.0), mkref('m', lambda r: 2))
+    assert len(r4) == 5
+    assert r4[0] >= 0 and r4[0] <= 2
+    assert r4[1] >= 0 and r4[1] <= 2 and r4[1] != r4[0]
+    r5 = randoms.get((), mkref('n', lambda r: 5.0), mkref('m', lambda r: ('a', 'b')))
+    assert len(r5) == 5
+    assert r5[0] == 'a' or r5[0] == 'b'
+    assert r5[1] == 'a' or r5[1] == 'b'
     assert sin_.get((), mkref('x', lambda r: 0.0)) == 0.0
     assert cos_.get((), mkref('x', lambda r: 0.0)) == 1.0
     assert round_.get((), mkref('d', lambda r: 2), mkref('x', lambda r: 2.336)) == 2.34
+    assert floor_.get((), mkref('x', lambda r: 2.336)) == 2.0
+    assert ceil_.get((), mkref('x', lambda r: 2.336)) == 3.0
+    assert mod.get((), mkref('n', lambda r: 10), mkref('x', lambda r: 12)) == 2.0
     assert sum_.get((), mkref('l', lambda r: (1, 2, 3))) == 6
     assert min_.get((), mkref('l', lambda r: (2, 1, 3))) == 1
     assert max_.get((), mkref('l', lambda r: (1, 3, 2))) == 3
@@ -217,6 +246,7 @@ def testAnimation():
     assert htimg.get((), mkref('value', lambda r: ('i1', 'http://abc.png'))) == '<SPAN id="i1" class="img"><IMG src="http://abc.png"/></SPAN>'
     assert htimg.get((), mkref('value', lambda r: ("'htattrs", (("'id", 'i1'), ("'src", 'http://abc.png'), ("'x", 'X'))))) == '<SPAN id="i1" class="img"><IMG src="http://abc.png" x="X"/></SPAN>'
     assert htimg.get((), mkref('value', lambda r: (("'htattrs", (("'id", 'i1'), ("'src", 'http://abc.png'), ("'x", 'X'))),))) == '<SPAN id="i1" class="img"><IMG src="http://abc.png" x="X"/></SPAN>'
+    assert htinline.get((), mkref('value', lambda r: ('image/png', ('a', 'b')))) == 'data:image/png;base64,YWI=\n'
     assert htlink.get((), mkref('value', lambda r: ('http://abc'))) == '<SPAN id="http://abc" class="link"><A href="http://abc"><SPAN>http://abc</SPAN></A></SPAN>'
     assert htlink.get((), mkref('value', lambda r: ('http://abc', 'abc'))) == '<SPAN id="http://abc" class="link"><A href="http://abc"><SPAN>abc</SPAN></A></SPAN>'
     assert htlink.get((), mkref('value', lambda r: ('h1', 'http://abc', 'abc'))) == '<SPAN id="h1" class="link"><A href="http://abc"><SPAN>abc</SPAN></A></SPAN>'
@@ -230,9 +260,15 @@ def testAnimation():
     assert htcheck.get((), mkref('value', lambda r: ('c1', 'abc'))) == '<SPAN id="c1" class="checkbox"><INPUT type="checkbox" value="abc"/><SPAN>abc</SPAN></SPAN>'
     assert htcheck.get((), mkref('value', lambda r: ("'htattrs", (("'id", 'c1'), ("'value", 'abc'), ("'x", 'X'))))) == '<SPAN id="c1" class="checkbox"><INPUT type="checkbox" value="abc" x="X"/><SPAN>abc</SPAN></SPAN>'
     assert htcheck.get((), mkref('value', lambda r: (("'htattrs", (("'id", 'c1'), ("'value", 'abc'), ("'x", 'X'))),))) == '<SPAN id="c1" class="checkbox"><INPUT type="checkbox" value="abc" x="X"/><SPAN>abc</SPAN></SPAN>'
-    assert htstyle.get((), mkref('value', lambda r: (("'width", '320px'), ("'height", '460px')))) == ("'style", 'width: 320px; height: 460px;')
-    assert htstyle.get((), mkref('value', lambda r: ('width: 320px;', ("'height", '460px')))) == ("'style", 'width: 320px; height: 460px;')
-    assert pixels.get((), mkref('value', lambda r: 320.0)) == '320px'
+    assert htstyle.get((), mkref('value', lambda r: (("'width", '320px'), ("'height", '460px')))) == ("'htstyle", 'width: 320px; height: 460px;')
+    assert htstyle.get((), mkref('value', lambda r: ('width: 320px', ("'height", '460px')))) == ("'htstyle", 'width: 320px; height: 460px;')
+    assert pixels.get((), mkref('value', lambda r: 320.1)) == '320px'
+    assert left.get((), mkref('value', lambda r: 320.1)) == 'left: 320px'
+    assert top.get((), mkref('value', lambda r: 320.1)) == 'top: 320px'
+    assert transform.get((), mkref('x', lambda r: 320.1), mkref('y', lambda r: 480.2), mkref('d', lambda r: 90.3)) == 'position: absolute; -webkit-transform: translate3d(320px,480px,0px) rotate(90deg); -moz-transform: translate(320px,480px) rotate(90deg); -ms-transform: translate(320px,480px) rotate(90deg); transform: translate(320px,480px) rotate(90deg)'
+    assert transition.get((), mkref('value', lambda r: 320.1)) == '-webkit-transition: all 0.3201s'
+    kf = ((0, ('left: 0px', 'top: 0px')), (50, ('left: 10px', 'top: 10px')), (100, (("'left", '20px'), 'top: 20px')))
+    assert frames.get((), mkref('msec', lambda r: 2000), mkref('loop', lambda r: True), mkref('content', lambda r: kf)) == 'position: absolute; -webkit-animation: {id} 2s ease 0 infinite normal; -moz-animation: {id} 2s ease 0 infinite normal; <style> @-webkit-keyframes {id} { 0% { left: 0px; top: 0px; } 50% { left: 10px; top: 10px; } 100% { left: 20px; top: 20px; } } @-moz-keyframes {id} { 0% { left: 0px; top: 0px; } 50% { left: 10px; top: 10px; } 100% { left: 20px; top: 20px; } } </style>'
     return True
 
 def testEval():

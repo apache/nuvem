@@ -18,7 +18,8 @@
 import re
 
 def get(r, expr, s):
+    ev = expr.get(r)
     sv = s.get(r)
-    m = re.search(expr.get(r), sv)
+    m = re.search('' if ev is None else ev, '' if sv is None else sv)
     return () if m is None else m.groups()
 

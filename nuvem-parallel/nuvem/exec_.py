@@ -18,5 +18,5 @@
 def get(r, py, ref):
     val = None
     pys = py.get(r)
-    exec(pys if isinstance(pys, basestring) else pys[1][0])
+    exec('' if pys is None else pys if isinstance(pys, basestring) else pys[1][0])
     return val

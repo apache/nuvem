@@ -17,4 +17,4 @@
 
 def get(r, py, ref):
     pye = py.get(r)
-    return eval(pye if isinstance(pye, basestring) else pye[1][0])
+    return eval('' if pye is None else pye if isinstance(pye, basestring) else pye[1][0])

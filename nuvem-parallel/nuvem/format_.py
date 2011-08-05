@@ -42,5 +42,6 @@ def get(r, fmt, args):
     la = map(trimq, filter(lambda x: not isAssoc(x), lv))
     ka = dict(map(lambda x: (x[0][1:], x[1]), filter(lambda x: isAssoc(x), lv)))
 
-    return fmt.get(r).format(*la, **ka)
+    vfmt = fmt.get(r)
+    return ('' if vfmt is None else str(vfmt)).format(*la, **ka)
 

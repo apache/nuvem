@@ -15,7 +15,19 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(r):
-    from random import random
-    return random()
+def get(r, m):
+    import random
+    mv = m.get(r)
+
+    def isList(v):
+        if getattr(v, '__iter__', False) == False:
+            return False
+        if isinstance(v, basestring) or isinstance(v, dict):
+            return False
+        return True
+
+    if isList(mv):
+        return random.choice(mv)
+
+    return random.random() * (1.0 if mv is None else mv)
 

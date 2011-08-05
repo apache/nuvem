@@ -43,8 +43,8 @@ def get(r, value):
         if len(l) == 0:
             return ''
         satts = string.join(map(lambda x: x[0][1:] + '="' + x[1] + '"', filter(lambda x: x[0] == "'id", l)), ' ')
-        iatts = string.join(map(lambda x: x[0][1:] + '="' + x[1] + '"', filter(lambda x: x[0] != "'id", l)), ' ')
+        iatts = string.join(map(lambda x: ('style' if x[0] == "'htstyle" else x[0][1:]) + '="' + x[1] + '"', filter(lambda x: x[0] != "'id", l)), ' ')
         return '<SPAN {0} class="img"><IMG {1}/></SPAN>'.format(satts, iatts)
 
-    return mkimg(v) if isList(v) and not isAssoc(v) else mkimg((v,))
+    return mkimg(()) if v is None else mkimg(v) if isList(v) and not isAssoc(v) else mkimg((v,))
 

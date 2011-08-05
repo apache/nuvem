@@ -17,5 +17,6 @@
 
 def get(r, x):
     from math import cos
-    return cos(float(x.get(r)))
+    vx = x.get(r)
+    return cos(float(0.0 if vx is None else vx))
 

@@ -17,7 +17,10 @@
 
 def get(r, l):
     from random import shuffle
-    rl = list(l.get(r))
+    vl = l.get(r)
+    if vl is None:
+        return ()
+    rl = list(vl)
     shuffle(rl)
     return tuple(rl)
 

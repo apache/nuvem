@@ -16,5 +16,7 @@
 #  under the License.
 
 def get(r, sub, s):
-    return s.get(r).find(sub.get(r)) != -1
+    vsub = sub.get(r)
+    vs = s.get(r)
+    return ('' if vs is None else str(vs)).find('' if vsub is None else str(vsub)) != -1
 

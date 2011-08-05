@@ -17,5 +17,5 @@
 
 def get(r, name, proxy):
     nv = name.get(r)
-    return proxy.get(nv if nv[0:1] == "'" else "'" + nv, r)
+    return proxy.get("'start" if nv is None else nv if nv[0:1] == "'" else "'" + nv, r)
 

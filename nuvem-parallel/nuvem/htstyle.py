@@ -36,8 +36,12 @@ def get(r, value):
             return True
         return False
 
-    if isList(v):
-        return ("'style", string.join(map(lambda x: (x[0][1:] + ': ' + str(x[1]) + ';') if isAssoc(x) else x, v), ' '))
+    if v is None:
+        return ("'htstyle", '')
 
-    return ("'style", v)
+    if isList(v):
+        lv = (v,) if isAssoc(v) else v
+        return ("'htstyle", string.join(map(lambda x: (x[0][1:] + ': ' + str(x[1]) + ';') if isAssoc(x) else (str(x) + ';'), lv), ' '))
+
+    return ("'htstyle", v + ';')
 

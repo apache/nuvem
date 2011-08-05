@@ -53,8 +53,8 @@ def get(r, p, l):
 
         # No match, lookup any children and rest of the list
         if (isList(a[1])):
-            return lookup(pv, a[1]) + lookup(pv, lv[1:])
-        return lookup(pv, lv[1:])
+            return lookup(pv, a[1]) + lookup(pv, a[2:]) + lookup(pv, lv[1:])
+        return lookup(pv, a[2:]) + lookup(pv, lv[1:])
 
     def qsymbol(x):
         if not isinstance(x, basestring):

@@ -16,5 +16,6 @@
 #  under the License.
 
 def get(r, n):
-    return '{0:g}px'.format(n.get(r))
+    vn = n.get(r)
+    return '{0:g}px'.format(round(0 if vn is None else float(vn), 0))
 

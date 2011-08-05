@@ -16,7 +16,10 @@
 #  under the License.
 
 def get(r, l):
-    rl = list(l.get(r))
+    vl = l.get(r)
+    if vl is None:
+        return ()
+    rl = list(vl)
     rl.reverse()
     return tuple(rl)
 

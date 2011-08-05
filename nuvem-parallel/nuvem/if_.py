@@ -16,7 +16,8 @@
 #  under the License.
 
 def get(r, cond, then, els):
-    if cond.get(r):
+    vc = cond.get(r)
+    if vc:
         return then.get(r)
     else:
         return els.get(r)

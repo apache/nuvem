@@ -16,5 +16,6 @@
 #  under the License.
 
 def get(r, l):
-    return min(l.get(r))
+    lv = l.get(r)
+    return min(() if lv is None else lv)
 

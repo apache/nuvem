@@ -16,5 +16,8 @@
 #  under the License.
 
 def get(r, l):
-    return l.get(r)[1:]
+    vl = l.get(r)
+    if vl is None:
+        return ()
+    return vl[1:]
 

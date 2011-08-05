@@ -16,5 +16,6 @@
 #  under the License.
 
 def get(r, l):
-    return max(l.get(r))
+    lv = l.get(r)
+    return max(() if lv is None else lv)
 

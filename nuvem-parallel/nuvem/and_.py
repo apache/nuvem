@@ -16,5 +16,7 @@
 #  under the License.
 
 def get(r, a, b):
-    return a.get(r) and b.get(r)
+    va = a.get(r)
+    vb = b.get(r)
+    return (False if va is None else bool(va)) and (False if vb is None else bool(vb))
 

@@ -16,5 +16,7 @@
 #  under the License.
 
 def get(r, a, b):
-    return tuple(range(int(a.get(r)), int(b.get(r))))
+    va = a.get(r)
+    vb = b.get(r)
+    return tuple(range(int(0 if va is None else va), int(0 if vb is None else vb)))
 

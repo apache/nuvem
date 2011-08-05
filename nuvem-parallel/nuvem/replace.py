@@ -16,6 +16,8 @@
 #  under the License.
 
 def get(r, fr, to, s):
-    t = to.get(r)
-    return s.get(r).replace(fr.get(r), '' if t is None else t)
+    vfr = fr.get(r)
+    vto = to.get(r)
+    vs = s.get(r)
+    return ('' if vs is None else str(vs)).replace('' if vfr is None else str(vfr), '' if vto is None else str(vto))
 

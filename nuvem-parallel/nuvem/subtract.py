@@ -16,5 +16,7 @@
 #  under the License.
 
 def get(r, a, b):
-    return float(a.get(r)) - float(b.get(r))
+    va = a.get(r)
+    vb = b.get(r)
+    return float(0 if va is None else va) - float(0 if vb is None else vb)
 

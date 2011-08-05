@@ -18,7 +18,7 @@
 def get(r, l):
     lv = l.get(r)
     if lv is None:
-        return lv
+        return None
     if len(lv) == 0:
         return None
     return lv[len(lv) - 1]

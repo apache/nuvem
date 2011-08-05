@@ -16,5 +16,6 @@
 #  under the License.
 
 def get(r, s):
-    return s.get(r).upper()
+    vs = s.get(r)
+    return ('' if vs is None else str(vs)).upper()
 

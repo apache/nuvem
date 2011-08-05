@@ -16,5 +16,6 @@
 #  under the License.
 
 def get(r, l):
-    return sum(l.get(r))
+    vl = l.get(r)
+    return sum(() if vl is None else vl)
 
