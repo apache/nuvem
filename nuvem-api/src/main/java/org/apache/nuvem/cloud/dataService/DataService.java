@@ -22,7 +22,11 @@ package org.apache.nuvem.cloud.dataService;
 import org.oasisopen.sca.annotation.Remotable;
 
 /**
- * The Interface DataService.
+ * The Interface DataService defines services provide by Nuvem key-value
+ * data-store component also act as abreaction layer for cloud platform specific
+ * data services. Element is the basic persistent unit and may contains number
+ * of Features that associate with the Element. DataService interface facilitate
+ * to create, update , read and delete Elements.
  */
 @Remotable
 public interface DataService {

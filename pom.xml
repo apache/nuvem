@@ -197,6 +197,7 @@
                 <module>nuvem-parallel</module>
                 <module>nuvem-ibm</module>
 		    	<module>nuvem-azure</module>
+                <module>nuvem-amazon</module>
             </modules>
         </profile>
 

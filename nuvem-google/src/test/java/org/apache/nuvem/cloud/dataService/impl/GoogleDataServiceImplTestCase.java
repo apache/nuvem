@@ -41,7 +41,7 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 /**
  * The Class GoogleDataServiceImplTest.
  */
-public class GoogleDataServiceImplTest {
+public class GoogleDataServiceImplTestCase {
 	
 	/** The data service. */
 	private DataService dataService ;

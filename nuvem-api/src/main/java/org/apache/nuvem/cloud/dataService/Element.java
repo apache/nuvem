@@ -177,6 +177,10 @@ public class Element {
 		getFeatures().remove(feature);
 	}
 	
+	public void removeFeatures(Set<Feature> features){
+		getFeatures().remove(features);
+	}
+	
 
 	/**
 	 * Gets the features.

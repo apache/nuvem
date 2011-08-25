@@ -34,7 +34,9 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
 /**
- * The Class GoogleDataServiceImpl.
+ * The Class GoogleDataServiceImpl is implementation of Nuvem DataService
+ * interface based on Google key-value data-store service. Element and Feature
+ * objects are mapped into GAE Entry and Properties.
  */
 public class GoogleDataServiceImpl implements DataService {
 
@@ -82,8 +84,7 @@ public class GoogleDataServiceImpl implements DataService {
 		}
 		Key key = datastoreService.put(entity);
 		element.setId(String.valueOf(key.getId()));
-		element.setPersist();
-		System.out.println(key);
+		element.setPersist();		
 		return element;
 	}
 
@@ -102,8 +103,7 @@ public class GoogleDataServiceImpl implements DataService {
 			}				
 			Key keyRet = datastoreService.put(entity);
 			element.setId(String.valueOf(keyRet.getId()));
-			element.setPersist();
-			System.out.println(keyRet);
+			element.setPersist();			
 			return element;
 
 		} catch (Exception e) {
