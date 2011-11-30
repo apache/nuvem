@@ -20,7 +20,6 @@ import string
 def get(r, markers, s):
 
     def ismarker(m):
-        from sys import stderr
         return m[1] is not None
 
     def marker(m):
