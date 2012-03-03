@@ -132,5 +132,18 @@
 		</dependency>
 
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<inherited>true</inherited>
+				<configuration>
+					<excludes>
+						<exclude>**/CassandraDataServiceImplTestCase.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
 
