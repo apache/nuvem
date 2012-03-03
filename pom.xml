@@ -198,6 +198,7 @@
                 <module>nuvem-ibm</module>
 		    	<module>nuvem-azure</module>
                 <module>nuvem-amazon</module>
+                <module>nuvem-samples</module>
             </modules>
         </profile>
 
