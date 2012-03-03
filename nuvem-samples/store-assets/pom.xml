@@ -31,13 +31,13 @@
 		<dependency>
 			<groupId>org.apache.nuvem</groupId>
 			<artifactId>nuvem-api</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.nuvem</groupId>
 			<artifactId>nuvem-google</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<dependency>
