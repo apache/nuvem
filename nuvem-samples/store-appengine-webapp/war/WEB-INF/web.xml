@@ -25,7 +25,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<!-- Tuscany Filter -->
 	<filter>
 		<filter-name>tuscany</filter-name>
-		<filter-class>org.apache.tuscany.sca.host.webapp.TuscanyServletFilter</filter-class>
+		<filter-class>org.apache.nuvem.cloud.config.sca.NuvemSCAConfigServletFilter</filter-class>
 	</filter>
 
 	<filter-mapping>

@@ -76,40 +76,33 @@
         <dependency>
             <groupId>net.sf.jsr107cache</groupId>
             <artifactId>jsr107cache</artifactId>
-            <version>1.1</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.tuscany.sca</groupId>
-            <artifactId>tuscany-node-impl</artifactId>
-            <version>${tuscany.version}</version>
-            <scope>test</scope>
+            <version>${jsr107cache.version}</version>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.1</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         
         <dependency>
    			<groupId>org.easymock</groupId>
    			<artifactId>easymock</artifactId>
-   			<version>3.0</version>
+   			<version>${easymock.version}</version>
    			<scope>test</scope>
 		</dependency>
 
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>3.2.1</version>
+            <version>${commons.collections.version}</version>
         </dependency>
 
         <dependency>
     		<groupId>javax.servlet</groupId>
     		<artifactId>servlet-api</artifactId>
-    		<version>2.5</version>
+    		<version>${servlet.api.version}</version>
     		<scope>provided</scope>
 		</dependency>
 

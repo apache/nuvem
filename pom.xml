@@ -93,6 +93,18 @@
         <maven.gae.plugin.version>0.8.2</maven.gae.plugin.version>        
         <gae.version>1.5.0.1</gae.version>
         <datanucleus.version>1.1.5</datanucleus.version>
+        <junit.version>4.8.1</junit.version>
+        <commons.lang.version>2.2</commons.lang.version>
+        <aws.java-sdk.version>1.1.5</aws.java-sdk.version>
+        <jsr107cache.version>1.1</jsr107cache.version>
+        <easymock.version>3.0</easymock.version>
+        <commons.collections.version>3.2.1</commons.collections.version>
+        <servlet.api.version>2.5</servlet.api.version>
+        <vysper.version>1.0.0-SNAPSHOT</vysper.version>
+        <hector.version>0.8.0-2</hector.version>
+        <slf4j.api.version>1.6.1</slf4j.api.version>
+        <slf4j.impl.version>1.5.3</slf4j.impl.version>
+        <smackx.version>3.1.0</smackx.version>
     </properties>
     
     
@@ -198,6 +210,7 @@
                 <module>nuvem-ibm</module>
 		    	<module>nuvem-azure</module>
                 <module>nuvem-amazon</module>
+                <module>nuvem-sca-config</module>
                 <module>nuvem-samples</module>
             </modules>
         </profile>

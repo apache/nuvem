@@ -39,5 +39,12 @@
 		<module>store-merger-appengine-webapp</module>
 		<module>store-standalone</module>
 	</modules>
+	<dependencies>
+        <dependency>
+         	<groupId>org.apache.nuvem</groupId>
+         	<artifactId>nuvem-sca-config</artifactId>
+         	<version>1.0-incubating-SNAPSHOT</version>
+        </dependency>
+	</dependencies>
 	
 </project>

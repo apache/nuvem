@@ -31,41 +31,16 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.tuscany.sca</groupId>
-			<artifactId>tuscany-assembly</artifactId>
-			<version>${tuscany.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.tuscany.sca</groupId>
-			<artifactId>tuscany-node-impl</artifactId>
-			<version>${tuscany.version}</version>
+			<groupId>org.apache.nuvem</groupId>
+			<artifactId>nuvem-sca-config</artifactId>
+			<version>${project.version}</version>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.tuscany.sca</groupId>
-			<artifactId>tuscany-sca-api</artifactId>
-			<version>${tuscany.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.tuscany.sca</groupId>
-			<artifactId>tuscany-implementation-java-runtime</artifactId>
-			<version>${tuscany.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.tuscany.sca</groupId>
-			<artifactId>tuscany-domain-node</artifactId>
-			<version>${tuscany.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -73,61 +48,61 @@
 			<groupId>org.apache.vysper</groupId>
 			<artifactId>vysper-server</artifactId>
 			<type>pom</type>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${vysper.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.vysper</groupId>
 			<artifactId>vysper-core</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${vysper.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.vysper</groupId>
 			<artifactId>vysper-extensions</artifactId>
 			<type>pom</type>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${vysper.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>me.prettyprint</groupId>
 			<artifactId>hector-core</artifactId>
-			<version>0.8.0-2</version>
+			<version>${hector.version}</version>
 		</dependency>		
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.6.1</version>
+			<version>${slf4j.api.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.5.3</version>
+			<version>${slf4j.impl.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
-			<version>1.5.3</version>
+			<version>${slf4j.impl.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.1</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>jivesoftware</groupId>
 			<artifactId>smackx</artifactId>
-			<version>3.1.0</version>
+			<version>${smackx.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.easymock</groupId>
 			<artifactId>easymock</artifactId>
-			<version>3.0</version>
+			<version>${easymock.version}</version>
 			<scope>test</scope>
 		</dependency>
 
