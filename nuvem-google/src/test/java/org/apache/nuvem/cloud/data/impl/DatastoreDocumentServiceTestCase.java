@@ -19,7 +19,7 @@
 
 package org.apache.nuvem.cloud.data.impl;
 
-import org.apache.tuscany.sca.data.collection.NotFoundException;
+import org.apache.nuvem.cloud.data.NotFoundException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

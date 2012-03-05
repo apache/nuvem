@@ -19,13 +19,23 @@
 
 package org.apache.nuvem.cloud.data;
 
+public class NotFoundException extends Exception {
+    private static final long serialVersionUID = 6792367409396084646L;
 
-public interface DocumentService<K, D> extends Collection<K, D> {
+    public NotFoundException() {
+    }
 
-    /**
-     * Delete multiple items.
-     * 
-     * @param key
-     */
-    void delete(K... keys) throws NotFoundException;
+    public NotFoundException(String message) {
+        super(message);
+    }
+
+    public NotFoundException(Throwable cause) {
+        super(cause);
+    }
+
+    public NotFoundException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+
 }

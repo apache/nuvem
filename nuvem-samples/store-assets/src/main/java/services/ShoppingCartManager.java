@@ -28,11 +28,11 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.nuvem.cloud.data.DocumentService;
+import org.apache.nuvem.cloud.data.Entry;
+import org.apache.nuvem.cloud.data.NotFoundException;
 import org.apache.nuvem.cloud.user.User;
 import org.apache.nuvem.cloud.user.UserService;
 import org.apache.nuvem.cloud.xmpp.JID;
-import org.apache.tuscany.sca.data.collection.Entry;
-import org.apache.tuscany.sca.data.collection.NotFoundException;
 import org.oasisopen.sca.annotation.Reference;
 import org.oasisopen.sca.annotation.Scope;
 

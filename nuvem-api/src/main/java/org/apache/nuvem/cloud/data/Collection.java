@@ -19,13 +19,56 @@
 
 package org.apache.nuvem.cloud.data;
 
+import org.oasisopen.sca.annotation.Remotable;
 
-public interface DocumentService<K, D> extends Collection<K, D> {
+@Remotable
+public interface Collection <K, D> {
 
     /**
-     * Delete multiple items.
+     * Get the whole collection.
+     * 
+     * @return the whole collection.
+     */
+    Entry<K, D>[] getAll();
+
+    /**
+     * Returns a collection resulting from a query.
+     * 
+     * @return the collection.
+     */
+    Entry<K, D>[] query(String queryString);
+
+    /**
+     * Creates a new item.
+     * 
+     * @param key
+     * @param item
+     * @return
+     */
+    K post(K key, D item);
+
+    /**
+     * Retrieves an item.
+     * 
+     * @param key
+     * @return
+     */
+    D get(K key) throws NotFoundException;
+
+    /**
+     * Updates an item.
+     * 
+     * @param key
+     * @param item
+     * @return
+     */
+    void put(K key, D item) throws NotFoundException;
+
+    /**
+     * Delete an item.
      * 
      * @param key
      */
-    void delete(K... keys) throws NotFoundException;
+    void delete(K key) throws NotFoundException;
+
 }

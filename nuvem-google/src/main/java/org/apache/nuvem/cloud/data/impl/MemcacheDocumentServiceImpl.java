@@ -22,8 +22,8 @@ package org.apache.nuvem.cloud.data.impl;
 import java.util.UUID;
 
 import org.apache.nuvem.cloud.data.DocumentService;
-import org.apache.tuscany.sca.data.collection.Entry;
-import org.apache.tuscany.sca.data.collection.NotFoundException;
+import org.apache.nuvem.cloud.data.Entry;
+import org.apache.nuvem.cloud.data.NotFoundException;
 import org.oasisopen.sca.annotation.Init;
 import org.oasisopen.sca.annotation.Property;
 import org.oasisopen.sca.annotation.Service;

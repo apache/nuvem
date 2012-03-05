@@ -19,8 +19,8 @@
 
 package services;
 
-import org.apache.tuscany.sca.data.collection.Entry;
-import org.apache.tuscany.sca.data.collection.NotFoundException;
+import org.apache.nuvem.cloud.data.Entry;
+import org.apache.nuvem.cloud.data.NotFoundException;
 import org.oasisopen.sca.annotation.Remotable;
 
 @Remotable
