@@ -228,7 +228,8 @@
         <!-- ====================================================================== -->
         <!-- Profile to run Apache License check plugin                             -->
         <!-- usage:                                                                 -->
-        <!--    mvn rat:check                                                       -->
+        <!--    mvn -Prat (works for nuvem)                                         -->
+        <!--    mvn rat:check                                                       -->        
         <!-- ====================================================================== -->
         <profile>
             <id>rat</id>
@@ -257,6 +258,7 @@
                                 <exclude>**/NOTICE</exclude>
 
                                 <!-- git specific files -->
+                                <exclude>**/.git</exclude>
                                 <exclude>**/.git/**/*</exclude>
                                 <exclude>.gitignore</exclude>
 
