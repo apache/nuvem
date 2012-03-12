@@ -23,23 +23,25 @@ package org.apache.nuvem.cloud.dataService;
  * The Class DataServiceException.
  */
 public class DataServiceException extends Exception {
-	
-	/**
-	 * Instantiates a new data service exception.
-	 */
-	public DataServiceException(){
-		
-	}
-	
-	/**
-	 * Instantiates a new data service exception.
-	 *
-	 * @param cause the cause
-	 */
-	public DataServiceException(Throwable cause){		
-		        super(cause);		   
-	}
-	
-	
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1669425810168896007L;
+
+    /**
+     * Instantiates a new data service exception.
+     */
+    public DataServiceException() {
+
+    }
+
+    /**
+     * Instantiates a new data service exception.
+     * 
+     * @param cause the cause
+     */
+    public DataServiceException(Throwable cause) {
+        super(cause);
+    }
 
 }
