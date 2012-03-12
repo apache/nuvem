@@ -36,11 +36,11 @@ import org.apache.nuvem.cloud.xmpp.JID;
 public final class Message implements Serializable {
 
     /**
-	 * serial id.
-	 */
-	private static final long serialVersionUID = -4166419962507943317L;
+     * serial id.
+     */
+    private static final long serialVersionUID = -4166419962507943317L;
 
-	/**
+    /**
      * to be used instead of null.
      */
     public static final Message EMPTY_MESSAGE = new Message(PayLoad.EMPTY, JID.UNKNOWN, JID.UNKNOWN);
@@ -140,10 +140,12 @@ public final class Message implements Serializable {
      * equals.
      */
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof Message))
+        }
+        if (!(o instanceof Message)) {
             return false;
+        }
 
         final Message message = (Message)o;
 
