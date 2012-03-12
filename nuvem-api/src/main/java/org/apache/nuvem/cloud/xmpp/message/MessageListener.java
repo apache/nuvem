@@ -33,18 +33,18 @@ import org.apache.nuvem.cloud.xmpp.XMPPEndPoint;
  */
 public interface MessageListener {
 
-	/**
-	 * To be used as default one.
-	 */
-	public static final MessageListener LOGGING_LISTENER = new LoggingMessageListener();
+    /**
+     * To be used as default one.
+     */
+    public static final MessageListener LOGGING_LISTENER = new LoggingMessageListener();
 
-	/**
-	 * This method will be called when a message is received by the XMPP
-	 * endpoint for a specific {@link JID} this listener is registred for.
-	 * 
-	 * @param message
-	 * @see org.apache.nuvem.cloud.xmpp.XMPPEndPoint
-	 */
-	void listen(Message message);
+    /**
+     * This method will be called when a message is received by the XMPP
+     * endpoint for a specific {@link JID} this listener is registred for.
+     * 
+     * @param message
+     * @see org.apache.nuvem.cloud.xmpp.XMPPEndPoint
+     */
+    void listen(Message message);
 
 }

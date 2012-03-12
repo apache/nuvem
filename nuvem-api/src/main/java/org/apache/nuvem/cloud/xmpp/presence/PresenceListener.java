@@ -21,7 +21,7 @@
 package org.apache.nuvem.cloud.xmpp.presence;
 
 public interface PresenceListener {
-	
-	void listen(Presence presence);
+
+    void listen(Presence presence);
 
 }

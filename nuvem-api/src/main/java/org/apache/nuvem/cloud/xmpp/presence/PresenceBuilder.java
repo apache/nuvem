@@ -28,81 +28,81 @@ import org.apache.nuvem.cloud.xmpp.JID;
  */
 public final class PresenceBuilder extends PresenceAttributes {
 
-	/**
-	 * Initializes the JID for recipient.
-	 * 
-	 * @param jid
-	 *            the JID for the recipient.
-	 * @return the message builder.
-	 */
-	public PresenceBuilder toRecipient(String jid) {
-		this.to = new JID(jid);
-		return this;
-	}
+    /**
+     * Initializes the JID for recipient.
+     * 
+     * @param jid
+     *            the JID for the recipient.
+     * @return the message builder.
+     */
+    public PresenceBuilder toRecipient(String jid) {
+        this.to = new JID(jid);
+        return this;
+    }
 
-	/**
-	 * The sender for a message.
-	 * 
-	 * @param jid
-	 *            the jid of the sender.
-	 * @return the message builder.
-	 */
-	public PresenceBuilder from(String jid) {
-		this.from = new JID(jid);
-		return this;
-	}
+    /**
+     * The sender for a message.
+     * 
+     * @param jid
+     *            the jid of the sender.
+     * @return the message builder.
+     */
+    public PresenceBuilder from(String jid) {
+        this.from = new JID(jid);
+        return this;
+    }
 
-	/**
-	 * Initialises the content for sending to the recipient.
-	 * 
-	 * @param content
-	 *            the actual content.
-	 * @return the message builder.
-	 */
-	public PresenceBuilder withStanza(String stanza) {
-		this.stanza = stanza;
-		return this;
-	}
+    /**
+     * Initialises the content for sending to the recipient.
+     * 
+     * @param content
+     *            the actual content.
+     * @return the message builder.
+     */
+    public PresenceBuilder withStanza(String stanza) {
+        this.stanza = stanza;
+        return this;
+    }
 
-	public PresenceBuilder withStatus(String status) {
-		this.status = status;
-		return this;
-	}
+    public PresenceBuilder withStatus(String status) {
+        this.status = status;
+        return this;
+    }
 
-	public PresenceBuilder withShow(Presence.Show show) {
-		this.show = show;
-		return this;
-	}
+    public PresenceBuilder withShow(Presence.Show show) {
+        this.show = show;
+        return this;
+    }
 
-	public PresenceBuilder withType(Presence.Type type) {
-		this.type = type;
-		return this;
-	}
+    public PresenceBuilder withType(Presence.Type type) {
+        this.type = type;
+        return this;
+    }
 
-	public PresenceBuilder from(JID jid) {
-		this.from = jid;
-		return this;
-	}
+    public PresenceBuilder from(JID jid) {
+        this.from = jid;
+        return this;
+    }
 
-	public PresenceBuilder to(JID jid) {
-		this.to = jid;
-		return this;
-	}
+    public PresenceBuilder to(JID jid) {
+        this.to = jid;
+        return this;
+    }
 
-	/**
-	 * Builds the Presence object by using all the previously passed attributes
-	 * through various methods like.
-	 * <ul>
-	 * <li/>{@link #containing(Object)}
-	 * <li/>{@link #toRecipient(String)}
-	 * <li/>{@link #withShow(String)}
-	 * <li/>{@link #withStanza(String)}
-	 * <li/>{@link #withStatus(String)}
-	 * <li/>{@link #withType(String)}
-	 * 
-	 * @return
-	 */
-	public Presence build() {
-		return new Presence(this);
-	}
+    /**
+     * Builds the Presence object by using all the previously passed attributes
+     * through various methods like.
+     * <ul>
+     * <li/>{@link #containing(Object)}
+     * <li/>{@link #toRecipient(String)}
+     * <li/>{@link #withShow(String)}
+     * <li/>{@link #withStanza(String)}
+     * <li/>{@link #withStatus(String)}
+     * <li/>{@link #withType(String)}
+     * 
+     * @return
+     */
+    public Presence build() {
+        return new Presence(this);
+    }
 }

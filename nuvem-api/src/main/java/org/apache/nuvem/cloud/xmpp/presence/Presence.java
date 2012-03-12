@@ -31,32 +31,32 @@ package org.apache.nuvem.cloud.xmpp.presence;
  */
 public final class Presence extends PresenceAttributes {
 
-	/**
-	 * Constructor which takes a builder as parameter to maintain immutability.
-	 * 
-	 */
-	public Presence(PresenceBuilder builder) {
-		this.from = builder.from();
-		this.status = builder.status();
-		this.type = builder.type();
-		this.show = builder.show();
-		this.to = builder.to();
-		this.stanza = builder.stanza();
-	}
+    /**
+     * Constructor which takes a builder as parameter to maintain immutability.
+     * 
+     */
+    public Presence(PresenceBuilder builder) {
+        this.from = builder.from();
+        this.status = builder.status();
+        this.type = builder.type();
+        this.show = builder.show();
+        this.to = builder.to();
+        this.stanza = builder.stanza();
+    }
 
-	/**
-	 * Represents the substanza of the presence stanza.
-	 * 
-	 */
-	public enum Show {
-		AVAILABLE, CHAT, AWAY, DND, XA, NONE;
-	}
+    /**
+     * Represents the substanza of the presence stanza.
+     * 
+     */
+    public enum Show {
+        AVAILABLE, CHAT, AWAY, DND, XA, NONE;
+    }
 
-	/**
-	 * Represents the type of the presence stanza.
-	 * 
-	 */
-	public enum Type {
-		AVAILABLE, PROBE, UNAVAILABLE, SUBSCRIBED, SUBSCRIBE, UNSUBSCRIBE, UNSUBSCRIBED, ERROR;
-	}
+    /**
+     * Represents the type of the presence stanza.
+     * 
+     */
+    public enum Type {
+        AVAILABLE, PROBE, UNAVAILABLE, SUBSCRIBED, SUBSCRIBE, UNSUBSCRIBE, UNSUBSCRIBED, ERROR;
+    }
 }

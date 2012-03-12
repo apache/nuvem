@@ -29,26 +29,26 @@ import java.util.List;
  */
 public interface PresenceManager {
 
-	/**
-	 * Registers a presence listener to recieve notification of any presence
-	 * message recieved from the XMPP server.
-	 * 
-	 * @param listener
-	 */
-	void registerListener(PresenceListener listener);
+    /**
+     * Registers a presence listener to recieve notification of any presence
+     * message recieved from the XMPP server.
+     * 
+     * @param listener
+     */
+    void registerListener(PresenceListener listener);
 
-	/**
-	 * Returns a list of all {@link PresenceListener}s waiting to receive
-	 * presence stanzas.
-	 * 
-	 * @return
-	 */
-	List<PresenceListener> listeners();
-	
-	/**
-	 * Sends the presence stanza to the XMPP server.
-	 * @param presence
-	 */
-	void sendPresence(Presence presence);
+    /**
+     * Returns a list of all {@link PresenceListener}s waiting to receive
+     * presence stanzas.
+     * 
+     * @return
+     */
+    List<PresenceListener> listeners();
+
+    /**
+     * Sends the presence stanza to the XMPP server.
+     * @param presence
+     */
+    void sendPresence(Presence presence);
 
 }

@@ -91,10 +91,12 @@ public final class PayLoad {
      * for the user.
      */
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof PayLoad))
+        }
+        if (!(o instanceof PayLoad)) {
             return false;
+        }
 
         final PayLoad payLoad = (PayLoad)o;
 
