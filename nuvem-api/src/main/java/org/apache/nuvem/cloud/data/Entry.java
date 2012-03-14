@@ -19,19 +19,20 @@
 
 package org.apache.nuvem.cloud.data;
 
-public class Entry <K, D> {
+public class Entry<K, D> {
 
     private K key;
     private D data;
-    
+
     /**
      * Constructs a new entry.
      */
     public Entry() {
     }
-    
+
     /**
      * Constructs a new entry.
+     * 
      * @param key the entry key
      * @param data the entry data
      */
@@ -39,42 +40,50 @@ public class Entry <K, D> {
         this.key = key;
         this.data = data;
     }
-    
+
     /**
      * Returns the entry key.
+     * 
      * @return the key
      */
     public K getKey() {
         return key;
     }
-    
+
     /**
      * Sets the entry key.
+     * 
      * @param key the key
      */
     public void setKey(K key) {
         this.key = key;
     }
-    
+
     /**
      * Returns the entry data.
+     * 
      * @return the entry data
      */
     public D getData() {
         return data;
     }
-    
+
     /**
      * Sets the entry data
+     * 
      * @param data the entry data
      */
     public void setData(D data) {
         this.data = data;
     }
 
-    //FIXME Temporary methods to make JAXB register the Item
-    // class when the Entry class is registered in a JAXB context  
-    public void setDummy(Item item) {}
-    public Item getDummy() { return null; }
-    
+    // FIXME Temporary methods to make JAXB register the Item
+    // class when the Entry class is registered in a JAXB context
+    public void setDummy(Item item) {
+    }
+
+    public Item getDummy() {
+        return null;
+    }
+
 }

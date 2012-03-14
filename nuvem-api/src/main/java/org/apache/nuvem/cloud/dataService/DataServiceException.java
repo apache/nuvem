@@ -23,9 +23,7 @@ package org.apache.nuvem.cloud.dataService;
  * The Class DataServiceException.
  */
 public class DataServiceException extends Exception {
-    /**
-     * 
-     */
+    
     private static final long serialVersionUID = -1669425810168896007L;
 
     /**

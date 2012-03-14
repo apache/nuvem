@@ -19,7 +19,6 @@
 
 package org.apache.nuvem.cloud.data;
 
-
 public interface DocumentService<K, D> extends Collection<K, D> {
 
     /**

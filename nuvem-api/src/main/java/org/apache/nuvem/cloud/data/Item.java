@@ -29,7 +29,7 @@ public class Item {
     private String related;
     private String alternate;
     private Date date;
-    
+
     /**
      * Constructs a new item.
      */
@@ -38,6 +38,7 @@ public class Item {
 
     /**
      * Constructs a new item.
+     * 
      * @param title the item title
      * @param contents the item contents
      * @param link the item link to a web resource
@@ -54,6 +55,7 @@ public class Item {
 
     /**
      * Returns the item title.
+     * 
      * @return the item title
      */
     public String getTitle() {
@@ -62,6 +64,7 @@ public class Item {
 
     /**
      * Sets the item title.
+     * 
      * @param title the item title
      */
     public void setTitle(String title) {
@@ -70,6 +73,7 @@ public class Item {
 
     /**
      * Returns the item contents
+     * 
      * @return the item contents
      */
     public String getContents() {
@@ -78,6 +82,7 @@ public class Item {
 
     /**
      * Sets the item contents
+     * 
      * @param contents the item contents
      */
     public void setContents(String contents) {
@@ -86,6 +91,7 @@ public class Item {
 
     /**
      * Returns the item link to a web resource
+     * 
      * @return the item link to a web resource
      */
     public String getLink() {
@@ -94,6 +100,7 @@ public class Item {
 
     /**
      * Sets the item link to a web resource
+     * 
      * @param link the item link to a web resource
      */
     public void setLink(String link) {
@@ -102,6 +109,7 @@ public class Item {
 
     /**
      * Returns the item link to a related web resource
+     * 
      * @return the item link to a related web resource
      */
     public String getRelated() {
@@ -110,7 +118,7 @@ public class Item {
 
     /**
      * Sets the item link to a related web resource.
-     *
+     * 
      * @param related the item link to a related web resource
      */
     public void setRelated(String related) {
@@ -119,6 +127,7 @@ public class Item {
 
     /**
      * Returns the item link to an alternate web resource
+     * 
      * @return the item link to an alternate web resource
      */
     public String getAlternate() {
@@ -127,7 +136,7 @@ public class Item {
 
     /**
      * Sets the item link to an alternate web resource.
-     *
+     * 
      * @param alternate the item link to an alternate web resource
      */
     public void setAlternate(String alternate) {
@@ -136,6 +145,7 @@ public class Item {
 
     /**
      * Returns the item date
+     * 
      * @return the item date
      */
     public Date getDate() {
@@ -144,12 +154,11 @@ public class Item {
 
     /**
      * Sets the item date
+     * 
      * @param date the item date
      */
     public void setDate(Date date) {
         this.date = date;
     }
 
-    
 }
-

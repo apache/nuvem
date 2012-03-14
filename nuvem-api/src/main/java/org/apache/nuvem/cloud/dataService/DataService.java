@@ -30,43 +30,42 @@ import org.oasisopen.sca.annotation.Remotable;
  */
 @Remotable
 public interface DataService {
-	
-	/**
-	 * Creates the element.
-	 *
-	 * @param element the element
-	 * @return the element
-	 * @throws DataServiceException the data service exception
-	 */
-	public Element createElement(Element element) throws DataServiceException;
-	
-	/**
-	 * Update element.
-	 *
-	 * @param element the element
-	 * @return the element
-	 * @throws DataServiceException the data service exception
-	 */
-	public Element updateElement(Element element) throws DataServiceException;
-	
-	/**
-	 * Gets the element.
-	 *
-	 * @param kind the kind
-	 * @param id the id
-	 * @return the element
-	 * @throws DataServiceException the data service exception
-	 */
-	public Element getElement(String kind,String id) throws DataServiceException;
-	
-	/**
-	 * Delete element.
-	 *
-	 * @param element the element
-	 * @return true, if successful
-	 * @throws DataServiceException the data service exception
-	 */
-	public boolean deleteElement(Element element) throws DataServiceException;
-	
+
+    /**
+     * Creates the element.
+     * 
+     * @param element the element
+     * @return the element
+     * @throws DataServiceException the data service exception
+     */
+    public Element createElement(Element element) throws DataServiceException;
+
+    /**
+     * Update element.
+     * 
+     * @param element the element
+     * @return the element
+     * @throws DataServiceException the data service exception
+     */
+    public Element updateElement(Element element) throws DataServiceException;
+
+    /**
+     * Gets the element.
+     * 
+     * @param kind the kind
+     * @param id the id
+     * @return the element
+     * @throws DataServiceException the data service exception
+     */
+    public Element getElement(String kind, String id) throws DataServiceException;
+
+    /**
+     * Delete element.
+     * 
+     * @param element the element
+     * @return true, if successful
+     * @throws DataServiceException the data service exception
+     */
+    public boolean deleteElement(Element element) throws DataServiceException;
 
 }

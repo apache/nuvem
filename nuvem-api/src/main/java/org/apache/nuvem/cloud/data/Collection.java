@@ -22,7 +22,7 @@ package org.apache.nuvem.cloud.data;
 import org.oasisopen.sca.annotation.Remotable;
 
 @Remotable
-public interface Collection <K, D> {
+public interface Collection<K, D> {
 
     /**
      * Get the whole collection.
