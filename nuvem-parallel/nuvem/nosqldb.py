@@ -15,15 +15,15 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(id, db, host):
-    return db.get((host.eval(),) + id);
+def get(id, db, appname):
+    return db.get(("'nosqldb", appname.eval()) + id);
 
-def post(id, val, db, host):
-    return db.post((host.eval(),) + id, val);
+def post(id, val, db, appname):
+    return db.post(("'nosqldb", appname.eval()) + id, val);
 
-def put(id, val, db, host):
-    return db.put((host.eval(),) + id, val);
+def put(id, val, db, appname):
+    return db.put(("'nosqldb", appname.eval()) + id, val);
 
-def delete(id, db, host):
-    return db.delete((host.eval(),) + id);
+def delete(id, db, appname):
+    return db.delete(("'nosqldb", appname.eval()) + id);
 

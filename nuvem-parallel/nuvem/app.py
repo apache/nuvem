@@ -15,15 +15,6 @@
 #  specific language governing permissions and limitations
 #  under the License.
 
-def get(id, db, appname):
-    return db.get(("'sqldb", appname.eval()) + id);
-
-def post(id, val, db, appname):
-    return db.post(("'sqldb", appname.eval()) + id, val);
-
-def put(id, val, db, appname):
-    return db.put(("'sqldb", appname.eval()) + id, val);
-
-def delete(id, db, appname):
-    return db.delete(("'sqldb", appname.eval()) + id);
+def get(r, prop):
+    return prop.eval()
 
