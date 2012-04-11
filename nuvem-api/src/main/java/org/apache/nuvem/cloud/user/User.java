@@ -21,6 +21,9 @@ package org.apache.nuvem.cloud.user;
 
 import java.io.Serializable;
 
+/**
+ * The Class User.
+ */
 public class User implements Serializable {
     private static final long serialVersionUID = -503746790472903416L;
 
@@ -35,24 +38,49 @@ public class User implements Serializable {
     /** Represents a dummy user for usage instead of nulls **/
     public static final User DUMMY_USER = new User("dummyid", "dummy name", "dummy@email.com");
 
+    /**
+     * Constructs a new User.
+     */
     public User() {
 
     }
 
+    /**
+     * Constructs a new User.
+     * 
+     * @param userId the userId
+     * @param nickeName the nickeName 
+     * @param email the email
+     */
     public User(String userId, String nickName, String email) {
         this.userId = userId;
         this.nickName = nickName;
         this.email = email;
     }
 
+    /**
+     * Returns the user id of the User.
+     * 
+     * @return the user id
+     */
     public String getUserId() {
         return this.userId;
     }
 
+    /**
+     * Returns the nick name of the User.
+     * 
+     * @return the nick name.
+     */
     public String getNickname() {
         return this.nickName;
     }
 
+    /**
+     * Returns the email of the User.
+     * 
+     * @return the email.
+     */
     public String getEmail() {
         return this.email;
     }
@@ -60,6 +88,9 @@ public class User implements Serializable {
     /**
      * Checks only for the user ID as it is supposed to be a unique identifier
      * for the user.
+     * 
+     * @param o the o
+     * @return true, if successful
      */
     @Override
     public boolean equals(Object o) {
@@ -76,6 +107,8 @@ public class User implements Serializable {
     /**
      * Considers only the hashcode of the userid as userid is the unique id of
      * the user.
+     * 
+     * @return the hashcode of the user id.
      */
     @Override
     public int hashCode() {

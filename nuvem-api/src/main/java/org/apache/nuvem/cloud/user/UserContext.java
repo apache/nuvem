@@ -19,6 +19,9 @@
 
 package org.apache.nuvem.cloud.user;
 
+/**
+ * The Class UserContex.
+ */
 public class UserContext extends User {
     private static final long serialVersionUID = 1339319191804052423L;
 
@@ -26,10 +29,23 @@ public class UserContext extends User {
     protected String logoutUrl;
     protected boolean isUserLoggedIn;
 
+    /**
+     * Constructs a new User Context.
+     */
     public UserContext() {
         super();
     }
 
+    /**
+     * Constructs a new User Context.
+     * 
+     * @param userId the userId 
+     * @param nickName the nickName
+     * @param email the email
+     * @param isUserLoggedIn the isUserLoggedIn
+     * @param loginUrl the loginUrl
+     * @param logoutUrl the logoutUrl
+     */
     public UserContext(String userId,
                        String nickName,
                        String email,
@@ -42,6 +58,14 @@ public class UserContext extends User {
         this.logoutUrl = logoutUrl;
     }
 
+    /**
+     * Constructs a new User Context.
+     * 
+     * @param user the user
+     * @param isUserLoggedIn the isUserLoggedIn 
+     * @param loginUrl the loginUrl
+     * @param logoutUrl the logoutUrl
+     */
     public UserContext(User user, boolean isUserLoggedIn, String loginUrl, String logoutUrl) {
         super(user.getUserId(), user.getNickname(), user.getEmail());
         this.isUserLoggedIn = isUserLoggedIn;
@@ -49,14 +73,29 @@ public class UserContext extends User {
         this.logoutUrl = logoutUrl;
     }
 
+    /**
+     * Return the isUserLoggedIn.
+     * 
+     * @return the isUserLoggedIn
+     */
     public boolean isUserLoggedIn() {
         return this.isUserLoggedIn;
     }
 
+    /**
+     * Return the getLoginUrl.
+     * 
+     * @return the loginUrl
+     */
     public String getLoginUrl() {
         return this.loginUrl;
     }
 
+    /**
+     * Return the logoutUrl.
+     * 
+     * @return the logoutUrl
+     */
     public String getLogoutUrl() {
         return this.logoutUrl;
     }

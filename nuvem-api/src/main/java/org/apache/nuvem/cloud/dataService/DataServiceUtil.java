@@ -20,10 +20,23 @@ package org.apache.nuvem.cloud.dataService;
 
 public class DataServiceUtil {
 
+	/**
+	 * Create the key.
+	 * 
+	 * @param kind the kind
+	 * @param id the id
+	 * @return the created key
+	 */
     public static String createKey(String kind, String id) {
         return kind.concat("(").concat(id).concat(")");
     }
 
+    /**
+     * Get the kind.
+     * 
+     * @param key the key
+     * @return the kind
+     */
     public static String getKind(String key) {
         if (key != null) {
             return key.substring(0, key.indexOf("("));
@@ -31,6 +44,12 @@ public class DataServiceUtil {
         return null;
     }
 
+    /**
+     * Get the id.
+     * 
+     * @param keythe key
+     * @return the id.
+     */
     public static String getId(String key) {
         if (key != null) {
             return key.substring(key.indexOf("(") + 1, key.indexOf(")"));

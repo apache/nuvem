@@ -19,20 +19,42 @@
 
 package org.apache.nuvem.cloud.data;
 
+/**
+ * The Class NotFoundException.
+ */
 public class NotFoundException extends Exception {
     private static final long serialVersionUID = 6792367409396084646L;
 
+    /**
+     * Instantiates a new Not Found Exception.
+     */
     public NotFoundException() {
     }
 
+    /**
+     * Instantiates a new Not Found Exception.
+     * 
+     * @param message the message
+     */
     public NotFoundException(String message) {
         super(message);
     }
 
+    /**
+     * Instantiates a new Not Found Exception.
+     * 
+     * @param cause the cause
+     */
     public NotFoundException(Throwable cause) {
         super(cause);
     }
 
+    /**
+     * Instantiates a new Not Found Exception.
+     * 
+     * @param message the message
+     * @param cause the cause
+     */
     public NotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
