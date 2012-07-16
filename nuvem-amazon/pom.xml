@@ -57,7 +57,8 @@
                 <inherited>true</inherited>
                 <configuration>
                     <excludes>
-                        <exclude>**/AmazonDataServiceImplTestCase.java</exclude>                        
+                        <exclude>**/AmazonDataServiceImplTestCase.java</exclude>
+                        <exclude>**/AmazonMessageQueueServiceImplTestCase.java</exclude>                             
                     </excludes>                    
                 </configuration>
             </plugin>
